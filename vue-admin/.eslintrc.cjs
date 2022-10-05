@@ -96,5 +96,6 @@ module.exports = {
     'prefer-template': 'error', // 使用模板字符串，而不是字符串拼接
     'rest-spread-spacing': 'error', // 扩展运算符...和表达式之间不允许有空格，如... re1错误，应该是...re1
     'template-curly-spacing': 'error', // 禁止模板字符串${}内前后有空格
+    'no-tabs': 'off',
   }
 }
