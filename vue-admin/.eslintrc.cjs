@@ -23,8 +23,8 @@ module.exports = {
   rules: {
     // 需要忽略的组件名
     'vue/multi-word-component-names': [
-      'error',
-      { ignores: ['index'] },
+      'warn',
+      { ignores: ['Aside', 'index', 'Header', 'Main'] },
     ],
     // --以下是Possible Errors JS代码中的逻辑错误相关
     'no-extra-parens': 'error', // 禁止不必要的括号

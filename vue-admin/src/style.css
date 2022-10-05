@@ -75,6 +75,11 @@ button:focus-visible {
   text-align: center;
 }
 
+::selection {
+  color: #fff;
+  background-color: rgb(144, 129, 241);
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
