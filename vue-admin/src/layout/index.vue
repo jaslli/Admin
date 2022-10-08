@@ -19,9 +19,9 @@
 </template>
 
 <script setup>
-import Aside from 'components/Aside.vue'
-import Header from 'components/Header.vue'
-import Main from 'components/Main.vue'
+import Aside from '@/layout/Aside.vue'
+import Header from '@/layout/Header.vue'
+import Main from '@/layout/Main.vue'
 </script>
 
 <style scoped>
@@ -42,4 +42,5 @@ import Main from 'components/Main.vue'
 .el-aside {
   border-right: 1px solid #97E1F1;
 }
+
 </style>

@@ -9,7 +9,7 @@ import eslintPlugin from 'vite-plugin-eslint'
 export default defineConfig({
   plugins: [
     vue(),
-    // ElementPlus的自动导入
+    // ElementPlus组件的自动导入
     AutoImport({ resolvers: [ElementPlusResolver()] }),
     Components({ resolvers: [ElementPlusResolver()] }),
     // eslint的配置

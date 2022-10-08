@@ -1,0 +1,18 @@
+server:
+  #  端口号
+  port: 9000
+
+spring:
+  # 应用名称
+  application:
+    name: management
+  #数据库配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/blog?userUnicode=true&useSSL=false&characterEncoding=utf-8&serverTimezone=UTC
+    username: root
+    password: password
+
+# mybatis-plus配置
+mybatis-plus:
+  mapper-locations: classpath*:/com/yww/management/mapper/xml/*.xml
