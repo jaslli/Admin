@@ -1,4 +1,4 @@
-package com.yww.management.util;
+package com.yww.management.utils;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
@@ -49,10 +49,10 @@ public class CodeGenerator {
             throw new RuntimeException("mysql的url出错！");
         }
         if (username == null || username.isEmpty()) {
-            throw new RuntimeException("mysql的url出错！");
+            throw new RuntimeException("mysql的username出错！");
         }
         if (password == null || password.isEmpty()) {
-            throw new RuntimeException("mysql的url出错！");
+            throw new RuntimeException("mysql的password出错！");
         }
         return new DataSourceConfig.Builder(url, username, password);
     }
