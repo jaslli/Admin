@@ -1,0 +1,32 @@
+package com.yww.management.security;
+
+import com.yww.management.utils.ResponseUtil;
+import com.yww.management.common.Result;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.stereotype.Component;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+/**
+ * <p>
+ *      未登录或登陆过期处理类
+ * </p>
+ *
+ * @ClassName JwtAuthenticationEntryPoint
+ * @Author chenhao
+ * @Date 2022/10/15 14:08
+ */
+@Component
+public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
+
+    @Override
+    public void commence(HttpServletRequest request,
+                         HttpServletResponse response,
+                         AuthenticationException authException) throws IOException {
+        ResponseUtil.response(response, Result.failure(403, "未进行登录", authException.getMessage()));
+    }
+
+}

@@ -1,10 +1,10 @@
-package com.yww.management.handler;
+package com.yww.management.common;
 
-import com.yww.management.utils.ResultCode;
+import com.yww.management.common.constant.ResultCode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import static com.yww.management.utils.ResultCode.FAILED;
+import static com.yww.management.common.constant.ResultCode.FAILED;
 
 /**
  * <p>
@@ -19,10 +19,12 @@ import static com.yww.management.utils.ResultCode.FAILED;
 @AllArgsConstructor
 public class GlobalException extends RuntimeException {
 
+    private static final long serialVersionUID = -1574716826948451793L;
+
     /**
      * 错误码
      */
-    private Integer code = FAILED.getStatus();
+    private Integer code;
 
     /**
      * 错误信息
@@ -31,11 +33,6 @@ public class GlobalException extends RuntimeException {
 
     public GlobalException(String message) {
         this.message = message;
-    }
-
-    public GlobalException(ResultCode resultCode) {
-        this.code = resultCode.getStatus();
-        this.message = resultCode.getMessage();
     }
 
 }

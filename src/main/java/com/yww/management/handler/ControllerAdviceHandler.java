@@ -1,7 +1,11 @@
 package com.yww.management.handler;
 
-import com.yww.management.utils.Result;
+import com.yww.management.common.GlobalException;
+import com.yww.management.common.Result;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 /**
@@ -32,9 +36,10 @@ public class ControllerAdviceHandler {
      * @param e 服务异常
      * @return 异常信息
      */
+    @ResponseBody
     @ExceptionHandler(value = GlobalException.class)
     public <T> Result<T> errorHandler(GlobalException e) {
-        return Result.failure(e.getMessage());
+        return Result.failure(500, e.getMessage());
     }
 
 }

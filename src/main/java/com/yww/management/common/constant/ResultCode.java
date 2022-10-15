@@ -1,4 +1,4 @@
-package com.yww.management.utils;
+package com.yww.management.common.constant;
 
 /**
  * <p>

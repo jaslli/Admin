@@ -17,6 +17,8 @@
         <spring-boot.version>2.4.1</spring-boot.version>
         <spring-boot-starter-web.version>2.7.4</spring-boot-starter-web.version>
         <spring-boot-configuration-processor.version>2.7.4</spring-boot-configuration-processor.version>
+        <spring-boot-starter-security.version>2.7.4</spring-boot-starter-security.version>
+        <spring-boot-starter-aop.version>2.7.4</spring-boot-starter-aop.version>
         <mysql.version>8.0.30</mysql.version>
         <druid.version>1.2.13</druid.version>
         <mybatis-plus.version>3.5.2</mybatis-plus.version>
@@ -28,6 +30,8 @@
         <log4j.version>2.19.0</log4j.version>
         <lombok.version>1.18.24</lombok.version>
         <hutool.version>5.8.8</hutool.version>
+        <fastjson2.version>2.0.15</fastjson2.version>
+        <jwt.version>4.0.0</jwt.version>
     </properties>
 
     <dependencies>
@@ -44,13 +48,25 @@
             <optional>true</optional>
             <version>${spring-boot-configuration-processor.version}</version>
         </dependency>
+        <!--  SpringSecurity  -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+            <version>${spring-boot-starter-security.version}</version>
+        </dependency>
+        <!-- AOP -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+            <version>${spring-boot-starter-aop.version}</version>
+        </dependency>
         <!--  Mysql驱动  -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>${mysql.version}</version>
         </dependency>
-        <!--Druid-->
+        <!--  Druid  -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
@@ -80,7 +96,7 @@
             <artifactId>spring-boot-starter-data-redis</artifactId>
             <version>${redis.version}</version>
         </dependency>
-        <!-- springdoc-openapi  -->
+        <!--  springdoc-openapi  -->
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-ui</artifactId>
@@ -110,6 +126,18 @@
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
             <version>${hutool.version}</version>
+        </dependency>
+        <!--  fastjson2  -->
+        <dependency>
+            <groupId>com.alibaba.fastjson2</groupId>
+            <artifactId>fastjson2</artifactId>
+            <version>${fastjson2.version}</version>
+        </dependency>
+        <!--  jwt  -->
+        <dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+            <version>${jwt.version}</version>
         </dependency>
         <!--  单元测试  -->
         <dependency>
