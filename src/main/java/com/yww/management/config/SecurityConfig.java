@@ -60,7 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // 登录和注销接口允许匿名访问
         "/login", "/logout",
         // 放行Knife4j的主页和swagger的资源请求
-        "/doc.html", "/webjars/**","/swagger-resources/**","/v2/**",
+        "/doc.html", "/webjars/**","/v3/**",
         // 放行druid数据源
         "/druid/**",
     };

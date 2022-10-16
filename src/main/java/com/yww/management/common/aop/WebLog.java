@@ -8,16 +8,22 @@ import lombok.*;
  * </p>
  *
  * @ClassName WebLog
- * @Author chenhao
+ * @Author yww
  * @Date 2022/10/15 17:49
  */
 @NoArgsConstructor
 @Data
 public class WebLog {
+
     /**
      * 操作描述
      */
     private String description;
+
+    /**
+     * 操作的接口名称
+     */
+    private String summary;
 
     /**
      * 操作用户

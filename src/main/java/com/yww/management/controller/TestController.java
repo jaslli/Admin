@@ -3,6 +3,7 @@ package com.yww.management.controller;
 import com.yww.management.annotation.AnonymousAccess;
 import com.yww.management.annotation.Log;
 import com.yww.management.common.Result;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,9 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TestController {
 
-    @Log("执行方法hello()")
+    @Log()
     @AnonymousAccess
-    @GetMapping("ywwapi/hello")
+    @Operation(summary = "hello1", description = "hello1")
+    @GetMapping("ywwapi/hello1")
     public Result<String> hello() {
         return Result.success("hello world");
     }
