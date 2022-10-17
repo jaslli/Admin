@@ -22,6 +22,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Slf4j
 @Component
+@SuppressWarnings("all")
 public class RedisUtil {
 
     private final StringRedisTemplate stringRedisTemplate;
@@ -140,7 +141,6 @@ public class RedisUtil {
      * Object缓存删除
      *
      * @param key 键
-     * @return 值
      */
     public void deleteObj(String key) {
         redisTemplate.delete(key);
@@ -288,7 +288,7 @@ public class RedisUtil {
                 }
                 long count = redisTemplate.delete(keySet);
                 log.debug("--------------------------------------------");
-                log.debug("成功删除缓存：{}", keySet.toString());
+                log.debug("成功删除缓存：{}", keySet);
                 log.debug("缓存删除数量：{}个", count);
                 log.debug("--------------------------------------------");
             }
@@ -310,8 +310,6 @@ public class RedisUtil {
     /**
      * 批量获取
      *
-     * @param keys
-     * @return
      */
     public List<Object> multiGet(List<String> keys) {
         return redisTemplate.opsForValue().multiGet(keys);
@@ -508,7 +506,6 @@ public class RedisUtil {
      * @param key  键
      * @param item 项
      * @param by   要增加几(大于0)
-     * @return
      */
     public double hincr(String key, String item, double by) {
         return redisTemplate.opsForHash().increment(key, item, by);
@@ -520,7 +517,6 @@ public class RedisUtil {
      * @param key  键
      * @param item 项
      * @param by   要减少记(小于0)
-     * @return
      */
     public double hdecr(String key, String item, double by) {
         return redisTemplate.opsForHash().increment(key, item, -by);
@@ -532,7 +528,6 @@ public class RedisUtil {
      * 根据key获取Set中的所有值
      *
      * @param key 键
-     * @return
      */
     public Set<Object> sGet(String key) {
         try {
@@ -600,7 +595,6 @@ public class RedisUtil {
      * 获取set缓存的长度
      *
      * @param key 键
-     * @return
      */
     public long sGetSetSize(String key) {
         try {
@@ -636,7 +630,6 @@ public class RedisUtil {
      * @param key   键
      * @param start 开始
      * @param end   结束 0 到 -1代表所有值
-     * @return
      */
     public List<Object> lGet(String key, long start, long end) {
         try {
@@ -651,7 +644,6 @@ public class RedisUtil {
      * 获取list缓存的长度
      *
      * @param key 键
-     * @return
      */
     public long lGetListSize(String key) {
         try {
@@ -667,7 +659,6 @@ public class RedisUtil {
      *
      * @param key   键
      * @param index 索引 index>=0时， 0 表头，1 第二个元素，依次类推；index<0时，-1，表尾，-2倒数第二个元素，依次类推
-     * @return
      */
     public Object lGetIndex(String key, long index) {
         try {
@@ -683,7 +674,6 @@ public class RedisUtil {
      *
      * @param key   键
      * @param value 值
-     * @return
      */
     public boolean lSet(String key, Object value) {
         try {
@@ -701,7 +691,6 @@ public class RedisUtil {
      * @param key   键
      * @param value 值
      * @param time  时间(秒)
-     * @return
      */
     public boolean lSet(String key, Object value, long time) {
         try {
@@ -721,7 +710,6 @@ public class RedisUtil {
      *
      * @param key   键
      * @param value 值
-     * @return
      */
     public boolean lSet(String key, List<Object> value) {
         try {
@@ -739,7 +727,6 @@ public class RedisUtil {
      * @param key   键
      * @param value 值
      * @param time  时间(秒)
-     * @return
      */
     public boolean lSet(String key, List<Object> value, long time) {
         try {
@@ -796,12 +783,12 @@ public class RedisUtil {
     public void delByKeys(String prefix, Set<Long> ids) {
         Set<String> keys = new HashSet<>();
         for (Long id : ids) {
-            keys.addAll(redisTemplate.keys(new StringBuffer(prefix).append(id).toString()));
+            keys.addAll(redisTemplate.keys(String.valueOf(new StringBuffer(prefix).append(id))));
         }
         long count = redisTemplate.delete(keys);
         // 此处提示可自行删除
         log.debug("--------------------------------------------");
-        log.debug("成功删除缓存：{}", keys.toString());
+        log.debug("成功删除缓存：{}", keys);
         log.debug("缓存删除数量：{}个", count);
         log.debug("--------------------------------------------");
     }

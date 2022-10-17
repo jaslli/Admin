@@ -10,8 +10,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 #end
 #if(${entityLombokModel})
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 #if(${chainModel})
 import lombok.experimental.Accessors;
 #end
@@ -19,15 +18,14 @@ import lombok.experimental.Accessors;
 
 /**
  * <p>
- * $!{table.comment}
+ *    $!{table.comment}
  * </p>
  *
- * @author ${author}
- * @since ${date}
+ * @Author ${author}
+ * @Date  ${date}
  */
 #if(${entityLombokModel})
-@Getter
-@Setter
+@Data
   #if(${chainModel})
 @Accessors(chain = true)
   #end
@@ -159,4 +157,5 @@ public class ${entity} {
         "}";
     }
 #end
+
 }

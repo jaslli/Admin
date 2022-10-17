@@ -1,6 +1,7 @@
 package com.yww.management.common.aop;
 
-import lombok.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * <p>

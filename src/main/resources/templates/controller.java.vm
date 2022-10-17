@@ -1,6 +1,11 @@
 package ${package.Controller};
 
 import org.springframework.web.bind.annotation.RequestMapping;
+#if(${springdoc})
+import io.swagger.v3.oas.annotations.tags.Tag;
+#elseif(${swagger})
+import io.swagger.annotations.Api;
+#end
 #if(${restControllerStyle})
 import org.springframework.web.bind.annotation.RestController;
 #else
@@ -12,12 +17,17 @@ import ${superControllerClassPackage};
 
 /**
  * <p>
- * $!{table.comment} 前端控制器
+ *      $!{table.comment} 前端控制器
  * </p>
  *
- * @author ${author}
- * @date ${date}
+ * @Author  ${author}
+ * @Date  ${date}
  */
+#if(${springdoc})
+@Tag(name = "$!{table.comment}接口")
+#elseif(${swagger})
+@Api(value = "$!{table.comment}接口")
+#end
 #if(${restControllerStyle})
 @RestController
 #else

@@ -1,7 +1,7 @@
 package com.yww.management.security;
 
-import com.yww.management.utils.ResponseUtil;
 import com.yww.management.common.Result;
+import com.yww.management.utils.ResponseUtil;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Component;
@@ -16,7 +16,7 @@ import java.io.IOException;
  * </p>
  *
  * @ClassName JwtAccessDeniedHandler
- * @Author chenhao
+ * @Author yww
  * @Date 2022/10/15 14:11
  */
 @Component

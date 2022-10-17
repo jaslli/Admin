@@ -1,5 +1,6 @@
 package com.yww.management.utils;
 
+import cn.hutool.core.util.IdUtil;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.*;
@@ -67,7 +68,7 @@ public class TokenUtil {
                 .withNotBefore(now)
                 .withExpiresAt(exp)
                 .withIssuedAt(now)
-                .withJWTId("123456")
+                .withJWTId(IdUtil.fastSimpleUUID())
                 .withPayload(payload)
                 // 签名
                 .sign(Algorithm.HMAC512(secret));

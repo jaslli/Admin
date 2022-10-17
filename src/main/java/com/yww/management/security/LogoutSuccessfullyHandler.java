@@ -1,7 +1,7 @@
 package com.yww.management.security;
 
-import com.yww.management.utils.ResponseUtil;
 import com.yww.management.common.Result;
+import com.yww.management.utils.ResponseUtil;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -17,7 +17,7 @@ import java.io.IOException;
  * </p>
  *
  * @ClassName LogoutSuccessfullyHandler
- * @Author chenhao
+ * @Author yww
  * @Date 2022/10/15 14:12
  */
 @Component

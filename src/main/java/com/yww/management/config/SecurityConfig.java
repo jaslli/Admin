@@ -2,7 +2,10 @@ package com.yww.management.config;
 
 import cn.hutool.extra.spring.SpringUtil;
 import com.yww.management.annotation.AnonymousAccess;
+import com.yww.management.security.JwtAccessDeniedHandler;
+import com.yww.management.security.JwtAuthenticationEntryPoint;
 import com.yww.management.security.LoginFailureHandler;
+import com.yww.management.security.LogoutSuccessfullyHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,7 +21,9 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * <p>
@@ -36,6 +41,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private LoginFailureHandler loginFailureHandler;
+    @Autowired
+    private LogoutSuccessfullyHandler logoutSuccessfullyHandler;
+    @Autowired
+    private JwtAccessDeniedHandler accessDeniedHandler;
+    @Autowired
+    private JwtAuthenticationEntryPoint authenticationEntryPoint;
 
     /**
      * 密码加密工具
@@ -91,15 +102,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // 注销配置
         http.logout()
                 // 注销登陆接口
-                .logoutUrl("/logout");
+                .logoutUrl("/logout")
                 // 注销成功处理器
-                //.logoutSuccessHandler(authLogoutSuccessHandler);
+                .logoutSuccessHandler(logoutSuccessfullyHandler);
         // 异常处理器的配置
-        http.exceptionHandling();
+        http.exceptionHandling()
                 // 未登录处理类
-                //.authenticationEntryPoint(jwtAuthenticationEntryPoint)
+                .authenticationEntryPoint(authenticationEntryPoint)
                 // 权限不足处理类
-                //.accessDeniedHandler(jwtAccessDeniedHandler);
+                .accessDeniedHandler(accessDeniedHandler);
         // 自定义配置过滤器
         //http.addFilter(jwtAuthenticationFilter());
         // 权限路由配置

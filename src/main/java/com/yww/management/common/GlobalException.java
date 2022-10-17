@@ -1,10 +1,7 @@
 package com.yww.management.common;
 
-import com.yww.management.common.constant.ResultCode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-
-import static com.yww.management.common.constant.ResultCode.FAILED;
 
 /**
  * <p>

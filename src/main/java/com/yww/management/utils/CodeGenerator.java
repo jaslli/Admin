@@ -42,9 +42,9 @@ public class CodeGenerator {
         if (properties == null) {
             throw new RuntimeException("请确认配置文件是否名为application.yml，是否在resources资源目录下！");
         }
-        String url = (String) properties.get("spring.datasource.url");
-        String username = (String) properties.get("spring.datasource.username");
-        String password = (String) properties.get("spring.datasource.password");
+        String url = (String) properties.get("spring.datasource.druid.url");
+        String username = (String) properties.get("spring.datasource.druid.username");
+        String password = (String) properties.get("spring.datasource.druid.password");
         if (url == null || url.isEmpty()) {
             throw new RuntimeException("mysql的url出错！");
         }
@@ -84,14 +84,22 @@ public class CodeGenerator {
             .packageConfig(builder -> builder
                     // 父包名
                     .parent("com.yww.management")
+                    .service("service")
                     .build()
             )
-            // 模板配置
+            // 模板配置(使用默认模板就注释掉这一段)
             .templateConfig(builder -> builder
                     // 禁用所有模板
-                    //.disable()
-                    .controller(path + "/resources/templates/controller.java.vm")
-                    .build())
+                    .disable()
+                    // 模板路径配置
+                    .entity("/templates/entity.java")
+                    .service("/templates/service.java")
+                    .serviceImpl("/templates/serviceImpl.java")
+                    .mapper("/templates/mapper.java")
+                    .xml("/templates/mapper.xml")
+                    .controller("/templates/controller.java")
+                    .build()
+            )
             // 策略配置
             .strategyConfig((scanner, builder) -> builder
                     // 增加表匹配
