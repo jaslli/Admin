@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TestController {
 
-    @Log()
+    @Log
     @AnonymousAccess
     @Operation(summary = "hello1", description = "hello1")
     @GetMapping("ywwapi/hello1")

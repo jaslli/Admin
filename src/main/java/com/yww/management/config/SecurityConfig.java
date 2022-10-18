@@ -2,10 +2,7 @@ package com.yww.management.config;
 
 import cn.hutool.extra.spring.SpringUtil;
 import com.yww.management.annotation.AnonymousAccess;
-import com.yww.management.security.JwtAccessDeniedHandler;
-import com.yww.management.security.JwtAuthenticationEntryPoint;
-import com.yww.management.security.LoginFailureHandler;
-import com.yww.management.security.LogoutSuccessfullyHandler;
+import com.yww.management.security.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -39,14 +36,24 @@ import java.util.Set;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private final LoginFailureHandler loginFailureHandler;
+    private final LogoutSuccessfullyHandler logoutSuccessfullyHandler;
+    private final JwtAccessDeniedHandler accessDeniedHandler;
+    private final JwtAuthenticationEntryPoint authenticationEntryPoint;
+    private final LoginSuccessHandler loginSuccessHandler;
+
     @Autowired
-    private LoginFailureHandler loginFailureHandler;
-    @Autowired
-    private LogoutSuccessfullyHandler logoutSuccessfullyHandler;
-    @Autowired
-    private JwtAccessDeniedHandler accessDeniedHandler;
-    @Autowired
-    private JwtAuthenticationEntryPoint authenticationEntryPoint;
+    public SecurityConfig(LoginFailureHandler loginFailureHandler,
+                          LogoutSuccessfullyHandler logoutSuccessfullyHandler,
+                          JwtAccessDeniedHandler accessDeniedHandler,
+                          JwtAuthenticationEntryPoint authenticationEntryPoint,
+                          LoginSuccessHandler loginSuccessHandler) {
+        this.loginFailureHandler = loginFailureHandler;
+        this.logoutSuccessfullyHandler = logoutSuccessfullyHandler;
+        this.accessDeniedHandler = accessDeniedHandler;
+        this.authenticationEntryPoint = authenticationEntryPoint;
+        this.loginSuccessHandler = loginSuccessHandler;
+    }
 
     /**
      * 密码加密工具
@@ -96,7 +103,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 登陆接口请求路径（POST请求）
                 .loginProcessingUrl("/login")
                 // 登陆成功处理器
-                //.successHandler(loginSuccessHandler)
+                .successHandler(loginSuccessHandler)
                 // 登陆失败处理器
                 .failureHandler(loginFailureHandler);
         // 注销配置

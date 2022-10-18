@@ -1,5 +1,6 @@
 package com.yww.management.handler;
 
+import com.auth0.jwt.exceptions.*;
 import com.yww.management.common.GlobalException;
 import com.yww.management.common.Result;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -19,16 +20,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class ControllerAdviceHandler {
 
     /**
-     * 处理所有异常信息
-     * @param e 服务异常
-     * @return 异常信息
-     */
-    @ExceptionHandler(value = Exception.class)
-    public <T> Result<T> errorHandler(Exception e) {
-        return Result.failure(e.getMessage());
-    }
-
-    /**
      * 处理通用的服务异常信息
      * 统一处理GlobalException异常，异常处理顺序是从小异常到大异常。
      * @param e 服务异常
@@ -38,6 +29,16 @@ public class ControllerAdviceHandler {
     @ExceptionHandler(value = GlobalException.class)
     public <T> Result<T> errorHandler(GlobalException e) {
         return Result.failure(500, e.getMessage());
+    }
+
+    /**
+     * 处理所有异常信息
+     * @param e 服务异常
+     * @return 异常信息
+     */
+    @ExceptionHandler(value = Exception.class)
+    public <T> Result<T> errorHandler(Exception e) {
+        return Result.failure(e.getMessage());
     }
 
 }

@@ -57,7 +57,6 @@ public class TokenUtil {
 
         Date now = new Date();
         Date exp = new Date(now.getTime() + 10);
-
         return JWT.create()
                 // 设置header
                 .withHeader(header)
@@ -80,25 +79,8 @@ public class TokenUtil {
      * @param token Token
      */
     public static void parse(String token) {
-        try {
-            JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC512("1")).build();
-            DecodedJWT decode = jwtVerifier.verify(token);
-            System.out.println(decode.getHeader());
-            System.out.println(decode.getPayload());
-            System.out.println(decode.getSignature());
-        } catch (AlgorithmMismatchException e) {
-            System.out.println("签名算法不匹配");
-        } catch (SignatureVerificationException e) {
-            System.out.println("签名无效");
-        } catch (TokenExpiredException e) {
-            System.out.println("令牌已过期");
-        } catch (MissingClaimException e) {
-            System.out.println("缺少要验证的声明");
-        } catch (IncorrectClaimException e) {
-            System.out.println("声明包含的值和预期不符合");
-        } catch (JWTVerificationException e) {
-            System.out.println("验证中的某一个步骤失败");
-        }
+        JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC512("1")).build();
+        DecodedJWT decode = jwtVerifier.verify(token);
     }
 
 }
