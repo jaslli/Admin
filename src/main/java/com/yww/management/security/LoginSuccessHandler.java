@@ -24,7 +24,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
-        String token = TokenUtil.genToken("secret");
+        String token = TokenUtil.genToken(null);
         ResponseUtil.response(response ,Result.success(token));
     }
 

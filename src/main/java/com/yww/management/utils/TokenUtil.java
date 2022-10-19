@@ -32,12 +32,14 @@ import java.util.Map;
  */
 public class TokenUtil {
 
+    private static final String SECRET = "yww";
+
     /**
      * 生成Token
      *
      * @return  Token
      */
-    public static String genToken(String secret) {
+    public static String genToken(Map<String, Object> payload) {
         // 设置Token头部（不设置也会默认有这两个值）
         Map<String, Object> header = new HashMap<String, Object>(2) {
             private static final long serialVersionUID = 1L;
@@ -46,15 +48,6 @@ public class TokenUtil {
                 put("typ", "JWT");
             }
         };
-        // 设置需要放在Token的有效载荷
-        Map<String, Object> payload = new HashMap<String, Object>(3) {
-            private static final long serialVersionUID = 1L;
-            {
-                put("name", "yww");
-                put("num", 1141950370);
-            }
-        };
-
         Date now = new Date();
         Date exp = new Date(now.getTime() + 10);
         return JWT.create()
@@ -70,7 +63,7 @@ public class TokenUtil {
                 .withJWTId(IdUtil.fastSimpleUUID())
                 .withPayload(payload)
                 // 签名
-                .sign(Algorithm.HMAC512(secret));
+                .sign(Algorithm.HMAC512(SECRET));
     }
 
     /**

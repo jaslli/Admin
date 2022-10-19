@@ -1,4 +1,4 @@
-package com.yww.management.handler;
+package com.yww.management.common.exception;
 
 import com.auth0.jwt.exceptions.*;
 import com.yww.management.common.Result;

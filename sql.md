@@ -93,6 +93,7 @@ CREATE TABLE `log` (
     `id` CHAR(19) NOT NULL COMMENT '数据ID',
     `summary` VARCHAR(50) DEFAULT '' COMMENT '接口名称',
   	`username` VARCHAR(50) DEFAULT '' COMMENT '用户名称',
+  	`description` VARCHAR(50) DEFAULT '' COMMENT '接口描述',
   	`start_time` DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '开始时间',
   	`spend_time` INT DEFAULT 0 COMMENT '消耗时间',
   	`basePath` VARCHAR(50) DEFAULT '' COMMENT '根路径',

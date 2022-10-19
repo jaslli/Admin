@@ -1,7 +1,6 @@
-package com.yww.management.handler;
+package com.yww.management.common.exception;
 
-import com.auth0.jwt.exceptions.*;
-import com.yww.management.common.GlobalException;
+import com.yww.management.common.exception.GlobalException;
 import com.yww.management.common.Result;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;

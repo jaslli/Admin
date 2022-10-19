@@ -1,9 +1,10 @@
 package com.yww.management.common.aop;
 
+import cn.hutool.core.date.LocalDateTimeUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.URLUtil;
 import cn.hutool.json.JSONUtil;
-import com.yww.management.annotation.Log;
+import com.yww.management.entity.Log;
 import com.yww.management.utils.IpUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -43,7 +44,7 @@ import java.util.Map;
 @Component
 public class LogAspect {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(Log.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(com.yww.management.annotation.Log.class);
 
     /**
      * 用于指定AOP的切点，即为标注了@Log注解的方法
@@ -61,7 +62,7 @@ public class LogAspect {
         }
         HttpServletRequest request = attributes.getRequest();
         //记录请求信息
-        WebLog webLog = new WebLog();
+        Log log = new Log();
         Object result = joinPoint.proceed();
         // 获取方法
         Signature signature = joinPoint.getSignature();
@@ -69,21 +70,21 @@ public class LogAspect {
         Method method = methodSignature.getMethod();
         if (method.isAnnotationPresent(Operation.class)) {
             Operation operation = method.getAnnotation(Operation.class);
-            webLog.setSummary(operation.summary());
-            webLog.setDescription(operation.description());
+            log.setSummary(operation.summary());
+//            log.setDescription(operation.description());
         }
         long endTime = System.currentTimeMillis();
         String urlStr = request.getRequestURL().toString();
-        webLog.setBasePath(StrUtil.removeSuffix(urlStr, URLUtil.url(urlStr).getPath()));
-        webLog.setIp(IpUtil.getIpAddr(request));
-        webLog.setMethod(request.getMethod());
-        webLog.setParameter(getParameter(method, joinPoint.getArgs()));
-        webLog.setResult(result);
-        webLog.setSpendTime((int) (endTime - startTime));
-        webLog.setStartTime(startTime);
-        webLog.setUri(request.getRequestURI());
-        webLog.setUrl(request.getRequestURL().toString());
-        LOGGER.info("{}", JSONUtil.parse(webLog));
+        log.setBasePath(StrUtil.removeSuffix(urlStr, URLUtil.url(urlStr).getPath()));
+        log.setIp(IpUtil.getIpAddr(request));
+        log.setMethod(request.getMethod());
+        log.setParameter(JSONUtil.parse(getParameter(method, joinPoint.getArgs())).toString());
+        log.setResult(JSONUtil.parse(result).toString());
+        log.setSpendTime((int) (endTime - startTime));
+        log.setStartTime(LocalDateTimeUtil.of(startTime));
+        log.setUri(request.getRequestURI());
+        log.setUrl(request.getRequestURL().toString());
+        LOGGER.info("{}", JSONUtil.parse(log));
         return result;
     }
 
