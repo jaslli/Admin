@@ -18,7 +18,7 @@ import lombok.experimental.Accessors;
 
 /**
  * <p>
- *    $!{table.comment}
+ *    (${schemaName}${table.name})$!{table.comment}
  * </p>
  *
  * @Author ${author}

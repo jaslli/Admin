@@ -14,7 +14,7 @@ CREATE TABLE `user` (
     `update_time` datetime NOT NULL COMMENT '更新时间',
     `update_by` VARCHAR(50) NOT NULL COMMENT '创建人',
     PRIMARY KEY (`id`)
-  ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
+  ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COMMENT = '用户信息实体类';
 ```
 
 ## 用户角色表
@@ -29,7 +29,7 @@ CREATE TABLE `user_role` (
     `update_time` datetime NOT NULL COMMENT '更新时间',
     `update_by` VARCHAR(50) NOT NULL COMMENT '创建人',
     PRIMARY KEY (`id`)
-  ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
+  ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COMMENT = '用户角色关系实体类';
 ```
 
 ## 角色表
@@ -45,7 +45,7 @@ CREATE TABLE `role` (
     `update_time` datetime NOT NULL COMMENT '更新时间',
     `update_by` VARCHAR(50) NOT NULL COMMENT '创建人',
     PRIMARY KEY (`id`)
-  ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
+  ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COMMENT = '角色实体类';
 ```
 
 ## 角色菜单表
@@ -60,7 +60,7 @@ CREATE TABLE `role_menu` (
     `update_time` datetime NOT NULL COMMENT '更新时间',
     `update_by` VARCHAR(50) NOT NULL COMMENT '创建人',
     PRIMARY KEY (`id`)
-  ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
+  ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COMMENT = '角色菜单权限实体类';
 ```
 
 ## 菜单权限表
@@ -82,7 +82,7 @@ CREATE TABLE `menu` (
     `update_time` datetime NOT NULL COMMENT '更新时间',
     `update_by` VARCHAR(50) NOT NULL COMMENT '创建人',
     PRIMARY KEY (`id`)
-  ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
+  ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COMMENT = '菜单权限实体类';
 ```
 
 ## 操作日志
@@ -103,5 +103,5 @@ CREATE TABLE `log` (
   	`parameter` varchar(50) DEFAULT '' COMMENT '请求的参数',
   	`result` varchar(50) DEFAULT '' COMMENT '返回的结果',
     PRIMARY KEY (`id`)
-  ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
+  ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COMMENT = '操作日志实体类';
 ```
