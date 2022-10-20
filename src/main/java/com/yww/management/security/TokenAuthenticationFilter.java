@@ -2,6 +2,7 @@ package com.yww.management.security;
 
 import cn.hutool.core.util.StrUtil;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.yww.management.common.constant.TokenConstant;
 import com.yww.management.entity.User;
 import com.yww.management.service.IUserService;
 import com.yww.management.utils.TokenUtil;
@@ -28,8 +29,6 @@ import java.io.IOException;
  */
 public class TokenAuthenticationFilter extends BasicAuthenticationFilter {
 
-    private final String TOKENHEADER = "test";
-
     @Autowired
     IUserService userService;
 
@@ -41,7 +40,7 @@ public class TokenAuthenticationFilter extends BasicAuthenticationFilter {
                                     HttpServletResponse response,
                                     FilterChain chain) throws IOException, ServletException {
         // 从请求头部获取Token
-        String token = request.getHeader(TOKENHEADER);
+        String token = request.getHeader(TokenConstant.TOKEN_HEADER);
         // 没有Token就放行给下一个过滤器
         if (StrUtil.isBlankOrUndefined(token)) {
             chain.doFilter(request, response);

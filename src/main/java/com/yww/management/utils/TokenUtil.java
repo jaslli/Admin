@@ -1,11 +1,13 @@
 package com.yww.management.utils;
 
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.*;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.interfaces.JWTVerifier;
+import com.yww.management.common.constant.TokenConstant;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -32,10 +34,9 @@ import java.util.Map;
  */
 public class TokenUtil {
 
-    private static final String SECRET = "yww";
-
     /**
      * 生成Token
+     * 当前使用HMAC512的加密算法
      *
      * @return  Token
      */
@@ -44,35 +45,38 @@ public class TokenUtil {
         Map<String, Object> header = new HashMap<String, Object>(2) {
             private static final long serialVersionUID = 1L;
             {
-                put("alg", "HMAC512");
-                put("typ", "JWT");
+                put("alg", TokenConstant.TOKEN_ALG);
+                put("typ", TokenConstant.TOKEN_TYP);
             }
         };
-        Date now = new Date();
-        Date exp = new Date(now.getTime() + 10);
+        // TODO Token过期还可以交给redis处理
+        // 过期时间三小时
+        long now = DateUtil.current();
+        long exp = now + 1000 * 3600 * 3;
         return JWT.create()
                 // 设置header
                 .withHeader(header)
                 // 设置payload
-                .withIssuer("yww")
-                .withSubject("management")
-                .withAudience("vue-management")
-                .withNotBefore(now)
-                .withExpiresAt(exp)
-                .withIssuedAt(now)
+                .withIssuer(TokenConstant.TOKEN_ISSUER)
+                .withSubject(TokenConstant.TOKEN_SUBJECT)
+                .withAudience(TokenConstant.TOKEN_AUDIENCE)
+                .withNotBefore(new Date(now))
+                .withExpiresAt(new Date(exp))
+                .withIssuedAt(new Date(now))
                 .withJWTId(IdUtil.fastSimpleUUID())
                 .withPayload(payload)
                 // 签名
-                .sign(Algorithm.HMAC512(SECRET));
+                .sign(Algorithm.HMAC512(TokenConstant.TOKEN_SECRET));
     }
 
     /**
      * 解析Token
+     * 当前使用HMAC512的加密算法
      *
      * @param token Token
      */
     public static DecodedJWT parse(String token) {
-        JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC512(SECRET)).build();
+        JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC512(TokenConstant.TOKEN_SECRET)).build();
         return jwtVerifier.verify(token);
     }
 
