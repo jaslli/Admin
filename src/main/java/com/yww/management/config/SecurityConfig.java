@@ -38,19 +38,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final LoginFailureHandler loginFailureHandler;
     private final LogoutSuccessfullyHandler logoutSuccessfullyHandler;
-    private final JwtAccessDeniedHandler accessDeniedHandler;
-    private final JwtAuthenticationEntryPoint authenticationEntryPoint;
+    private final AccessFailureHandler accessFailureHandler;
+    private final TokenAuthenticationEntryPoint authenticationEntryPoint;
     private final LoginSuccessHandler loginSuccessHandler;
 
     @Autowired
     public SecurityConfig(LoginFailureHandler loginFailureHandler,
                           LogoutSuccessfullyHandler logoutSuccessfullyHandler,
-                          JwtAccessDeniedHandler accessDeniedHandler,
-                          JwtAuthenticationEntryPoint authenticationEntryPoint,
+                          AccessFailureHandler accessFailureHandler,
+                          TokenAuthenticationEntryPoint authenticationEntryPoint,
                           LoginSuccessHandler loginSuccessHandler) {
         this.loginFailureHandler = loginFailureHandler;
         this.logoutSuccessfullyHandler = logoutSuccessfullyHandler;
-        this.accessDeniedHandler = accessDeniedHandler;
+        this.accessFailureHandler = accessFailureHandler;
         this.authenticationEntryPoint = authenticationEntryPoint;
         this.loginSuccessHandler = loginSuccessHandler;
     }
@@ -117,7 +117,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 未登录处理类
                 .authenticationEntryPoint(authenticationEntryPoint)
                 // 权限不足处理类
-                .accessDeniedHandler(accessDeniedHandler);
+                .accessDeniedHandler(accessFailureHandler);
         // 自定义配置过滤器
         //http.addFilter(jwtAuthenticationFilter());
         // 权限路由配置

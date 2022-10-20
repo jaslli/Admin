@@ -71,9 +71,9 @@ public class TokenUtil {
      *
      * @param token Token
      */
-    public static void parse(String token) {
-        JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC512("1")).build();
-        DecodedJWT decode = jwtVerifier.verify(token);
+    public static DecodedJWT parse(String token) {
+        JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC512(SECRET)).build();
+        return jwtVerifier.verify(token);
     }
 
 }

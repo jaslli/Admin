@@ -13,7 +13,6 @@ import lombok.Getter;
  * @Date 2022/10/12 21:07
  */
 @Getter
-@AllArgsConstructor
 public class GlobalException extends RuntimeException {
 
     private static final long serialVersionUID = -1574716826948451793L;
@@ -21,7 +20,7 @@ public class GlobalException extends RuntimeException {
     /**
      * 错误码
      */
-    private Integer code;
+    private final Integer code;
 
     /**
      * 错误信息
@@ -29,6 +28,12 @@ public class GlobalException extends RuntimeException {
     private final String message;
 
     public GlobalException(String message) {
+        this.code = 500;
+        this.message = message;
+    }
+
+    public GlobalException(Integer code, String message) {
+        this.code = code;
         this.message = message;
     }
 

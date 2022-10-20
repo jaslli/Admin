@@ -15,12 +15,12 @@ import java.io.IOException;
  *      认证失败的处理类（没权限访问处理类）
  * </p>
  *
- * @ClassName JwtAccessDeniedHandler
+ * @ClassName AccessFailureHandler
  * @Author yww
  * @Date 2022/10/15 14:11
  */
 @Component
-public class JwtAccessDeniedHandler implements AccessDeniedHandler {
+public class AccessFailureHandler implements AccessDeniedHandler {
 
     @Override
     public void handle(HttpServletRequest request,

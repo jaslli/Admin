@@ -49,7 +49,7 @@ public class User implements Serializable {
     @TableField("email")
     private String email;
 
-    @Schema(description = "账号状态,0正常|1禁用")
+    @Schema(description = "账号状态,0异常|1正常")
     @TableField("status")
     private Boolean status;
 

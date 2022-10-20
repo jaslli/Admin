@@ -8,7 +8,7 @@ CREATE TABLE `user` (
   	`nickname` VARCHAR(50) DEFAULT '用户昵称' COMMENT '用户昵称',
   	`avatar` VARCHAR(50) DEFAULT '' COMMENT '用户头像地址',
   	`email` VARCHAR(50) DEFAULT '123456@qq.com' COMMENT '用户邮箱地址',
-  	`status` BIT DEFAULT 1 COMMENT '账号状态,0正常|1禁用',
+  	`status` BIT DEFAULT 1 COMMENT '账号状态,0禁用|1正常',
     `create_time` datetime NOT NULL COMMENT '创建时间',
     `create_by` VARCHAR(50) NOT NULL COMMENT '创建人',
     `update_time` datetime NOT NULL COMMENT '更新时间',

@@ -19,8 +19,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class ControllerAdviceHandler {
 
     /**
-     * 处理通用的服务异常信息
+     * 处理自定义的服务异常信息
      * 统一处理GlobalException异常，异常处理顺序是从小异常到大异常。
+     *
      * @param e 服务异常
      * @return 异常信息
      */
@@ -31,7 +32,8 @@ public class ControllerAdviceHandler {
     }
 
     /**
-     * 处理所有异常信息
+     * 异常信息
+     *
      * @param e 服务异常
      * @return 异常信息
      */
