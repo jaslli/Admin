@@ -16,7 +16,7 @@ import lombok.Data;
  * </p>
  *
  * @Author yww
- * @Date  2022-10-19
+ * @Date  2022-10-21
  */
 @Data
 @TableName("user")
@@ -49,7 +49,7 @@ public class User implements Serializable {
     @TableField("email")
     private String email;
 
-    @Schema(description = "账号状态,0异常|1正常")
+    @Schema(description = "账号状态,0禁用|1正常")
     @TableField("status")
     private Boolean status;
 

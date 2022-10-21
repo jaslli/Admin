@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
  * </p>
  *
  * @Author  yww
- * @Date  2022-10-19
+ * @Date  2022-10-21
  */
 @Tag(name = "菜单权限实体类接口")
 @RestController

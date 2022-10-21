@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -36,23 +37,63 @@ import java.util.Set;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final LoginFailureHandler loginFailureHandler;
-    private final LogoutSuccessfullyHandler logoutSuccessfullyHandler;
-    private final AccessFailureHandler accessFailureHandler;
+    /**
+     * 用户未登录或登陆过期处理类
+     */
     private final TokenAuthenticationEntryPoint authenticationEntryPoint;
+    /**
+     * 用户登录成功的处理器
+     */
     private final LoginSuccessHandler loginSuccessHandler;
+    /**
+     * 用户登录失败的处理器
+     */
+    private final LoginFailureHandler loginFailureHandler;
+    /**
+     * 用户认证失败的处理器
+     */
+    private final AccessFailureHandler accessFailureHandler;
+    /**
+     * 用户注销成功的处理器
+     */
+    private final LogoutSuccessfullyHandler logoutSuccessfullyHandler;
+    /**
+     * 用户服务Service
+     */
+    private final UserDetailsServiceImpl userDetailsService;
+    /**
+     * 请求白名单
+     */
+    private static final String[] URL_WHITELIST = {
+            // 登录和注销接口允许匿名访问
+            "/login", "/logout",
+            // 放行Knife4j的主页和swagger的资源请求
+            "/doc.html", "/webjars/**","/v3/**",
+            // 放行druid数据源
+            "/druid/**",
+    };
 
     @Autowired
-    public SecurityConfig(LoginFailureHandler loginFailureHandler,
-                          LogoutSuccessfullyHandler logoutSuccessfullyHandler,
+    public SecurityConfig(TokenAuthenticationEntryPoint authenticationEntryPoint,
+                          LoginSuccessHandler loginSuccessHandler,
+                          LoginFailureHandler loginFailureHandler,
                           AccessFailureHandler accessFailureHandler,
-                          TokenAuthenticationEntryPoint authenticationEntryPoint,
-                          LoginSuccessHandler loginSuccessHandler) {
-        this.loginFailureHandler = loginFailureHandler;
-        this.logoutSuccessfullyHandler = logoutSuccessfullyHandler;
-        this.accessFailureHandler = accessFailureHandler;
+                          LogoutSuccessfullyHandler logoutSuccessfullyHandler,
+                          UserDetailsServiceImpl userDetailsService) {
         this.authenticationEntryPoint = authenticationEntryPoint;
         this.loginSuccessHandler = loginSuccessHandler;
+        this.loginFailureHandler = loginFailureHandler;
+        this.accessFailureHandler = accessFailureHandler;
+        this.logoutSuccessfullyHandler = logoutSuccessfullyHandler;
+        this.userDetailsService = userDetailsService;
+    }
+
+    /**
+     * 自定义Token的过滤器
+     */
+    @Bean
+    TokenAuthenticationFilter tokenAuthenticationFilter() throws Exception {
+        return new TokenAuthenticationFilter(this.authenticationManager());
     }
 
     /**
@@ -64,24 +105,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     /**
+     *  AuthenticationManager的构造器
+     *  需要配置UserDetailService 和 PasswordEncoder
+     *  先调用UserDetailService的loadUserByUsername()然后再使用PasswordEncoder.matches()比较
+     */
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
+    }
+
+    /**
      * 配置静态资源的处理，即在resources下的html，css，js文件（暂无用处）
      */
     @Override
     public void configure(WebSecurity web) {
         web.ignoring().antMatchers("/resources/**/*.html","/resources/**/*.css", "/resources/**/*.js");
     }
-
-    /**
-     * 请求白名单
-     */
-    private static final String[] URL_WHITELIST = {
-        // 登录和注销接口允许匿名访问
-        "/login", "/logout",
-        // 放行Knife4j的主页和swagger的资源请求
-        "/doc.html", "/webjars/**","/v3/**",
-        // 放行druid数据源
-        "/druid/**",
-    };
 
     /**
      * SpringSecurity的核心配置
@@ -118,8 +157,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint(authenticationEntryPoint)
                 // 权限不足处理类
                 .accessDeniedHandler(accessFailureHandler);
-        // 自定义配置过滤器
-        //http.addFilter(jwtAuthenticationFilter());
+        // 自定义Token过滤器
+        http.addFilter(tokenAuthenticationFilter());
         // 权限路由配置
         http.authorizeRequests()
                 // 请求白名单放行

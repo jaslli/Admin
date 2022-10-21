@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @Author yww
- * @Date  2022-10-19
+ * @Date  2022-10-21
  */
 public interface IRoleMenuService extends IService<RoleMenu> {
 

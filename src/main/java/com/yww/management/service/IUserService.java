@@ -2,6 +2,9 @@ package com.yww.management.service;
 
 import com.yww.management.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.springframework.security.core.GrantedAuthority;
+
+import java.util.List;
 
 /**
  * <p>
@@ -9,7 +12,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @Author yww
- * @Date  2022-10-19
+ * @Date  2022-10-21
  */
 public interface IUserService extends IService<User> {
 
@@ -20,5 +23,13 @@ public interface IUserService extends IService<User> {
      * @return  User    用户信息
      */
     User getByUsername(String username);
+
+    /**
+     * 通过用户ID获取用户权限信息
+     *
+     * @param userId    用户ID
+     * @return          用户权限信息
+     */
+    List<GrantedAuthority> getUserAuthorities(String userId);
 
 }

@@ -2,7 +2,6 @@ package com.yww.management.security;
 
 import com.yww.management.entity.User;
 import com.yww.management.service.IUserService;
-import com.yww.management.utils.AssertUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -32,7 +31,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
      *
      * @param username  用户名
      * @return  UserDetails     用户信息
-     * @throws UsernameNotFoundException    用户名找不到异常
+     * @throws UsernameNotFoundException    找不到对应用户名的用户
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -45,7 +44,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .userId(user.getId())
                 .username(user.getUsername())
                 .password(user.getPassword())
-                //.authorities(userService.getUserAuthorityInfo(user.getId()))
+                .authorities(userService.getUserAuthorities(user.getId()))
                 .enabled(user.getStatus())
                 .build();
     }

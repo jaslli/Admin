@@ -56,10 +56,10 @@ public class TokenAuthenticationFilter extends BasicAuthenticationFilter {
             new UsernamePasswordAuthenticationToken(
                     username,
                     null,
-//                        userService.getUserAuthorityInfo(user.getId())
-                    null
+                    userService.getUserAuthorities(user.getId())
             );
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+        // 放行给下一个过滤器
         chain.doFilter(request, response);
     }
 

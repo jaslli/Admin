@@ -5,6 +5,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.URLUtil;
 import cn.hutool.json.JSONUtil;
 import com.yww.management.entity.Log;
+import com.yww.management.service.impl.LogServiceImpl;
 import com.yww.management.utils.IpUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -15,6 +16,7 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -44,6 +46,9 @@ import java.util.Map;
 @Component
 public class LogAspect {
 
+    @Autowired
+    LogServiceImpl logService;
+
     private static final Logger LOGGER = LoggerFactory.getLogger(com.yww.management.annotation.Log.class);
 
     /**
@@ -71,7 +76,7 @@ public class LogAspect {
         if (method.isAnnotationPresent(Operation.class)) {
             Operation operation = method.getAnnotation(Operation.class);
             log.setSummary(operation.summary());
-//            log.setDescription(operation.description());
+            log.setDescription(operation.description());
         }
         long endTime = System.currentTimeMillis();
         String urlStr = request.getRequestURL().toString();
@@ -84,7 +89,8 @@ public class LogAspect {
         log.setStartTime(LocalDateTimeUtil.of(startTime));
         log.setUri(request.getRequestURI());
         log.setUrl(request.getRequestURL().toString());
-        LOGGER.info("{}", JSONUtil.parse(log));
+        // 保存日志
+        logService.save(log);
         return result;
     }
 

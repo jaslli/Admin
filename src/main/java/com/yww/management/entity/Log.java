@@ -15,7 +15,7 @@ import lombok.Data;
  * </p>
  *
  * @Author yww
- * @Date  2022-10-19
+ * @Date  2022-10-21
  */
 @Data
 @TableName("log")
@@ -35,6 +35,10 @@ public class Log implements Serializable {
     @Schema(description = "用户名称")
     @TableField("username")
     private String username;
+
+    @Schema(description = "接口描述")
+    @TableField("description")
+    private String description;
 
     @Schema(description = "开始时间")
     @TableField("start_time")
