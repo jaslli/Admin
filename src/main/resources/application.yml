@@ -74,4 +74,4 @@ spring:
 
 # mybatis-plus配置
 mybatis-plus:
-  mapper-locations: classpath*:/com/yww/management/mapper/xml/*.xml
+  mapper-locations: classpath*:/xml/*.xml

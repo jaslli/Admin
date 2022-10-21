@@ -1,7 +1,7 @@
 package com.yww.management.security;
 
-import com.yww.management.entity.User;
-import com.yww.management.service.IUserService;
+import com.yww.management.system.entity.User;
+import com.yww.management.system.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

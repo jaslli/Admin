@@ -3,7 +3,7 @@
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
     `id` CHAR(19) NOT NULL COMMENT '数据ID',
-  	`username` VARCHAR(50) NOT NULL COMMENT '用户名',
+  	`username` VARCHAR(50) NOT NULL UNIQUE COMMENT '用户名',
   	`password` VARCHAR(50) NOT NULL COMMENT '密码',
   	`nickname` VARCHAR(50) DEFAULT '用户昵称' COMMENT '用户昵称',
   	`avatar` VARCHAR(50) DEFAULT '' COMMENT '用户头像地址',

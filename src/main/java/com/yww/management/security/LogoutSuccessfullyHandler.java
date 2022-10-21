@@ -2,6 +2,7 @@ package com.yww.management.security;
 
 import com.yww.management.common.Result;
 import com.yww.management.utils.ResponseUtil;
+import com.yww.management.utils.ThreadLocalUtil;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -30,7 +31,9 @@ public class LogoutSuccessfullyHandler implements LogoutSuccessHandler {
         if (authentication != null) {
             new SecurityContextLogoutHandler().logout(request, response, authentication);
         }
-        // TODO 清空redis中的token信息
+        // TODO 清空reis中的token信息
+        // 清空ThreadLocal的内容
+        ThreadLocalUtil.close();
         ResponseUtil.response(response, Result.success("成功退出登录！"));
     }
 

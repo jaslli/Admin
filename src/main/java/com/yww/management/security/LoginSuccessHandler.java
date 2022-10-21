@@ -2,6 +2,7 @@ package com.yww.management.security;
 
 import com.yww.management.common.Result;
 import com.yww.management.utils.ResponseUtil;
+import com.yww.management.utils.ThreadLocalUtil;
 import com.yww.management.utils.TokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -34,6 +35,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
                 put("username", authentication.getName());
             }
         });
+        ThreadLocalUtil.set("username",authentication.getName());
         ResponseUtil.response(response ,Result.success(token));
     }
 
