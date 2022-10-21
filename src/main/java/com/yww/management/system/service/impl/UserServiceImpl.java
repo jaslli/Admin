@@ -3,6 +3,7 @@ package com.yww.management.system.service.impl;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.yww.management.system.entity.Menu;
+import com.yww.management.system.entity.Role;
 import com.yww.management.system.entity.User;
 import com.yww.management.system.entity.UserRole;
 import com.yww.management.system.mapper.UserMapper;
@@ -14,8 +15,11 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.yww.management.utils.AssertUtils;
 import com.yww.management.utils.ThreadLocalUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -66,8 +70,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     @Override
     public User getCurrentUser() {
-        String username = ThreadLocalUtil.get("username");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        AssertUtils.notNull(authentication, "获取用户权限出现异常");
+        // 获取用户名
+        String username = authentication.getPrincipal().toString();
         AssertUtils.hasText(username, "获取当前用户信息出现异常");
+        // 返回用户信息
         return this.getOne(new QueryWrapper<User>().lambda().eq(User::getUsername, username));
     }
 

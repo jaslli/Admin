@@ -42,15 +42,15 @@ public class UserRole implements Serializable {
     private LocalDateTime createTime;
 
     @Schema(description = "创建人")
-    @TableField("create_by")
+    @TableField(value = "create_by", fill = FieldFill.INSERT)
     private String createBy;
 
     @Schema(description = "更新时间")
     @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
 
-    @Schema(description = "创建人")
-    @TableField("update_by")
+    @Schema(description = "更新人")
+    @TableField(value = "update_by", fill = FieldFill.INSERT_UPDATE)
     private String updateBy;
 
 }

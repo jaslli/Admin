@@ -35,7 +35,7 @@ public class OpenapiConfig {
     public GroupedOpenApi systemApi() {
         return GroupedOpenApi.builder()
                 .group("RBAC的系统接口")
-                .pathsToMatch("/user/**", "/role/**", "/menu/**", "/log/**")
+                .packagesToScan("com.yww.management.system.controller")
                 .build();
     }
 

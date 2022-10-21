@@ -12,7 +12,7 @@ CREATE TABLE `user` (
     `create_time` datetime NOT NULL COMMENT '创建时间',
     `create_by` VARCHAR(50) NOT NULL COMMENT '创建人',
     `update_time` datetime NOT NULL COMMENT '更新时间',
-    `update_by` VARCHAR(50) NOT NULL COMMENT '创建人',
+    `update_by` VARCHAR(50) NOT NULL COMMENT '更新人',
     PRIMARY KEY (`id`)
   ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COMMENT = '用户信息实体类';
 ```
@@ -27,7 +27,7 @@ CREATE TABLE `user_role` (
     `create_time` datetime NOT NULL COMMENT '创建时间',
     `create_by` VARCHAR(50) NOT NULL COMMENT '创建人',
     `update_time` datetime NOT NULL COMMENT '更新时间',
-    `update_by` VARCHAR(50) NOT NULL COMMENT '创建人',
+    `update_by` VARCHAR(50) NOT NULL COMMENT '更新人',
     PRIMARY KEY (`id`)
   ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COMMENT = '用户角色关系实体类';
 ```
@@ -43,7 +43,7 @@ CREATE TABLE `role` (
     `create_time` datetime NOT NULL COMMENT '创建时间',
     `create_by` VARCHAR(50) NOT NULL COMMENT '创建人',
     `update_time` datetime NOT NULL COMMENT '更新时间',
-    `update_by` VARCHAR(50) NOT NULL COMMENT '创建人',
+    `update_by` VARCHAR(50) NOT NULL COMMENT '更新人',
     PRIMARY KEY (`id`)
   ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COMMENT = '角色实体类';
 ```
@@ -58,7 +58,7 @@ CREATE TABLE `role_menu` (
     `create_time` datetime NOT NULL COMMENT '创建时间',
     `create_by` VARCHAR(50) NOT NULL COMMENT '创建人',
     `update_time` datetime NOT NULL COMMENT '更新时间',
-    `update_by` VARCHAR(50) NOT NULL COMMENT '创建人',
+    `update_by` VARCHAR(50) NOT NULL COMMENT '更新人',
     PRIMARY KEY (`id`)
   ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COMMENT = '角色菜单权限实体类';
 ```
@@ -80,7 +80,7 @@ CREATE TABLE `menu` (
     `create_time` datetime NOT NULL COMMENT '创建时间',
     `create_by` VARCHAR(50) NOT NULL COMMENT '创建人',
     `update_time` datetime NOT NULL COMMENT '更新时间',
-    `update_by` VARCHAR(50) NOT NULL COMMENT '创建人',
+    `update_by` VARCHAR(50) NOT NULL COMMENT '更新人',
     PRIMARY KEY (`id`)
   ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COMMENT = '菜单权限实体类';
 ```

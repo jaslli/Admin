@@ -6,6 +6,10 @@ spring:
   # 应用名称
   application:
     name: management
+  #   jackson时间配置
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
   # 数据库配置(Druid)
   datasource:
     druid:

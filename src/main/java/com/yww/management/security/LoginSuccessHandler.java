@@ -35,7 +35,6 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
                 put("username", authentication.getName());
             }
         });
-        ThreadLocalUtil.set("username",authentication.getName());
         ResponseUtil.response(response ,Result.success(token));
     }
 

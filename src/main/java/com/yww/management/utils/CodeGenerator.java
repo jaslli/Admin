@@ -111,7 +111,9 @@ public class CodeGenerator {
                     .idType(IdType.ASSIGN_ID)
                     .enableTableFieldAnnotation()
                     .addTableFills(new Column("create_time", FieldFill.INSERT))
+                    .addTableFills(new Column("create_by", FieldFill.INSERT))
                     .addTableFills(new Column("update_time", FieldFill.INSERT_UPDATE))
+                    .addTableFills(new Column("update_by", FieldFill.INSERT_UPDATE))
                     .build()
             )
             .execute();
