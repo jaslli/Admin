@@ -1,6 +1,5 @@
 package com.yww.management.common.exception;
 
-import com.yww.management.common.exception.GlobalException;
 import com.yww.management.common.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;

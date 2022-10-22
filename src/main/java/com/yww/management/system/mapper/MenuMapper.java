@@ -1,7 +1,7 @@
 package com.yww.management.system.mapper;
 
-import com.yww.management.system.entity.Menu;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.yww.management.system.entity.Menu;
 
 /**
  * <p>

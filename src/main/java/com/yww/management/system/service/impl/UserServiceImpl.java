@@ -78,7 +78,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         } else {
             AccountUser user = (AccountUser) object;
             // 返回用户信息
-            return this.getOne(new QueryWrapper<User>().lambda().eq(User::getUsername, user.getUsername()));
+            User res = this.getOne(new QueryWrapper<User>().lambda().eq(User::getUsername, user.getUsername()));
+            res.setPassword("");
+            return res;
         }
     }
 

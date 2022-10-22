@@ -1,11 +1,11 @@
 package com.yww.management.system.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.yww.management.system.entity.Menu;
 import com.yww.management.system.entity.RoleMenu;
 import com.yww.management.system.mapper.MenuMapper;
 import com.yww.management.system.service.IMenuService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.yww.management.system.service.IRoleMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

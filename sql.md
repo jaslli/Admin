@@ -4,7 +4,7 @@ DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
     `id` CHAR(19) NOT NULL COMMENT '数据ID',
   	`username` VARCHAR(50) NOT NULL UNIQUE COMMENT '用户名',
-  	`password` VARCHAR(50) NOT NULL COMMENT '密码',
+  	`password` VARCHAR(150) NOT NULL COMMENT '密码',
   	`nickname` VARCHAR(50) DEFAULT '用户昵称' COMMENT '用户昵称',
   	`avatar` VARCHAR(50) DEFAULT '' COMMENT '用户头像地址',
   	`email` VARCHAR(50) DEFAULT '123456@qq.com' COMMENT '用户邮箱地址',
@@ -15,6 +15,8 @@ CREATE TABLE `user` (
     `update_by` VARCHAR(50) NOT NULL COMMENT '更新人',
     PRIMARY KEY (`id`)
   ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COMMENT = '用户信息实体类';
+
+INSERT INTO management.user (id, username, password, nickname, avatar, email, status, create_time, create_by, update_time, update_by) VALUES ('1', 'yww', '$2a$10$orL9cejAoMqoi3cdbJ2G.OQB6GiXwT.wjpxQfnmrhs40eAcEIVQ2G', 'yww', DEFAULT, DEFAULT, true, '2022-10-23 07:32:18', 'yww', '2022-10-23 07:32:26', 'yww')
 ```
 
 ## 用户角色表

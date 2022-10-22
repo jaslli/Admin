@@ -1,9 +1,9 @@
 package com.yww.management.system.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.yww.management.system.entity.RoleMenu;
 import com.yww.management.system.mapper.RoleMenuMapper;
 import com.yww.management.system.service.IRoleMenuService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**

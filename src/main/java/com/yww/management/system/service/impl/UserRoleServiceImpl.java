@@ -1,9 +1,9 @@
 package com.yww.management.system.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.yww.management.system.entity.UserRole;
 import com.yww.management.system.mapper.UserRoleMapper;
 import com.yww.management.system.service.IUserRoleService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**

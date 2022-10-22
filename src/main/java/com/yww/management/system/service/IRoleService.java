@@ -1,7 +1,7 @@
 package com.yww.management.system.service;
 
-import com.yww.management.system.entity.Role;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.yww.management.system.entity.Role;
 
 /**
  * <p>

@@ -1,9 +1,7 @@
 package com.yww.management.system.mapper;
 
-import com.yww.management.system.entity.Role;
 import com.yww.management.system.entity.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.springframework.data.repository.query.Param;
 
 /**
  * <p>

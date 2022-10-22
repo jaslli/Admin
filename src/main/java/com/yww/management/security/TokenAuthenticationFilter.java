@@ -27,7 +27,7 @@ import java.io.IOException;
  * </p>
  *
  * @ClassName TokenAuthenticationFilter
- * @Author chenhao
+ * @Author yww
  * @Date 2022/10/20 15:46
  */
 public class TokenAuthenticationFilter extends BasicAuthenticationFilter {
@@ -43,6 +43,7 @@ public class TokenAuthenticationFilter extends BasicAuthenticationFilter {
         super(authenticationManager);
     }
 
+    @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain chain) throws IOException, ServletException {

@@ -1,7 +1,7 @@
 package com.yww.management.system.mapper;
 
-import com.yww.management.system.entity.Log;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.yww.management.system.entity.Log;
 
 /**
  * <p>
