@@ -195,4 +195,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return res.toArray(new String[0]);
     }
 
+    public static void main(String[] args) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        System.out.println(encoder.encode("wslioy1920"));
+    }
+
 }

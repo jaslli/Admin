@@ -54,14 +54,14 @@ public class TokenAuthenticationFilter extends BasicAuthenticationFilter {
             // 根据Token里的用户名去获取用户信息
             String username = decoded.getClaim("username").asString();
             ThreadLocalUtil.set("username",username);
-            LOGGER.info("checking username:{}", username);
+            LOGGER.info("checking username:{}   ", username);
             if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 // 主要是获取用户信息
                 UserDetails userDetail = userDetailsService.loadUserByUsername(username);
                 // 填充SecurityContextHolder
                 UsernamePasswordAuthenticationToken authentication =
                         new UsernamePasswordAuthenticationToken(userDetail, null, userDetail.getAuthorities());
-                LOGGER.info("authenticated user:{}", username);
+                LOGGER.info("authenticated user:{}  ", username);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         }

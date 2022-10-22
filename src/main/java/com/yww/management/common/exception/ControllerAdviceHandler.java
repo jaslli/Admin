@@ -2,6 +2,7 @@ package com.yww.management.common.exception;
 
 import com.yww.management.common.exception.GlobalException;
 import com.yww.management.common.Result;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  * @Date 2022/10/12 21:08
  */
 @RestControllerAdvice
+@Slf4j
 public class ControllerAdviceHandler {
 
     /**
@@ -39,6 +41,7 @@ public class ControllerAdviceHandler {
      */
     @ExceptionHandler(value = Exception.class)
     public <T> Result<T> errorHandler(Exception e) {
+        log.error(e.getMessage());
         return Result.failure(e.getMessage());
     }
 

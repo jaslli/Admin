@@ -7,7 +7,6 @@ import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.xml.ws.Action;
 import java.time.LocalDateTime;
 
 /**
@@ -35,11 +34,18 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
      */
     @Override
     public void insertFill(MetaObject metaObject) {
-        User user = userService.getCurrentUser();
         this.strictInsertFill(metaObject, "createTime", LocalDateTime.class , LocalDateTime.now());
-        this.strictInsertFill(metaObject, "createBy", String.class, user.getUsername());
         this.strictInsertFill(metaObject, "updateTime", LocalDateTime.class , LocalDateTime.now());
-        this.strictInsertFill(metaObject, "updateBy", String.class, user.getUsername());
+        User user = userService.getCurrentUser();
+        if (null == user) {
+            // 匿名账户处理
+            this.strictInsertFill(metaObject, "createBy", String.class, "anonymousUser");
+            this.strictInsertFill(metaObject, "updateBy", String.class, "anonymousUser");
+        } else {
+            // 登录账户处理
+            this.strictInsertFill(metaObject, "createBy", String.class, user.getUsername());
+            this.strictInsertFill(metaObject, "updateBy", String.class, user.getUsername());
+        }
     }
 
     /**
@@ -49,7 +55,13 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
     public void updateFill(MetaObject metaObject) {
         User user = userService.getCurrentUser();
         this.strictInsertFill(metaObject, "updateTime", LocalDateTime.class , LocalDateTime.now());
-        this.strictInsertFill(metaObject, "updateBy", String.class, user.getUsername());
+        if (null == user) {
+            // 匿名账户处理
+            this.strictInsertFill(metaObject, "updateBy", String.class, "anonymousUser");
+        } else {
+            // 登录账户处理
+            this.strictInsertFill(metaObject, "updateBy", String.class, user.getUsername());
+        }
     }
 
 }

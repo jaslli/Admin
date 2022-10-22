@@ -1,8 +1,7 @@
 package com.yww.management.system.service;
 
-import com.yww.management.system.entity.Role;
-import com.yww.management.system.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.yww.management.system.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.List;

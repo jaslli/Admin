@@ -46,10 +46,14 @@ import java.util.Map;
 @Component
 public class LogAspect {
 
-    @Autowired
-    LogServiceImpl logService;
+    private final LogServiceImpl logService;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(com.yww.management.annotation.Log.class);
+
+    @Autowired
+    public LogAspect(LogServiceImpl logService) {
+        this.logService = logService;
+    }
 
     /**
      * 用于指定AOP的切点，即为标注了@Log注解的方法
@@ -73,10 +77,17 @@ public class LogAspect {
         Signature signature = joinPoint.getSignature();
         MethodSignature methodSignature = (MethodSignature) signature;
         Method method = methodSignature.getMethod();
+        // 获取Operation的注解信息
         if (method.isAnnotationPresent(Operation.class)) {
             Operation operation = method.getAnnotation(Operation.class);
             log.setSummary(operation.summary());
             log.setDescription(operation.description());
+        }
+        // 获取Log注解的信息，查看是否需要保存操作记录
+        boolean isSave = false;
+        if (method.isAnnotationPresent(com.yww.management.annotation.Log.class)) {
+            com.yww.management.annotation.Log annotation = method.getAnnotation(com.yww.management.annotation.Log.class);
+            isSave = annotation.save();
         }
         long endTime = System.currentTimeMillis();
         String urlStr = request.getRequestURL().toString();
@@ -89,8 +100,11 @@ public class LogAspect {
         log.setStartTime(LocalDateTimeUtil.of(startTime));
         log.setUri(request.getRequestURI());
         log.setUrl(request.getRequestURL().toString());
+        LOGGER.info(log.toString());
         // 保存日志
-        logService.save(log);
+        if (isSave) {
+            logService.save(log);
+        }
         return result;
     }
 

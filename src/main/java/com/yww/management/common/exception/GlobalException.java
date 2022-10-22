@@ -1,6 +1,5 @@
 package com.yww.management.common.exception;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
