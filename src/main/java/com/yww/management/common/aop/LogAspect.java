@@ -63,49 +63,55 @@ public class LogAspect {
 
     @Around("pointcut()")
     public Object doAround(ProceedingJoinPoint joinPoint) throws Throwable {
-        long startTime = System.currentTimeMillis();
-        // 获取当前请求对象
-        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        if (attributes == null) {
-            return null;
-        }
-        HttpServletRequest request = attributes.getRequest();
-        //记录请求信息
-        Log log = new Log();
-        Object result = joinPoint.proceed();
         // 获取方法
         Signature signature = joinPoint.getSignature();
         MethodSignature methodSignature = (MethodSignature) signature;
         Method method = methodSignature.getMethod();
-        // 获取Operation的注解信息
-        if (method.isAnnotationPresent(Operation.class)) {
-            Operation operation = method.getAnnotation(Operation.class);
-            log.setSummary(operation.summary());
-            log.setDescription(operation.description());
-        }
         // 获取Log注解的信息，查看是否需要保存操作记录
         boolean isSave = false;
+        String value = "";
         if (method.isAnnotationPresent(com.yww.management.annotation.Log.class)) {
             com.yww.management.annotation.Log annotation = method.getAnnotation(com.yww.management.annotation.Log.class);
             isSave = annotation.save();
+            value = annotation.value();
         }
-        long endTime = System.currentTimeMillis();
-        String urlStr = request.getRequestURL().toString();
-        log.setBasePath(StrUtil.removeSuffix(urlStr, URLUtil.url(urlStr).getPath()));
-        log.setIp(IpUtil.getIpAddr(request));
-        log.setMethod(request.getMethod());
-        log.setParameter(JSONUtil.parse(getParameter(method, joinPoint.getArgs())).toString());
-        log.setResult(JSONUtil.parse(result).toString());
-        log.setSpendTime((int) (endTime - startTime));
-        log.setStartTime(LocalDateTimeUtil.of(startTime));
-        log.setUri(request.getRequestURI());
-        log.setUrl(request.getRequestURL().toString());
-        LOGGER.info(log.toString());
-        // 保存日志
+        if (StrUtil.isNotBlank(value)) {
+            LOGGER.info(value);
+        }
         if (isSave) {
+            long startTime = System.currentTimeMillis();
+            // 获取当前请求对象
+            ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+            if (attributes == null) {
+                return null;
+            }
+            HttpServletRequest request = attributes.getRequest();
+            //记录请求信息
+            Log log = new Log();
+            Object result = joinPoint.proceed();
+            // 获取Operation的注解信息
+            if (method.isAnnotationPresent(Operation.class)) {
+                Operation operation = method.getAnnotation(Operation.class);
+                log.setSummary(operation.summary());
+                log.setDescription(operation.description());
+            }
+            long endTime = System.currentTimeMillis();
+            String urlStr = request.getRequestURL().toString();
+            log.setBasePath(StrUtil.removeSuffix(urlStr, URLUtil.url(urlStr).getPath()));
+            log.setIp(IpUtil.getIpAddr(request));
+            log.setMethod(request.getMethod());
+            log.setParameter(JSONUtil.parse(getParameter(method, joinPoint.getArgs())).toString());
+            log.setResult(JSONUtil.parse(result).toString());
+            log.setSpendTime((int) (endTime - startTime));
+            log.setStartTime(LocalDateTimeUtil.of(startTime));
+            log.setUri(request.getRequestURI());
+            log.setUrl(request.getRequestURL().toString());
+            LOGGER.info(log.toString());
             logService.save(log);
+            return result;
+        } else {
+            return null;
         }
-        return result;
     }
 
     /**

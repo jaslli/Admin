@@ -32,7 +32,6 @@ public class LogoutSuccessfullyHandler implements LogoutSuccessHandler {
             new SecurityContextLogoutHandler().logout(request, response, authentication);
         }
         // TODO 清空redis中的token信息
-        // 清空ThreadLocal的内容
         ThreadLocalUtil.close();
         ResponseUtil.response(response, Result.success("成功退出登录！"));
     }
