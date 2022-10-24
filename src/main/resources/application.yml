@@ -1,28 +1,30 @@
 server:
   # 服务端口号
   port: 9000
-
 spring:
   # 应用名称
   application:
     name: management
-  #   jackson时间配置
+  # jackson时间配置
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
   devtools:
     restart:
-      enabled: true  #设置开启热部署
-      additional-paths: src/main/java #重启目录
+      # 设置开启热部署
+      enabled: true
+      # 重启目录
+      additional-paths: src/main/java
       exclude: WEB-INF/**
+  # 页面不加载缓存，修改即时生效
   freemarker:
-    cache: false    #页面不加载缓存，修改即时生效
+    cache: false
   # 数据库配置(Druid)
   datasource:
     druid:
       db-type: com.alibaba.druid.pool.DruidDataSource
       driverClassName: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://localhost:3306/management?userUnicode=true&useSSL=false&characterEncoding=utf-8&serverTimezone=UTC
+      url: jdbc:mysql://localhost:3306/blog?userUnicode=true&useSSL=false&characterEncoding=utf-8&serverTimezone=UTC
       username: root
       password: password
       # 初始连接数
