@@ -110,6 +110,4 @@ public class BigDecimalUtil {
         return b1.divide(b2, precision, mode).doubleValue();
     }
 
-
-
 }

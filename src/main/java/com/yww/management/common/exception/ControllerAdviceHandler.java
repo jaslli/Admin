@@ -1,10 +1,16 @@
 package com.yww.management.common.exception;
 
 import com.yww.management.common.Result;
+import com.yww.management.common.exception.GlobalException;
+import io.netty.util.internal.ThrowableUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * <p>
@@ -28,8 +34,14 @@ public class ControllerAdviceHandler {
      */
     @ResponseBody
     @ExceptionHandler(value = GlobalException.class)
-    public <T> Result<T> errorHandler(GlobalException e) {
-        return Result.failure(500, e.getMessage());
+    public <T> Result<T> globalExceptionHandler(GlobalException e, HttpServletRequest request) {
+        log.error(">> global exception: {}, {}, {}", request.getRequestURI(), e.getCode(), e.getMessage());
+        String errMessage = e.getMessage();
+        // 防止空的错误信息
+        if (StringUtils.isBlank(errMessage)) {
+            errMessage = "服务器繁忙";
+        }
+        return Result.failure(e.getCode(), errMessage);
     }
 
     /**
@@ -39,9 +51,10 @@ public class ControllerAdviceHandler {
      * @return 异常信息
      */
     @ExceptionHandler(value = Exception.class)
-    public <T> Result<T> errorHandler(Exception e) {
-        log.error(e.getMessage());
-        return Result.failure(e.getMessage());
+    public <T> Result<T> defaultErrorHandler(Exception e, HttpServletRequest request) {
+        log.error(">> 服务器内部错误 " + request.getRequestURI(), e);
+        String error = "服务器繁忙";
+        return Result.failure(500, error);
     }
 
 }

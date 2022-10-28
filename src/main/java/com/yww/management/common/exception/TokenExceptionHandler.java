@@ -2,9 +2,13 @@ package com.yww.management.common.exception;
 
 import com.auth0.jwt.exceptions.*;
 import com.yww.management.common.Result;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * <p>
@@ -15,6 +19,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  * @Author yww
  * @Date 2022/10/18 23:03
  */
+@Slf4j
 @RestControllerAdvice
 public class TokenExceptionHandler {
 
@@ -25,7 +30,8 @@ public class TokenExceptionHandler {
      */
     @ResponseBody
     @ExceptionHandler(value = AlgorithmMismatchException.class)
-    public Result<String> algorithmMismatchExceptionHandler(AlgorithmMismatchException e) {
+    public Result<String> algorithmMismatchExceptionHandler(AlgorithmMismatchException e, HttpServletRequest request) {
+        log.error(">> global exception: {}, {}", request.getRequestURI(), e.getMessage());
         return Result.failure(500, "签名算法不匹配" ,e.getMessage());
     }
 
@@ -36,7 +42,8 @@ public class TokenExceptionHandler {
      */
     @ResponseBody
     @ExceptionHandler(value = SignatureVerificationException.class)
-    public Result<String> signatureVerificationExceptionHandler(SignatureVerificationException e) {
+    public Result<String> signatureVerificationExceptionHandler(SignatureVerificationException e, HttpServletRequest request) {
+        log.error(">> global exception: {}, {}", request.getRequestURI(), e.getMessage());
         return Result.failure(500, "签名无效" ,e.getMessage());
     }
 
@@ -47,7 +54,8 @@ public class TokenExceptionHandler {
      */
     @ResponseBody
     @ExceptionHandler(value = TokenExpiredException.class)
-    public Result<String> tokenExpiredExceptionHandler(TokenExpiredException e) {
+    public Result<String> tokenExpiredExceptionHandler(TokenExpiredException e, HttpServletRequest request) {
+        log.error(">> global exception: {}, {}", request.getRequestURI(), e.getMessage());
         return Result.failure(500, "令牌已过期" ,e.getMessage());
     }
 
@@ -58,7 +66,8 @@ public class TokenExceptionHandler {
      */
     @ResponseBody
     @ExceptionHandler(value = MissingClaimException.class)
-    public Result<String> tMissingClaimExceptionHandler(MissingClaimException e) {
+    public Result<String> tMissingClaimExceptionHandler(MissingClaimException e, HttpServletRequest request) {
+        log.error(">> global exception: {}, {}", request.getRequestURI(), e.getMessage());
         return Result.failure(500, "缺少要验证的声明" ,e.getMessage());
     }
 
@@ -69,7 +78,8 @@ public class TokenExceptionHandler {
      */
     @ResponseBody
     @ExceptionHandler(value = IncorrectClaimException.class)
-    public Result<String> incorrectClaimExceptionHandler(IncorrectClaimException e) {
+    public Result<String> incorrectClaimExceptionHandler(IncorrectClaimException e, HttpServletRequest request) {
+        log.error(">> global exception: {}, {}", request.getRequestURI(), e.getMessage());
         return Result.failure(500, "声明包含的值和预期不符合" ,e.getMessage());
     }
 
@@ -80,7 +90,8 @@ public class TokenExceptionHandler {
      */
     @ResponseBody
     @ExceptionHandler(value = JWTVerificationException.class)
-    public Result<String> jwtVerificationExceptionHandler(JWTVerificationException e) {
+    public Result<String> jwtVerificationExceptionHandler(JWTVerificationException e, HttpServletRequest request) {
+        log.error(">> global exception: {}, {}", request.getRequestURI(), e.getMessage());
         return Result.failure(500, "验证中的某一个步骤失败" ,e.getMessage());
     }
 

@@ -27,7 +27,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     /**
-     * 登录验证
+     * 通过用户名查找用户信息
      *
      * @param username  用户名
      * @return  UserDetails     用户信息

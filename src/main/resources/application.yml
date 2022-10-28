@@ -1,6 +1,13 @@
 server:
   # 服务端口号
   port: 9000
+# 日志配置
+logging:
+  level:
+    root: info
+#  file:
+#    name: server.log
+#    path: /data
 spring:
   # 应用名称
   application:

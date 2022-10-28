@@ -19,6 +19,7 @@ public class ResponseUtil {
 
     /**
      * 用于返回JSON数据
+     *
      * @param response 请求响应
      * @param result   响应封装
      */

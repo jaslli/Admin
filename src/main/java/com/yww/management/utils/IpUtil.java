@@ -1,6 +1,8 @@
 package com.yww.management.utils;
 
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.http.useragent.UserAgent;
+import cn.hutool.http.useragent.UserAgentUtil;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -81,5 +83,14 @@ public class IpUtil {
         return StrUtil.isNotBlank(checkString) && StrUtil.isNotEmpty(checkString) && !"unknown".equalsIgnoreCase(checkString);
     }
 
+    /**
+     * 获取UserAgent信息对象
+     *
+     * @param request 请求
+     * @return UserAgent
+     */
+    public static UserAgent getBrowser(HttpServletRequest request) {
+        return UserAgentUtil.parse(request.getHeader("User-Agent"));
+    }
 
 }

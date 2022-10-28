@@ -30,6 +30,7 @@ public class CodeGenerator {
 
     /**
      * 获取配置文件application.yml中关于mysql的配置
+     *
      * @return  数据库配置
      */
     @NotNull
