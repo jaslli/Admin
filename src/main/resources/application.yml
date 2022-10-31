@@ -1,6 +1,6 @@
 server:
   # 服务端口号
-  port: 9000
+  port: 7777
 # 日志配置
 logging:
   level:
@@ -16,6 +16,7 @@ spring:
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
+  # 热部署工具配置
   devtools:
     restart:
       # 设置开启热部署
@@ -26,12 +27,19 @@ spring:
   # 页面不加载缓存，修改即时生效
   freemarker:
     cache: false
+  # 上传文件配置
+  servlet:
+    multipart:
+      # 单个最大文件大小
+      max-file-size: 30MB
+      # 总体文件最大请求大小
+      max-request-size: 100MB
   # 数据库配置(Druid)
   datasource:
     druid:
       db-type: com.alibaba.druid.pool.DruidDataSource
       driverClassName: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://localhost:3306/blog?userUnicode=true&useSSL=false&characterEncoding=utf-8&serverTimezone=UTC
+      url: jdbc:mysql://localhost:3306/blog?userUnicode=true&useSSL=false&characterEncoding=utf-8&serverTimezone=UTC&allowPublicKeyRetrieval=true
       username: root
       password: password
       # 初始连接数
@@ -55,10 +63,10 @@ spring:
       validation-query: select 1
       # 配置监控统计
       webStatFilter:
-        enabled: true
+        enabled: false
       #安全配置
       stat-view-servlet:
-        enabled: true
+        enabled: false
         url-pattern: /druid/*
         reset-enable: false
         login-username: admin
@@ -91,7 +99,6 @@ spring:
         max-idle: 10
         #连接池中的最小空闲连接
         min-idle: 2
-
 # mybatis-plus配置
 mybatis-plus:
   mapper-locations: classpath*:/xml/*.xml
