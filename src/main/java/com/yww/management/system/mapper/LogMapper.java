@@ -2,6 +2,7 @@ package com.yww.management.system.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.yww.management.system.entity.Log;
+import org.springframework.stereotype.Repository;
 
 /**
  * <p>
@@ -11,6 +12,7 @@ import com.yww.management.system.entity.Log;
  * @Author yww
  * @Date  2022-10-21
  */
+@Repository
 public interface LogMapper extends BaseMapper<Log> {
 
 }

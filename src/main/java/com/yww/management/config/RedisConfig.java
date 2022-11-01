@@ -73,7 +73,7 @@ public class RedisConfig extends CachingConfigurerSupport {
     }
 
     /**
-     * 缓存配置
+     *  缓存配置
      * 设置 redis 数据默认过期时间，默认3小时
      */
     @Bean
@@ -145,7 +145,7 @@ public class RedisConfig extends CachingConfigurerSupport {
 }
 
 /**
- * Value 序列化
+ *  Value 序列化
  *
  * @param <T>
  */
@@ -176,11 +176,11 @@ class FastJson2JsonRedisSerializer<T> implements RedisSerializer<T> {
 
         return JSON.parseObject(str, clazz, JSONReader.Feature.SupportAutoType);
     }
+
 }
 
-
 /**
- * 重写序列化器
+ *  重写序列化器
  */
 class StringRedisSerializer implements RedisSerializer<Object> {
 
@@ -201,8 +201,7 @@ class StringRedisSerializer implements RedisSerializer<Object> {
     }
 
     @Override
-    public @Nullable
-    byte[] serialize(Object object) {
+    public @Nullable byte[] serialize(Object object) {
         String string = JSON.toJSONString(object);
         if (StringUtils.isBlank(string)) {
             return null;

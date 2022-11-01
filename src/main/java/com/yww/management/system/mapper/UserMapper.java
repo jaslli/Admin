@@ -1,7 +1,10 @@
 package com.yww.management.system.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.yww.management.system.entity.Role;
 import com.yww.management.system.entity.User;
+import io.lettuce.core.dynamic.annotation.Param;
+import org.springframework.stereotype.Repository;
 
 /**
  * <p>
@@ -11,14 +14,15 @@ import com.yww.management.system.entity.User;
  * @Author yww
  * @Date  2022-10-21
  */
+@Repository
 public interface UserMapper extends BaseMapper<User> {
 
     /**
-     * 根据用户ID获取角色信息
+     * 根据用户ID获取角色ID
      *
      * @param userId    用户ID
-     * @return  角色信息
+     * @return  角色ID
      */
-    //Role getRoleByUserId(@Param("userId") String userId);
+    String getRoleIdByUserId(@Param("userId") String userId);
 
 }

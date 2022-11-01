@@ -1,90 +1,83 @@
 package com.yww.management.utils.page;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+import java.util.List;
 
 /**
  * <p>
- *      分页查询请求对象
+ *      分页查询结果
  * </p>
  *
- * @ClassName PageVo
+ * @ClassName PageResultVo
  * @Author yww
- * @Date 2022/10/24 21:18
+ * @Date 2022/10/24 21:15
  */
-@SuppressWarnings("all")
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class PageVo {
+@JsonPropertyOrder({"start", "size", "total", "rows"})
+public class PageVo<T> {
 
     /**
-     * 每页显示行数默认为10
+     *  本页记录在所有记录中的起始位置
      */
-    private static final int DEFAULT_SIZE = 10;
-
-    /**
-     *  当前页码, 首页为1
-     */
-    private int page = 1;
+    private int start;
 
     /**
      *  每页记录条数
      */
-    private int size = DEFAULT_SIZE;
+    private int size;
 
     /**
-     *  排序字段名,asc,desc
+     *  总记录条数
      */
-    private String sort;
+    private int total;
 
     /**
-     *  排序方向
+     *  当前页数据
      */
-    private String dir;
+    private List<T> rows;
 
-    public static PageVo of(int page, int size) {
-        PageVo pageReqVo = new PageVo();
-        pageReqVo.setPage(page);
-        pageReqVo.setSize(size);
-        return pageReqVo;
+    public static <E> PageVo<E> ofReqVo(PageRequest reqVo, List<E> rows, int total) {
+        PageVo<E> pageVo = new PageVo<>();
+        pageVo.setSize(reqVo.getSize());
+        pageVo.setStart(reqVo.getOffset());
+        pageVo.setTotal(total);
+        pageVo.setRows(rows);
+        return pageVo;
     }
 
-    public PageVo() {}
-
-    @JsonIgnore
-    public int getOffset() {
-        return (getPage() - 1) * getSize();
+    public PageVo() {
     }
 
-    public int getPage() {
-        return page > 0 ? page : 1;
+    public int getStart() {
+        return start;
     }
 
-    public void setPage(int page) {
-        this.page = page;
+    public void setStart(int start) {
+        this.start = start;
     }
 
     public int getSize() {
-        return size > 0 ? size : DEFAULT_SIZE;
+        return size;
     }
 
     public void setSize(int size) {
         this.size = size;
     }
 
-    public String getSort() {
-        return sort;
+    public int getTotal() {
+        return total;
     }
 
-    public void setSort(String sort) {
-        this.sort = sort;
+    public void setTotal(int total) {
+        this.total = total;
     }
 
-    public String getDir() {
-        return dir;
+    public List<T> getRows() {
+        return rows;
     }
 
-    public void setDir(String dir) {
-        this.dir = dir;
+    public void setRows(List<T> rows) {
+        this.rows = rows;
     }
 
 }

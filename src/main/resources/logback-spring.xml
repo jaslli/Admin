@@ -23,7 +23,7 @@
               value="${CONSOLE_LOG_PATTERN:-%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>
 
 
-    <!--输出到控制台-->
+    <!--  输出到控制台  -->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <!--此日志appender是为开发使用，只配置最底级别，控制台输出的日志级别是大于或等于此级别的日志信息-->
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
@@ -63,7 +63,7 @@
         </filter>
     </appender>
     <!-- 异步输出 -->
-    <appender name="debug-appender" class="ch.qos.logback.classic.AsyncAppender">
+    <appender name="DEBUG_APPENDER" class="ch.qos.logback.classic.AsyncAppender">
         <!-- 不丢失日志.默认的,如果队列的80%已满,则会丢弃TRACT、DEBUG、INFO级别的日志 -->
         <discardingThreshold>0</discardingThreshold>
         <!-- 更改默认的队列的深度,该值会影响性能.默认值为256 -->
@@ -100,7 +100,7 @@
         </filter>
     </appender>
     <!-- 异步输出 -->
-    <appender name="info-appender" class="ch.qos.logback.classic.AsyncAppender">
+    <appender name="INFO_APPENDER" class="ch.qos.logback.classic.AsyncAppender">
         <discardingThreshold>0</discardingThreshold>
         <queueSize>512</queueSize>
         <appender-ref ref="INFO_FILE"/>
@@ -133,7 +133,7 @@
         </filter>
     </appender>
     <!-- 异步输出 -->
-    <appender name="warn-appender" class="ch.qos.logback.classic.AsyncAppender">
+    <appender name="WARN_APPENDER" class="ch.qos.logback.classic.AsyncAppender">
         <discardingThreshold>0</discardingThreshold>
         <queueSize>512</queueSize>
         <appender-ref ref="WARN_FILE"/>
@@ -167,7 +167,7 @@
         </filter>
     </appender>
     <!-- 异步输出 -->
-    <appender name="error-appender" class="ch.qos.logback.classic.AsyncAppender">
+    <appender name="ERROR_APPENDER" class="ch.qos.logback.classic.AsyncAppender">
         <discardingThreshold>0</discardingThreshold>
         <queueSize>512</queueSize>
         <appender-ref ref="ERROR_FILE"/>
@@ -177,10 +177,10 @@
     <!--  root节点是必选节点，用来指定最基础的日志输出级别，只有一个level属性  -->
     <root level="info">
         <appender-ref ref="CONSOLE"/>
-        <appender-ref ref="debug-appender"/>
-        <appender-ref ref="info-appender"/>
-        <appender-ref ref="warn-appender"/>
-        <appender-ref ref="error-appender"/>
+        <appender-ref ref="DEBUG_APPENDER"/>
+        <appender-ref ref="INFO_APPENDER"/>
+        <appender-ref ref="WARN_APPENDER"/>
+        <appender-ref ref="ERROR_APPENDER"/>
     </root>
 
 </configuration>

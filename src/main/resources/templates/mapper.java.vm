@@ -20,6 +20,7 @@ import ${mapperAnnotationClass.name};
 #if(${kotlin})
 interface ${table.mapperName} : ${superMapperClass}<${entity}>
 #else
+@Repository
 public interface ${table.mapperName} extends ${superMapperClass}<${entity}> {
 
 }

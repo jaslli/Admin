@@ -37,7 +37,7 @@ public class PageUtil {
      * @param <Q>
      * @return
      */
-    public static <R, Q extends PageVo> PageResultVo<R> paging(Q pageVo, BaseMapper<R> mapper, Class<R> clazz) {
+    public static <R, Q extends PageRequest> PageVo<R> paging(Q pageVo, BaseMapper<R> mapper, Class<R> clazz) {
         R entity;
         try {
             entity = clazz.newInstance();
@@ -47,7 +47,7 @@ public class PageUtil {
         BeanUtil.copyProperties(pageVo, entity);
         IPage<R> page = new Page<>(pageVo.getPage(), pageVo.getSize());
         page = mapper.selectPage(page, Wrappers.lambdaQuery(entity));
-        return PageResultVo.ofReqVo(pageVo, page.getRecords(), Long.valueOf(page.getTotal()).intValue());
+        return PageVo.ofReqVo(pageVo, page.getRecords(), Long.valueOf(page.getTotal()).intValue());
     }
 
     /**
@@ -59,7 +59,7 @@ public class PageUtil {
      * @param <Q>
      * @return
      */
-    public static <R, Q extends PageVo> PageResultVo<R> paging(Q pageVo, BaseMapper<R> mapper, LambdaQueryWrapper<R> lambdaQuery, Class<R> clazz) {
+    public static <R, Q extends PageRequest> PageVo<R> paging(Q pageVo, BaseMapper<R> mapper, LambdaQueryWrapper<R> lambdaQuery, Class<R> clazz) {
         R entity;
         try {
             entity = clazz.newInstance();
@@ -75,7 +75,7 @@ public class PageUtil {
 
         IPage<R> page = new Page<>(pageVo.getPage(), pageVo.getSize());
         page = mapper.selectPage(page, lambdaQuery);
-        return PageResultVo.ofReqVo(pageVo, page.getRecords(), Long.valueOf(page.getTotal()).intValue());
+        return PageVo.ofReqVo(pageVo, page.getRecords(), Long.valueOf(page.getTotal()).intValue());
     }
 
     /**
