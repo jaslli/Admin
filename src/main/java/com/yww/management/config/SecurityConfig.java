@@ -3,7 +3,7 @@ package com.yww.management.config;
 import cn.hutool.extra.spring.SpringUtil;
 import com.yww.management.annotation.AnonymousAccess;
 import com.yww.management.security.*;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.core.GrantedAuthorityDefaults;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.method.HandlerMethod;
@@ -34,6 +35,7 @@ import java.util.Set;
  */
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -73,23 +75,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/druid/**",
     };
 
-    @Autowired
-    public SecurityConfig(TokenAuthenticationEntryPoint authenticationEntryPoint,
-                          LoginSuccessHandler loginSuccessHandler,
-                          LoginFailureHandler loginFailureHandler,
-                          AccessFailureHandler accessFailureHandler,
-                          LogoutSuccessfullyHandler logoutSuccessfullyHandler,
-                          UserDetailsServiceImpl userDetailsService) {
-        this.authenticationEntryPoint = authenticationEntryPoint;
-        this.loginSuccessHandler = loginSuccessHandler;
-        this.loginFailureHandler = loginFailureHandler;
-        this.accessFailureHandler = accessFailureHandler;
-        this.logoutSuccessfullyHandler = logoutSuccessfullyHandler;
-        this.userDetailsService = userDetailsService;
-    }
-
     /**
-     * 自定义Token的过滤器
+     *  自定义Token的过滤器
      */
     @Bean
     TokenAuthenticationFilter tokenAuthenticationFilter() throws Exception {
@@ -97,11 +84,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * 密码加密工具
+     *  密码加密工具
      */
     @Bean
     BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    /**
+     *  去除 ROLE_ 前缀
+     */
+    @Bean
+    public GrantedAuthorityDefaults grantedAuthorityDefaults() {
+        return new GrantedAuthorityDefaults("");
     }
 
     /**

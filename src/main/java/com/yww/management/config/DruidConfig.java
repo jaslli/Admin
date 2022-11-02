@@ -1,6 +1,5 @@
 package com.yww.management.config;
 
-import cn.hutool.json.JSONUtil;
 import com.alibaba.druid.filter.stat.StatFilter;
 import com.alibaba.druid.spring.boot.autoconfigure.properties.DruidStatProperties;
 import com.alibaba.druid.support.http.StatViewServlet;
@@ -46,7 +45,7 @@ public class DruidConfig {
      */
     @Bean
     public ServletRegistrationBean<StatViewServlet> statViewServletRegistrationBean(DruidStatProperties properties) {
-        log.info("init statViewServlet Configuration ,properties:{}", JSONUtil.toJsonPrettyStr(properties));
+        log.info("init statViewServlet Configuration");
         DruidStatProperties.StatViewServlet config = properties.getStatViewServlet();
         ServletRegistrationBean<StatViewServlet> registrationBean = new ServletRegistrationBean<>();
         registrationBean.setServlet(new StatViewServlet());
@@ -86,7 +85,7 @@ public class DruidConfig {
      */
     @Bean
     public FilterRegistrationBean<WebStatFilter> webStatFilterRegistrationBean(DruidStatProperties properties) {
-        log.info("init webStatFilter Configuration ,properties:{}", JSONUtil.toJsonPrettyStr(properties));
+        log.info("init webStatFilter Configuration");
         DruidStatProperties.WebStatFilter config = properties.getWebStatFilter();
         FilterRegistrationBean<WebStatFilter> registrationBean = new FilterRegistrationBean<>();
         WebStatFilter filter = new WebStatFilter();
@@ -135,11 +134,10 @@ public class DruidConfig {
     /**
      * 最好确定到 controller service dao
      *
-     * @param properties    配置属性
      * @return              Advisor
      */
     @Bean
-    public Advisor advisor(DruidStatProperties properties) {
+    public Advisor advisor() {
         return new RegexpMethodPointcutAdvisor(new String[]{"com.yww.management.resource.*",}, advice());
     }
 
@@ -171,7 +169,7 @@ public class DruidConfig {
         Filter filter = new Filter()
         {
             @Override
-            public void init(javax.servlet.FilterConfig filterConfig) throws ServletException
+            public void init(javax.servlet.FilterConfig filterConfig)
             {
             }
             @Override

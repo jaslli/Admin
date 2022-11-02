@@ -1,7 +1,6 @@
 package com.yww.management.system.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.yww.management.system.entity.Role;
 import com.yww.management.system.entity.User;
 import io.lettuce.core.dynamic.annotation.Param;
 import org.springframework.stereotype.Repository;

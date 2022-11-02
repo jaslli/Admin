@@ -1,6 +1,8 @@
 package ${package.Controller};
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import ${package.Controller}.service.${table.serviceName};
 #if(${springdoc})
 import io.swagger.v3.oas.annotations.tags.Tag;
 #elseif(${swagger})
@@ -43,6 +45,10 @@ public class ${table.controllerName} extends ${superControllerClass} {
 #else
 public class ${table.controllerName} {
 #end
-
+    private final ${table.serviceName} service;
+    @Autowired
+    public ${table.controllerName}(${table.serviceName} service) {
+        this.service = service;
+    }
 }
 #end

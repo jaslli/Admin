@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.yww.management.system.entity.Log;
 import com.yww.management.system.mapper.LogMapper;
 import com.yww.management.system.service.ILogService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 /**

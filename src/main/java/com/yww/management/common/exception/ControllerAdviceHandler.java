@@ -1,11 +1,8 @@
 package com.yww.management.common.exception;
 
 import com.yww.management.common.Result;
-import com.yww.management.common.exception.GlobalException;
-import io.netty.util.internal.ThrowableUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;

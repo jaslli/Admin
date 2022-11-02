@@ -3,7 +3,6 @@ package com.yww.management.common.exception;
 import com.auth0.jwt.exceptions.*;
 import com.yww.management.common.Result;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
