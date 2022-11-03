@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.yww.management.system.entity.Menu;
 import com.yww.management.system.mapper.MenuMapper;
 import com.yww.management.system.service.IMenuService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,6 +19,7 @@ import java.util.List;
  * @Date  2022-10-21
  */
 @Service
+@RequiredArgsConstructor(onConstructor_ = {@Lazy})
 public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IMenuService {
 
     @Override

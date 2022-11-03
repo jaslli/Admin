@@ -1,4 +1,4 @@
-package com.yww.management.utils.page;
+package com.yww.management.vo.page;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 

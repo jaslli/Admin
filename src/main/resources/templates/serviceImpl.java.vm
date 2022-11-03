@@ -5,6 +5,8 @@ import ${package.Mapper}.${table.mapperName};
 import ${package.Service}.${table.serviceName};
 import ${superServiceImplClassPackage};
 import org.springframework.stereotype.Service;
+import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Lazy;
 
 /**
  * <p>
@@ -20,6 +22,7 @@ open class ${table.serviceImplName} : ${superServiceImplClass}<${table.mapperNam
 
 }
 #else
+@RequiredArgsConstructor(onConstructor_ = {@Lazy})
 public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.mapperName}, ${entity}> implements ${table.serviceName} {
 
 }

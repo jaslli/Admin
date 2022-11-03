@@ -1,4 +1,4 @@
-package com.yww.management.utils.page;
+package com.yww.management.utils;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
@@ -11,6 +11,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.yww.management.common.exception.GlobalException;
+import com.yww.management.vo.page.PageRequest;
+import com.yww.management.vo.page.PageVo;
 
 import java.util.ArrayList;
 import java.util.List;

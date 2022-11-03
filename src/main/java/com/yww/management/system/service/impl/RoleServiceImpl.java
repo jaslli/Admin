@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.yww.management.system.entity.Role;
 import com.yww.management.system.mapper.RoleMapper;
 import com.yww.management.system.service.IRoleService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 /**
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Service;
  * @Date  2022-10-21
  */
 @Service
+@RequiredArgsConstructor(onConstructor_ = {@Lazy})
 public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IRoleService {
 
 }
