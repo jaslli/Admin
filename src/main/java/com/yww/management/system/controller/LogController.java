@@ -31,7 +31,7 @@ public class LogController {
 
     @Operation(summary = "通过ID查询日志", description = "根据数据ID来查询对应的日志数据")
     @GetMapping("/getById")
-    public Result<Log> getById(@Parameter(name = "日志的数据ID") @RequestParam String id) {
+    public Result<Log> getById(@RequestParam("id") String id) {
         return Result.success(service.getById(id));
     }
 

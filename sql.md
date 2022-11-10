@@ -34,6 +34,9 @@ CREATE TABLE `user_role` (
      `update_by`    VARCHAR(200)    NOT NULL COMMENT '更新人',
      PRIMARY KEY (`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COMMENT = '用户角色关系实体类';
+
+INSERT INTO user_role (id, user_id, role_id, create_time, create_by, update_time, update_by) VALUES ('1', '1', '1', '2022-11-10 16:20:46', 'yww', '2022-11-10 16:21:10', 'yww')
+
 ```
 
 ## 角色表
@@ -51,6 +54,9 @@ CREATE TABLE `role` (
     PRIMARY KEY (`id`),
     CONSTRAINT code unique (code)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COMMENT = '角色实体类';
+
+INSERT INTO role (id, code, name, description, create_time, create_by, update_time, update_by) VALUES ('1', 'admin', 'yww', '超级管理员', '2022-11-10 16:23:25', 'yww', '2022-11-10 16:23:28', 'yww')
+
 ```
 
 ## 角色菜单表
@@ -66,6 +72,9 @@ CREATE TABLE `role_menu` (
     `update_by`     VARCHAR(50) NOT NULL COMMENT '更新人',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COMMENT = '角色菜单权限实体类';
+
+INSERT INTO role_menu (id, role_id, menu_id, create_time, create_by, update_time, update_by) VALUES ('1', '1', '1', '2022-11-10 16:33:15', 'yww', '2022-11-10 16:33:22', 'yww')
+
 ```
 
 ## 菜单权限表
@@ -92,6 +101,10 @@ CREATE TABLE `menu` (
     CONSTRAINT component unique (component),
     CONSTRAINT code unique (code)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COMMENT = '菜单权限实体类';
+
+INSERT INTO menu (id, pid, name, type, visible, path, component, icon, sort, code, create_time, create_by, update_time, update_by) VALUES ('1', '0', '布局', false, false, '/layout', 'Layout', 'test', 9999, 'layout', '2022-11-10 16:35:34', 'yww', '2022-11-10 16:35:38', 'yww')
+
+
 ```
 
 ## 操作日志
@@ -99,19 +112,19 @@ CREATE TABLE `menu` (
 ``` mysql
 DROP TABLE IF EXISTS `log`;
 CREATE TABLE `log` (
-    `id` CHAR(19) NOT NULL COMMENT '数据ID',
-    `summary` VARCHAR(50) DEFAULT '' COMMENT '接口名称',
-  	`username` VARCHAR(50) DEFAULT '' COMMENT '用户名称',
-  	`description` VARCHAR(50) DEFAULT '' COMMENT '接口描述',
-  	`start_time` DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '开始时间',
-  	`spend_time` INT DEFAULT 0 COMMENT '消耗时间',
-  	`basePath` VARCHAR(50) DEFAULT '' COMMENT '根路径',
-    `uri` VARCHAR(50) DEFAULT '' COMMENT 'URI',
-    `url` VARCHAR(50) DEFAULT '' COMMENT 'URL',
-  	`method` CHAR(10) DEFAULT '' COMMENT '请求类型',
-  	`ip` varchar(128) DEFAULT '' COMMENT '请求的IP地址',
-  	`parameter` varchar(50) DEFAULT '' COMMENT '请求的参数',
-  	`result` varchar(50) DEFAULT '' COMMENT '返回的结果',
+    `id`            CHAR(19) NOT NULL COMMENT '数据ID',
+    `summary`       VARCHAR(50) DEFAULT ''                  COMMENT '接口名称',
+  	`username`      VARCHAR(50) DEFAULT ''                  COMMENT '用户名称',
+  	`description`   VARCHAR(50) DEFAULT ''                  COMMENT '接口描述',
+  	`start_time`    DATETIME    DEFAULT CURRENT_TIMESTAMP   COMMENT '开始时间',
+  	`spend_time`    INT         DEFAULT 0                   COMMENT '消耗时间',
+  	`basePath`      VARCHAR(50) DEFAULT ''                  COMMENT '根路径',
+    `uri`           VARCHAR(50) DEFAULT ''                  COMMENT 'URI',
+    `url`           VARCHAR(50) DEFAULT ''                  COMMENT 'URL',
+  	`method`        CHAR(10)    DEFAULT ''                  COMMENT '请求类型',
+  	`ip`            VARCHAR(128)DEFAULT ''                  COMMENT '请求的IP地址',
+  	`parameter`     VARCHAR(50) DEFAULT ''                  COMMENT '请求的参数',
+  	`result`        VARCHAR(50) DEFAULT ''                  COMMENT '返回的结果',
     PRIMARY KEY (`id`)
   ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COMMENT = '操作日志实体类';
 ```

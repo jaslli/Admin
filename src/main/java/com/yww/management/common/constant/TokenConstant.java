@@ -19,7 +19,7 @@ public class TokenConstant {
     /**
      *  Token在请求头部的名称
      */
-    public static final String TOKEN_HEADER = "wslioy";
+    public static final String TOKEN_HEADER = "Authorization";
 
     /**
      *  Token的前缀

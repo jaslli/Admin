@@ -2,6 +2,7 @@ package com.yww.management.system.service.impl;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.yww.management.security.AccountUser;
 import com.yww.management.system.entity.Menu;
@@ -21,11 +22,11 @@ import java.util.List;
 
 /**
  * <p>
- *      用户信息实体类 服务实现类
+ * 用户信息实体类 服务实现类
  * </p>
  *
- * @Author  yww
- * @Date  2022-10-21
+ * @Author yww
+ * @Date 2022-10-21
  */
 @Service
 @RequiredArgsConstructor(onConstructor_ = {@Lazy})

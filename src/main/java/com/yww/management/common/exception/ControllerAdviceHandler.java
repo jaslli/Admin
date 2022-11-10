@@ -50,8 +50,7 @@ public class ControllerAdviceHandler {
     @ExceptionHandler(value = Exception.class)
     public <T> Result<T> defaultErrorHandler(Exception e, HttpServletRequest request) {
         log.error(">> 服务器内部错误 " + request.getRequestURI(), e);
-        String error = "服务器繁忙";
-        return Result.failure(500, error);
+        return Result.failure(500, "服务器繁忙");
     }
 
 }

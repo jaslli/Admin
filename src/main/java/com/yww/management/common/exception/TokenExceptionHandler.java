@@ -30,7 +30,7 @@ public class TokenExceptionHandler {
     @ResponseBody
     @ExceptionHandler(value = AlgorithmMismatchException.class)
     public Result<String> algorithmMismatchExceptionHandler(AlgorithmMismatchException e, HttpServletRequest request) {
-        log.error(">> global exception: {}, {}", request.getRequestURI(), e.getMessage());
+        log.error(">> AlgorithmMismatchException: {}, {}", request.getRequestURI(), e.getMessage());
         return Result.failure(500, "签名算法不匹配" ,e.getMessage());
     }
 
@@ -42,7 +42,7 @@ public class TokenExceptionHandler {
     @ResponseBody
     @ExceptionHandler(value = SignatureVerificationException.class)
     public Result<String> signatureVerificationExceptionHandler(SignatureVerificationException e, HttpServletRequest request) {
-        log.error(">> global exception: {}, {}", request.getRequestURI(), e.getMessage());
+        log.error(">> SignatureVerificationException: {}, {}", request.getRequestURI(), e.getMessage());
         return Result.failure(500, "签名无效" ,e.getMessage());
     }
 
@@ -54,7 +54,7 @@ public class TokenExceptionHandler {
     @ResponseBody
     @ExceptionHandler(value = TokenExpiredException.class)
     public Result<String> tokenExpiredExceptionHandler(TokenExpiredException e, HttpServletRequest request) {
-        log.error(">> global exception: {}, {}", request.getRequestURI(), e.getMessage());
+        log.error(">> TokenExpiredException: {}, {}", request.getRequestURI(), e.getMessage());
         return Result.failure(500, "令牌已过期" ,e.getMessage());
     }
 
@@ -66,7 +66,7 @@ public class TokenExceptionHandler {
     @ResponseBody
     @ExceptionHandler(value = MissingClaimException.class)
     public Result<String> tMissingClaimExceptionHandler(MissingClaimException e, HttpServletRequest request) {
-        log.error(">> global exception: {}, {}", request.getRequestURI(), e.getMessage());
+        log.error(">> MissingClaimException: {}, {}", request.getRequestURI(), e.getMessage());
         return Result.failure(500, "缺少要验证的声明" ,e.getMessage());
     }
 
@@ -78,7 +78,7 @@ public class TokenExceptionHandler {
     @ResponseBody
     @ExceptionHandler(value = IncorrectClaimException.class)
     public Result<String> incorrectClaimExceptionHandler(IncorrectClaimException e, HttpServletRequest request) {
-        log.error(">> global exception: {}, {}", request.getRequestURI(), e.getMessage());
+        log.error(">> IncorrectClaimException: {}, {}", request.getRequestURI(), e.getMessage());
         return Result.failure(500, "声明包含的值和预期不符合" ,e.getMessage());
     }
 
@@ -90,7 +90,7 @@ public class TokenExceptionHandler {
     @ResponseBody
     @ExceptionHandler(value = JWTVerificationException.class)
     public Result<String> jwtVerificationExceptionHandler(JWTVerificationException e, HttpServletRequest request) {
-        log.error(">> global exception: {}, {}", request.getRequestURI(), e.getMessage());
+        log.error(">> JWTVerificationException: {}, {}", request.getRequestURI(), e.getMessage());
         return Result.failure(500, "验证中的某一个步骤失败" ,e.getMessage());
     }
 
