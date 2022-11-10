@@ -24,7 +24,7 @@ public class TokenConstant {
     /**
      *  Token的前缀
      */
-    public static final String TOKEN_PREFIX = "wslioy";
+    public static final String TOKEN_PREFIX = "Bearer ";
 
     /**
      *  header的头部加密算法声明
@@ -50,5 +50,10 @@ public class TokenConstant {
      *  Token的接收方
      */
     public static final String TOKEN_AUDIENCE = "vue-management";
+
+    /**
+     *  Token解析后当前用户的信息
+     */
+    public static final String ADMIN_TOKEN_CONTEXT = "current_user";
 
 }

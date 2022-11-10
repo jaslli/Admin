@@ -1,6 +1,7 @@
 package com.yww.management.security;
 
 import com.yww.management.common.Result;
+import com.yww.management.common.constant.TokenConstant;
 import com.yww.management.utils.ResponseUtil;
 import com.yww.management.utils.TokenUtil;
 import org.springframework.security.core.Authentication;
@@ -33,6 +34,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
                 put("username", authentication.getName());
             }
         });
+        token += TokenConstant.TOKEN_PREFIX;
         ResponseUtil.response(response ,Result.success(token));
     }
 

@@ -27,9 +27,7 @@ import java.util.List;
 @RequiredArgsConstructor(onConstructor_ = {@Lazy})
 public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IMenuService {
 
-    private final IUserService userService;
     private final UserMapper userMapper;
-    private final IRoleService roleService;
 
     @Override
     public List<Menu> getMenusByRoleId(String roleId) {
