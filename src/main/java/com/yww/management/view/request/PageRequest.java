@@ -1,4 +1,4 @@
-package com.yww.management.vo.page;
+package com.yww.management.view.request;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

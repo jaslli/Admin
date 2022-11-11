@@ -5,7 +5,10 @@ import com.yww.management.system.entity.User;
 import com.yww.management.system.service.IUserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
@@ -32,11 +35,6 @@ public class UserController {
         System.out.println(user);
         service.save(user);
         return Result.success();
-    }
-
-    @GetMapping("/getCurrentUser")
-    public Result<User> getCurrentUser() {
-        return Result.success(service.getCurrentUser());
     }
 
 }

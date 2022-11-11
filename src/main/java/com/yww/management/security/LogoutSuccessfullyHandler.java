@@ -1,6 +1,7 @@
 package com.yww.management.security;
 
 import com.yww.management.common.Result;
+import com.yww.management.common.constant.TokenConstant;
 import com.yww.management.utils.ResponseUtil;
 import com.yww.management.utils.ThreadLocalUtil;
 import org.springframework.security.core.Authentication;
@@ -10,7 +11,6 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 /**
  * <p>
@@ -25,14 +25,12 @@ import java.io.IOException;
 public class LogoutSuccessfullyHandler implements LogoutSuccessHandler {
 
     @Override
-    public void onLogoutSuccess(HttpServletRequest request,
-                                HttpServletResponse response,
-                                Authentication authentication) throws IOException {
+    public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
         if (authentication != null) {
             new SecurityContextLogoutHandler().logout(request, response, authentication);
         }
         // TODO 清空redis中的token信息
-        ThreadLocalUtil.close();
+        ThreadLocalUtil.remove(TokenConstant.ADMIN_TOKEN_CONTEXT);
         ResponseUtil.response(response, Result.success("成功退出登录！"));
     }
 

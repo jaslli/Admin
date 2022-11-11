@@ -33,10 +33,11 @@ public interface IUserService extends IService<User> {
     List<GrantedAuthority> getUserAuthorities(String userId);
 
     /**
-     * 获取当前用户信息
+     * 根据用户ID查询角色ID
      *
-     * @return          用户信息
+     * @param userId    用户ID
+     * @return          角色ID
      */
-    User getCurrentUser();
+    String getRoleIdByUserId(String userId);
 
 }

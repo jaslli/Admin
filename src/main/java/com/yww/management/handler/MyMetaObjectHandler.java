@@ -1,10 +1,9 @@
 package com.yww.management.handler;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
-import com.yww.management.system.entity.User;
-import com.yww.management.system.service.IUserService;
+import com.yww.management.security.AccountUser;
+import com.yww.management.utils.SecurityUtils;
 import org.apache.ibatis.reflection.MetaObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -22,21 +21,14 @@ import java.time.LocalDateTime;
 @Component
 public class MyMetaObjectHandler implements MetaObjectHandler {
 
-    private final IUserService userService;
-
-    @Autowired
-    public MyMetaObjectHandler(IUserService userService) {
-        this.userService = userService;
-    }
-
     /**
      * 插入数据时填充创建和修改时间
      */
     @Override
     public void insertFill(MetaObject metaObject) {
+        AccountUser user = SecurityUtils.getCurrentUser();
         this.strictInsertFill(metaObject, "createTime", LocalDateTime.class , LocalDateTime.now());
         this.strictInsertFill(metaObject, "updateTime", LocalDateTime.class , LocalDateTime.now());
-        User user = userService.getCurrentUser();
         if (null == user) {
             // 匿名账户处理
             this.strictInsertFill(metaObject, "createBy", String.class, "anonymousUser");
@@ -53,7 +45,7 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
      */
     @Override
     public void updateFill(MetaObject metaObject) {
-        User user = userService.getCurrentUser();
+        AccountUser user = SecurityUtils.getCurrentUser();
         this.strictInsertFill(metaObject, "updateTime", LocalDateTime.class , LocalDateTime.now());
         if (null == user) {
             // 匿名账户处理

@@ -11,8 +11,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.yww.management.common.exception.GlobalException;
-import com.yww.management.vo.page.PageRequest;
-import com.yww.management.vo.page.PageVo;
+import com.yww.management.view.request.PageRequest;
+import com.yww.management.view.vo.PageVo;
 
 import java.util.ArrayList;
 import java.util.List;

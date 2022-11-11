@@ -1,6 +1,7 @@
-package com.yww.management.vo.page;
+package com.yww.management.view.vo;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.yww.management.view.request.PageRequest;
 
 import java.util.List;
 

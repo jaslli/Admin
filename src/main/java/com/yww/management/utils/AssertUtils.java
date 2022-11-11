@@ -9,7 +9,7 @@ import com.yww.management.common.exception.GlobalException;
  * </p>
  *
  * @ClassName AssertUtils
- * @Author chenhao
+ * @Author yww
  * @Date 2022/10/20 11:27
  */
 public class AssertUtils {
@@ -18,6 +18,16 @@ public class AssertUtils {
      * 私有化无参构造器
      */
     private AssertUtils() {}
+
+    /**
+     * 直接抛出异常
+     *
+     * @param message   异常信息
+     * @throws GlobalException  全局异常类
+     */
+    public static void throwException(String message) throws GlobalException {
+        throw new GlobalException(message);
+    }
 
     /**
      * 如果对象为{@code null}, 则抛出异常
@@ -64,6 +74,5 @@ public class AssertUtils {
             throw new GlobalException(message);
         }
     }
-
 
 }

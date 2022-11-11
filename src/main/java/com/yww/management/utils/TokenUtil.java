@@ -39,13 +39,20 @@ public class TokenUtil {
      *
      * @return  Token
      */
-    public static String genToken(Map<String, Object> payload) {
+    public static String genToken(String username) {
         // 设置Token头部（不设置也会默认有这两个值）
         Map<String, Object> header = new HashMap<String, Object>(2) {
             private static final long serialVersionUID = 1L;
             {
                 put("alg", TokenConstant.TOKEN_ALG);
                 put("typ", TokenConstant.TOKEN_TYP);
+            }
+        };
+        // 设置负载
+        Map<String, Object> payload = new HashMap<String, Object>(1) {
+            private static final long serialVersionUID = 1L;
+            {
+                put("username", username);
             }
         };
         // TODO Token过期还可以交给redis处理

@@ -2,9 +2,7 @@ package com.yww.management.system.service.impl;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.yww.management.security.AccountUser;
 import com.yww.management.system.entity.Menu;
 import com.yww.management.system.entity.User;
 import com.yww.management.system.mapper.UserMapper;
@@ -15,7 +13,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,7 +29,6 @@ import java.util.List;
 @RequiredArgsConstructor(onConstructor_ = {@Lazy})
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
 
-    private static final String ANONYMOUS_USER = "anonymousUser";
     private final IRoleService roleService;
     private final IMenuService menuService;
 
@@ -61,18 +57,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
-    public User getCurrentUser() {
-        Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        // 如果是匿名账号，返回空值
-        if (ANONYMOUS_USER.equals(object)) {
-            return null;
-        } else {
-            AccountUser user = (AccountUser) object;
-            // 返回用户信息
-            User res = this.getOne(new QueryWrapper<User>().lambda().eq(User::getUsername, user.getUsername()));
-            res.setPassword("");
-            return res;
-        }
+    public String getRoleIdByUserId(String userId) {
+        return baseMapper.getRoleIdByUserId(userId);
     }
 
 }

@@ -2,9 +2,11 @@ package com.yww.management.utils;
 
 import cn.hutool.json.JSONUtil;
 import com.yww.management.common.Result;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
  * <p>
@@ -15,6 +17,7 @@ import java.io.IOException;
  * @Author yww
  * @Date 2022/10/12 21:30
  */
+@Slf4j
 public class ResponseUtil {
 
     /**
@@ -23,7 +26,7 @@ public class ResponseUtil {
      * @param response 请求响应
      * @param result   响应封装
      */
-    public static void response(HttpServletResponse response, Result<Object> result) throws IOException {
+    public static void response(HttpServletResponse response, Result<Object> result) {
         // 设置响应的Header
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Cache-Control","no-cache");
@@ -32,9 +35,18 @@ public class ResponseUtil {
         // 设置响应码
         response.setStatus(result.getCode());
         // 设置响应内容
-        response.getWriter().write(JSONUtil.toJsonStr(result));
-        // 将缓存信息刷新到页面
-        response.getWriter().flush();
+        PrintWriter writer = null;
+        try {
+            writer = response.getWriter();
+            writer.write(JSONUtil.toJsonStr(result));
+        } catch (IOException e) {
+            log.warn(e.getMessage());
+        } finally {
+            if (null != writer) {
+                writer.flush();
+                writer.close();
+            }
+        }
     }
 
 }

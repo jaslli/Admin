@@ -1,6 +1,5 @@
 package com.yww.management.security;
 
-import cn.hutool.core.util.JAXBUtil;
 import cn.hutool.core.util.StrUtil;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.yww.management.common.constant.TokenConstant;
@@ -9,8 +8,6 @@ import com.yww.management.utils.AssertUtils;
 import com.yww.management.utils.ThreadLocalUtil;
 import com.yww.management.utils.TokenUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -37,8 +34,6 @@ import java.io.IOException;
 @Slf4j
 public class TokenAuthenticationFilter extends BasicAuthenticationFilter {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(TokenAuthenticationFilter.class);
-
     @Autowired
     IUserService userService;
     @Autowired
@@ -59,7 +54,7 @@ public class TokenAuthenticationFilter extends BasicAuthenticationFilter {
             DecodedJWT decoded = TokenUtil.parse(token);
             // 根据Token里的用户名去获取用户信息
             String username = decoded.getClaim("username").asString();
-            LOGGER.info(">> checking username: {}   ", username);
+            log.info(">> checking username: {}   ", username);
             if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 // 主要是获取用户信息
                 UserDetails userDetail = userDetailsService.loadUserByUsername(username);
@@ -67,8 +62,8 @@ public class TokenAuthenticationFilter extends BasicAuthenticationFilter {
                 // 填充SecurityContextHolder
                 UsernamePasswordAuthenticationToken authentication =
                         new UsernamePasswordAuthenticationToken(userDetail, null, userDetail.getAuthorities());
-                LOGGER.info(">> authenticated user: {}  ", username);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
+                log.info(">> authenticated user: {}  ", username);
                 // 设置当前用户
                 ThreadLocalUtil.set(TokenConstant.ADMIN_TOKEN_CONTEXT, userDetail);
             }
@@ -77,7 +72,7 @@ public class TokenAuthenticationFilter extends BasicAuthenticationFilter {
     }
 
     /**
-     *  初步检测Token
+     *  检查请求头是否存在Token，是否以指定前缀开头
      */
     private String resolveToken(HttpServletRequest request) {
         String bearerToken = request.getHeader(TokenConstant.TOKEN_HEADER);

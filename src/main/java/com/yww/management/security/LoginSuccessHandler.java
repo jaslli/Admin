@@ -10,8 +10,6 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.HashMap;
 
 /**
  * <p>
@@ -27,16 +25,10 @@ import java.util.HashMap;
 public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 
     @Override
-    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
-        String token = TokenUtil.genToken(new HashMap<String, Object>(1) {
-            private static final long serialVersionUID = 1L;
-            {
-                put("username", authentication.getName());
-            }
-        });
+    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
+        String token = TokenUtil.genToken(authentication.getName());
         token += TokenConstant.TOKEN_PREFIX;
         ResponseUtil.response(response ,Result.success(token));
     }
-
 
 }
