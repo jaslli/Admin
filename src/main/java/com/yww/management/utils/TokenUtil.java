@@ -39,7 +39,7 @@ public class TokenUtil {
      *
      * @return  Token
      */
-    public static String genToken(String username) {
+    public static String createToken(String username) {
         // 设置Token头部（不设置也会默认有这两个值）
         Map<String, Object> header = new HashMap<String, Object>(2) {
             private static final long serialVersionUID = 1L;
@@ -52,7 +52,7 @@ public class TokenUtil {
         Map<String, Object> payload = new HashMap<String, Object>(1) {
             private static final long serialVersionUID = 1L;
             {
-                put("username", username);
+                put(TokenConstant.USER_NAME, username);
             }
         };
         // TODO Token过期还可以交给redis处理
@@ -84,6 +84,17 @@ public class TokenUtil {
     public static DecodedJWT parse(String token) {
         JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC512(TokenConstant.TOKEN_SECRET)).build();
         return jwtVerifier.verify(token);
+    }
+
+    /**
+     * 根据Token获取用户名
+     *
+     * @param token Token
+     * @return      用户名
+     */
+    public static String getUserName(String token) {
+        DecodedJWT decoded = TokenUtil.parse(token);
+        return decoded.getClaim(TokenConstant.USER_NAME).asString();
     }
 
 }

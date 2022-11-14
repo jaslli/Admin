@@ -56,4 +56,9 @@ public class TokenConstant {
      */
     public static final String ADMIN_TOKEN_CONTEXT = "current_user";
 
+    /**
+     *  用户名
+     */
+    public static final String USER_NAME = "username";
+
 }

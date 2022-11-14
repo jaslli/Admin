@@ -44,7 +44,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .userId(user.getId())
                 .username(user.getUsername())
                 .password(user.getPassword())
-                .authorities(userService.getUserAuthorities(user.getId()))
+                .authorities(userService.getUserAuthorities(username))
+                .accountNonExpired(true)
+                .accountNonLocked(true)
+                .credentialsNonExpired(true)
                 .enabled(user.getStatus())
                 .build();
     }

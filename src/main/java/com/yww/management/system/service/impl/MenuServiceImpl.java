@@ -31,8 +31,8 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
     }
 
     @Override
-    public List<Menu> getMenusByUserId(String userId) {
-        String roleId = userService.getRoleIdByUserId(userId);
+    public List<Menu> getMenusByUserName(String username) {
+        String roleId = userService.getRoleIdByUserName(username);
         return baseMapper.getMenusByRoleId(roleId);
     }
 

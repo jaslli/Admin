@@ -25,19 +25,19 @@ public interface IUserService extends IService<User> {
     User getByUsername(String username);
 
     /**
-     * 通过用户ID获取用户权限信息
+     * 通过用户名获取用户权限信息
      *
-     * @param userId    用户ID
+     * @param username    用户名
      * @return          用户权限信息
      */
-    List<GrantedAuthority> getUserAuthorities(String userId);
+    List<GrantedAuthority> getUserAuthorities(String username);
 
     /**
-     * 根据用户ID查询角色ID
+     * 根据用户名查询角色ID
      *
-     * @param userId    用户ID
+     * @param username  用户名
      * @return          角色ID
      */
-    String getRoleIdByUserId(String userId);
+    String getRoleIdByUserName(String username);
 
 }

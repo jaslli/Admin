@@ -38,11 +38,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
-    public List<GrantedAuthority> getUserAuthorities(String userId) {
+    public List<GrantedAuthority> getUserAuthorities(String username) {
         // TODO 权限信息可以先从Redis从获取，或者是从Token里面获取
         StringBuilder authority = new StringBuilder();
         // 目前该系统一个用户只对应一个角色信息
-        String roleId = baseMapper.getRoleIdByUserId(userId);
+        String roleId = baseMapper.getRoleIdByUserName(username);
         String roleCode = roleService.getById(roleId).getCode();
         if (StrUtil.isNotBlank(roleCode)) {
             authority.append(roleCode);
@@ -57,8 +57,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
-    public String getRoleIdByUserId(String userId) {
-        return baseMapper.getRoleIdByUserId(userId);
+    public String getRoleIdByUserName(String username) {
+        return baseMapper.getRoleIdByUserName(username);
     }
 
 }

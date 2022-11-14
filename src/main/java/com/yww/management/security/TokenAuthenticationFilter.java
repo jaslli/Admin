@@ -50,10 +50,8 @@ public class TokenAuthenticationFilter extends BasicAuthenticationFilter {
         // 初步检测获取Token
         String token = resolveToken(request);
         if (StrUtil.isNotBlank(token)) {
-            // 验证Token
-            DecodedJWT decoded = TokenUtil.parse(token);
-            // 根据Token里的用户名去获取用户信息
-            String username = decoded.getClaim("username").asString();
+            // 根据Token获取用户名
+            String username = TokenUtil.getUserName(token);
             log.info(">> checking username: {}   ", username);
             if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 // 主要是获取用户信息

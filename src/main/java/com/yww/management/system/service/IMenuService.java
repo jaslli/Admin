@@ -26,9 +26,9 @@ public interface IMenuService extends IService<Menu> {
     /**
      * 根据用户ID查询菜单信息
      *
-     * @param userId    用户ID
+     * @param username  用户名
      * @return          菜单信息
      */
-    List<Menu> getMenusByUserId(String userId);
+    List<Menu> getMenusByUserName(String username);
 
 }
