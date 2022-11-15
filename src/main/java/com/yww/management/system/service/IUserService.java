@@ -2,9 +2,6 @@ package com.yww.management.system.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.yww.management.system.entity.User;
-import org.springframework.security.core.GrantedAuthority;
-
-import java.util.List;
 
 /**
  * <p>
@@ -30,7 +27,7 @@ public interface IUserService extends IService<User> {
      * @param username    用户名
      * @return          用户权限信息
      */
-    List<GrantedAuthority> getUserAuthorities(String username);
+    String getUserAuthorities(String username);
 
     /**
      * 根据用户名查询角色ID

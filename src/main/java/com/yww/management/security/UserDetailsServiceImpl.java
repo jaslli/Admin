@@ -3,10 +3,14 @@ package com.yww.management.security;
 import com.yww.management.system.entity.User;
 import com.yww.management.system.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -40,11 +44,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("查询不到该用户！！！");
         }
+        // 获取用户权限
+        String authority = userService.getUserAuthorities(username);
+        List<GrantedAuthority> authorities = AuthorityUtils.commaSeparatedStringToAuthorityList(authority);
+        // 生成UserDetails并返回
         return AccountUser.builder()
                 .userId(user.getId())
                 .username(user.getUsername())
                 .password(user.getPassword())
-                .authorities(userService.getUserAuthorities(username))
+                .authorities(authorities)
                 .accountNonExpired(true)
                 .accountNonLocked(true)
                 .credentialsNonExpired(true)

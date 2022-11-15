@@ -7,9 +7,12 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.interfaces.JWTVerifier;
 import com.yww.management.common.constant.TokenConstant;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -39,7 +42,7 @@ public class TokenUtil {
      *
      * @return  Token
      */
-    public static String createToken(String username) {
+    public static String createToken(String username, String authority) {
         // 设置Token头部（不设置也会默认有这两个值）
         Map<String, Object> header = new HashMap<String, Object>(2) {
             private static final long serialVersionUID = 1L;
@@ -53,6 +56,7 @@ public class TokenUtil {
             private static final long serialVersionUID = 1L;
             {
                 put(TokenConstant.USER_NAME, username);
+                put(TokenConstant.AUTHORITY, authority);
             }
         };
         // TODO Token过期还可以交给redis处理
@@ -87,14 +91,24 @@ public class TokenUtil {
     }
 
     /**
-     * 根据Token获取用户名
+     * 获取用户名
      *
-     * @param token Token
-     * @return      用户名
+     * @param decoded       解析后的Token
+     * @return              用户名
      */
-    public static String getUserName(String token) {
-        DecodedJWT decoded = TokenUtil.parse(token);
+    public static String getUserName(DecodedJWT decoded) {
         return decoded.getClaim(TokenConstant.USER_NAME).asString();
+    }
+
+    /**
+     * 获取权限
+     *
+     * @param decoded   Token
+     * @return          权限
+     */
+    public static List<GrantedAuthority> getAuthority(DecodedJWT decoded) {
+        String authority = decoded.getClaim(TokenConstant.AUTHORITY).asString();
+        return AuthorityUtils.commaSeparatedStringToAuthorityList(authority);
     }
 
 }

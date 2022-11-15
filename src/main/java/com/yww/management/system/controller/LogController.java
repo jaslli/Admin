@@ -1,10 +1,13 @@
 package com.yww.management.system.controller;
 
+import com.yww.management.annotation.AnonymousAccess;
 import com.yww.management.common.Result;
 import com.yww.management.system.entity.Log;
 import com.yww.management.system.service.impl.LogServiceImpl;
+import com.yww.management.utils.SecurityUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,6 +35,18 @@ public class LogController {
     @GetMapping("/getById")
     public Result<Log> getById(@RequestParam("id") String id) {
         return Result.success(service.getById(id));
+    }
+
+    @PreAuthorize("hasRole('test')")
+    @GetMapping("/hello")
+    public Result<String> hello() {
+        return Result.success("hello world!");
+    }
+
+    @GetMapping("/hello1")
+    @AnonymousAccess
+    public Result<String> hello1() {
+        return Result.success(SecurityUtils.getCurrentUsername());
     }
 
 }

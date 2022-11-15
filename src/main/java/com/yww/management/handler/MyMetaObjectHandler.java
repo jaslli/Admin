@@ -1,7 +1,6 @@
 package com.yww.management.handler;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
-import com.yww.management.security.AccountUser;
 import com.yww.management.utils.SecurityUtils;
 import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.stereotype.Component;
@@ -26,17 +25,17 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
      */
     @Override
     public void insertFill(MetaObject metaObject) {
-        AccountUser user = SecurityUtils.getCurrentUser();
+        String username = SecurityUtils.getCurrentUsername();
         this.strictInsertFill(metaObject, "createTime", LocalDateTime.class , LocalDateTime.now());
         this.strictInsertFill(metaObject, "updateTime", LocalDateTime.class , LocalDateTime.now());
-        if (null == user) {
+        if (null == username) {
             // 匿名账户处理
             this.strictInsertFill(metaObject, "createBy", String.class, "anonymousUser");
             this.strictInsertFill(metaObject, "updateBy", String.class, "anonymousUser");
         } else {
             // 登录账户处理
-            this.strictInsertFill(metaObject, "createBy", String.class, user.getUsername());
-            this.strictInsertFill(metaObject, "updateBy", String.class, user.getUsername());
+            this.strictInsertFill(metaObject, "createBy", String.class, username);
+            this.strictInsertFill(metaObject, "updateBy", String.class, username);
         }
     }
 
@@ -45,14 +44,14 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
      */
     @Override
     public void updateFill(MetaObject metaObject) {
-        AccountUser user = SecurityUtils.getCurrentUser();
+        String username = SecurityUtils.getCurrentUsername();
         this.strictInsertFill(metaObject, "updateTime", LocalDateTime.class , LocalDateTime.now());
-        if (null == user) {
+        if (null == username) {
             // 匿名账户处理
             this.strictInsertFill(metaObject, "updateBy", String.class, "anonymousUser");
         } else {
             // 登录账户处理
-            this.strictInsertFill(metaObject, "updateBy", String.class, user.getUsername());
+            this.strictInsertFill(metaObject, "updateBy", String.class, username);
         }
     }
 

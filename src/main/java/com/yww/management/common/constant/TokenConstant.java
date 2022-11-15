@@ -61,4 +61,9 @@ public class TokenConstant {
      */
     public static final String USER_NAME = "username";
 
+    /**
+     *  用户权限
+     */
+    public static final String AUTHORITY = "authority";
+
 }

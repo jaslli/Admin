@@ -11,8 +11,6 @@ import com.yww.management.system.service.IRoleService;
 import com.yww.management.system.service.IUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,7 +36,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
-    public List<GrantedAuthority> getUserAuthorities(String username) {
+    public String getUserAuthorities(String username) {
         // TODO 权限信息可以先从Redis从获取，或者是从Token里面获取
         StringBuilder authority = new StringBuilder();
         // 目前该系统一个用户只对应一个角色信息
@@ -53,7 +51,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
                 authority.append(",").append(menu.getCode());
             }
         }
-        return AuthorityUtils.commaSeparatedStringToAuthorityList(authority.toString());
+        return authority.toString();
     }
 
     @Override
