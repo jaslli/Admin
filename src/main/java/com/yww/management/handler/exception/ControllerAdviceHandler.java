@@ -1,10 +1,10 @@
-package com.yww.management.common.exception;
+package com.yww.management.handler.exception;
 
+import com.yww.management.common.GlobalException;
 import com.yww.management.common.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,7 +29,6 @@ public class ControllerAdviceHandler {
      * @param e 服务异常
      * @return 异常信息
      */
-    @ResponseBody
     @ExceptionHandler(value = GlobalException.class)
     public <T> Result<T> globalExceptionHandler(GlobalException e, HttpServletRequest request) {
         log.error(">> global exception: {}, {}, {}", request.getRequestURI(), e.getCode(), e.getMessage());

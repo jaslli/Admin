@@ -1,4 +1,4 @@
-package com.yww.management.common.exception;
+package com.yww.management.common;
 
 import lombok.Getter;
 

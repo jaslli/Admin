@@ -1,7 +1,7 @@
 package com.yww.management.utils;
 
 import cn.hutool.core.util.StrUtil;
-import com.yww.management.common.exception.GlobalException;
+import com.yww.management.common.GlobalException;
 
 /**
  * <p>

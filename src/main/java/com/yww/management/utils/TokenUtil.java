@@ -37,6 +37,16 @@ import java.util.Map;
 public class TokenUtil {
 
     /**
+     *  用户名
+     */
+    public static final String USER_NAME = "username";
+
+    /**
+     *  用户权限
+     */
+    public static final String AUTHORITY = "authority";
+
+    /**
      * 生成Token
      * 当前使用HMAC512的加密算法
      *
@@ -55,8 +65,8 @@ public class TokenUtil {
         Map<String, Object> payload = new HashMap<String, Object>(1) {
             private static final long serialVersionUID = 1L;
             {
-                put(TokenConstant.USER_NAME, username);
-                put(TokenConstant.AUTHORITY, authority);
+                put(USER_NAME, username);
+                put(AUTHORITY, authority);
             }
         };
         // TODO Token过期还可以交给redis处理
@@ -97,7 +107,7 @@ public class TokenUtil {
      * @return              用户名
      */
     public static String getUserName(DecodedJWT decoded) {
-        return decoded.getClaim(TokenConstant.USER_NAME).asString();
+        return decoded.getClaim(USER_NAME).asString();
     }
 
     /**
@@ -107,7 +117,7 @@ public class TokenUtil {
      * @return          权限
      */
     public static List<GrantedAuthority> getAuthority(DecodedJWT decoded) {
-        String authority = decoded.getClaim(TokenConstant.AUTHORITY).asString();
+        String authority = decoded.getClaim(AUTHORITY).asString();
         return AuthorityUtils.commaSeparatedStringToAuthorityList(authority);
     }
 

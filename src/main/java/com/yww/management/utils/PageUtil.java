@@ -10,7 +10,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.yww.management.common.exception.GlobalException;
+import com.yww.management.common.GlobalException;
 import com.yww.management.view.request.PageRequest;
 import com.yww.management.view.vo.PageVo;
 

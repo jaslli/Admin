@@ -1,8 +1,10 @@
-package com.yww.management.common.exception;
+package com.yww.management.handler.exception;
 
 import com.auth0.jwt.exceptions.*;
 import com.yww.management.common.Result;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -20,6 +22,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Slf4j
 @RestControllerAdvice
+@Order(Ordered.LOWEST_PRECEDENCE - 2)
 public class TokenExceptionHandler {
 
     /**
@@ -27,7 +30,6 @@ public class TokenExceptionHandler {
      * @param e 服务异常
      * @return 异常信息
      */
-    @ResponseBody
     @ExceptionHandler(value = AlgorithmMismatchException.class)
     public Result<String> algorithmMismatchExceptionHandler(AlgorithmMismatchException e, HttpServletRequest request) {
         log.error(">> AlgorithmMismatchException: {}, {}", request.getRequestURI(), e.getMessage());
@@ -39,7 +41,6 @@ public class TokenExceptionHandler {
      * @param e 服务异常
      * @return 异常信息
      */
-    @ResponseBody
     @ExceptionHandler(value = SignatureVerificationException.class)
     public Result<String> signatureVerificationExceptionHandler(SignatureVerificationException e, HttpServletRequest request) {
         log.error(">> SignatureVerificationException: {}, {}", request.getRequestURI(), e.getMessage());
@@ -51,7 +52,6 @@ public class TokenExceptionHandler {
      * @param e 服务异常
      * @return 异常信息
      */
-    @ResponseBody
     @ExceptionHandler(value = TokenExpiredException.class)
     public Result<String> tokenExpiredExceptionHandler(TokenExpiredException e, HttpServletRequest request) {
         log.error(">> TokenExpiredException: {}, {}", request.getRequestURI(), e.getMessage());
@@ -63,7 +63,6 @@ public class TokenExceptionHandler {
      * @param e 服务异常
      * @return 异常信息
      */
-    @ResponseBody
     @ExceptionHandler(value = MissingClaimException.class)
     public Result<String> tMissingClaimExceptionHandler(MissingClaimException e, HttpServletRequest request) {
         log.error(">> MissingClaimException: {}, {}", request.getRequestURI(), e.getMessage());
@@ -75,7 +74,6 @@ public class TokenExceptionHandler {
      * @param e 服务异常
      * @return 异常信息
      */
-    @ResponseBody
     @ExceptionHandler(value = IncorrectClaimException.class)
     public Result<String> incorrectClaimExceptionHandler(IncorrectClaimException e, HttpServletRequest request) {
         log.error(">> IncorrectClaimException: {}, {}", request.getRequestURI(), e.getMessage());

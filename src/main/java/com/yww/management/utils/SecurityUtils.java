@@ -1,7 +1,7 @@
 package com.yww.management.utils;
 
 import cn.hutool.extra.spring.SpringUtil;
-import com.yww.management.common.exception.GlobalException;
+import com.yww.management.common.GlobalException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

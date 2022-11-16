@@ -1,6 +1,7 @@
 package com.yww.management.security;
 
 import cn.hutool.core.util.StrUtil;
+import com.auth0.jwt.exceptions.*;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.yww.management.common.constant.TokenConstant;
 import com.yww.management.system.service.IUserService;
@@ -8,10 +9,12 @@ import com.yww.management.utils.ThreadLocalUtil;
 import com.yww.management.utils.TokenUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import org.springframework.web.servlet.HandlerExceptionResolver;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -35,34 +38,42 @@ public class TokenAuthenticationFilter extends BasicAuthenticationFilter {
     IUserService userService;
     @Autowired
     UserDetailsServiceImpl userDetailsService;
+    @Autowired
+    @Qualifier("handlerExceptionResolver")
+    private HandlerExceptionResolver resolver;
 
     public TokenAuthenticationFilter(AuthenticationManager authenticationManager) {
         super(authenticationManager);
     }
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request,
-                                    HttpServletResponse response,
-                                    FilterChain chain) throws IOException, ServletException {
-        // 初步检测获取Token
-        String token = resolveToken(request);
-        if (StrUtil.isNotBlank(token)) {
-            // 验证并解析Token
-            DecodedJWT decoded = TokenUtil.parse(token);
-            // 根据Token获取用户名
-            String username = TokenUtil.getUserName(decoded);
-            log.info(">> checking username: {}   ", username);
-            if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                // 填充SecurityContextHolder
-                UsernamePasswordAuthenticationToken authentication =
-                        new UsernamePasswordAuthenticationToken(username, null, TokenUtil.getAuthority(decoded));
-                SecurityContextHolder.getContext().setAuthentication(authentication);
-                log.info(">> authenticated user: {}  ", username);
-                // 设置当前用户
-                ThreadLocalUtil.set(TokenConstant.ADMIN_TOKEN_CONTEXT, userService.getByUsername(username));
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
+            throws ServletException, IOException {
+        try {
+            // 初步检测获取Token
+            String token = resolveToken(request);
+            if (StrUtil.isNotBlank(token)) {
+                // 验证并解析Token
+                DecodedJWT decoded = TokenUtil.parse(token);
+                // 根据Token获取用户名
+                String username = TokenUtil.getUserName(decoded);
+                log.info(">> checking username: {}   ", username);
+                if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                    // 填充SecurityContextHolder
+                    UsernamePasswordAuthenticationToken authentication =
+                            new UsernamePasswordAuthenticationToken(username, null, TokenUtil.getAuthority(decoded));
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                    log.info(">> authenticated user: {}  ", username);
+                    // 设置当前用户
+                    ThreadLocalUtil.set(TokenConstant.ADMIN_TOKEN_CONTEXT, userService.getByUsername(username));
+                }
             }
+            chain.doFilter(request, response);
+        // 处理Token验证的异常
+        } catch (AlgorithmMismatchException | SignatureVerificationException | TokenExpiredException
+                 | MissingClaimException | IncorrectClaimException e) {
+            errorHandler(request, response, e);
         }
-        chain.doFilter(request, response);
     }
 
     /**
@@ -82,6 +93,48 @@ public class TokenAuthenticationFilter extends BasicAuthenticationFilter {
             log.warn("非法Token：{}", bearerToken);
         }
         return null;
+    }
+
+
+    /**
+     * 处理异常信息
+     *
+     * @param request   请求
+     * @param response  响应
+     * @param e         异常
+     */
+    private void errorHandler(HttpServletRequest request, HttpServletResponse response, Exception e) {
+        if (e instanceof AlgorithmMismatchException) {
+            resolver.resolveException(request, response, null, new AlgorithmMismatchException(e.getMessage()));
+            return;
+        }
+        if (e instanceof TokenExpiredException) {
+            resolver.resolveException(request, response, null, new TokenExpiredException(
+                    e.getMessage(),
+                    ((TokenExpiredException) e).getExpiredOn())
+            );
+            return;
+        }
+        if (e instanceof MissingClaimException) {
+            resolver.resolveException(request, response, null, new MissingClaimException(
+                    ((MissingClaimException) e).getClaimName())
+            );
+            return;
+        }
+        if (e instanceof IncorrectClaimException) {
+            resolver.resolveException(request, response, null, new IncorrectClaimException(
+                    e.getMessage(),
+                    ((IncorrectClaimException) e).getClaimName(),
+                    ((IncorrectClaimException) e).getClaimValue())
+            );
+            return;
+        }
+        if (e instanceof JWTVerificationException) {
+            resolver.resolveException(request, response, null, new JWTVerificationException(
+                    e.getMessage(),
+                    e.getCause())
+            );
+        }
     }
 
 }
