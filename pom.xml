@@ -32,6 +32,7 @@
         <hutool.version>5.8.9</hutool.version>
         <fastjson2.version>2.0.16</fastjson2.version>
         <jwt.version>4.2.1</jwt.version>
+        <commons-io.version>2.11.0</commons-io.version>
     </properties>
 
     <dependencies>
@@ -153,6 +154,12 @@
             <version>2.7.5</version>
             <optional>true</optional>
             <scope>runtime</scope>
+        </dependency>
+        <!--  commons-io  -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons-io.version}</version>
         </dependency>
     </dependencies>
 

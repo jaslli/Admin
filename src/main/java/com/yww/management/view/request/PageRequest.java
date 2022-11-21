@@ -2,6 +2,7 @@ package com.yww.management.view.request;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
  * <p>
@@ -24,21 +25,25 @@ public class PageRequest {
     /**
      *  当前页码, 首页为1
      */
+    @Schema(description = "当前页码, 默认为首页，首页为1")
     private int page = 1;
 
     /**
      *  每页记录条数
      */
+    @Schema(description = "每页记录条数,默认为10")
     private int size = DEFAULT_SIZE;
 
     /**
      *  排序字段名,asc,desc
      */
+    @Schema(description = "排序字段名,asc,desc")
     private String sort;
 
     /**
      *  排序方向
      */
+    @Schema(description = "排序方向")
     private String dir;
 
     public static PageRequest of(int page, int size) {
