@@ -75,43 +75,45 @@ public class LogAspect {
             isSave = annotation.save();
             value = annotation.value();
         }
+        // 打印注解上的消息
         if (StrUtil.isNotBlank(value)) {
             LOGGER.info(value);
         }
-        if (isSave) {
-            long startTime = System.currentTimeMillis();
-            // 获取当前请求对象
-            ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-            if (attributes == null) {
-                return null;
-            }
-            HttpServletRequest request = attributes.getRequest();
-            //记录请求信息
-            Log log = new Log();
-            Object result = joinPoint.proceed();
-            // 获取Operation的注解信息
-            if (method.isAnnotationPresent(Operation.class)) {
-                Operation operation = method.getAnnotation(Operation.class);
-                log.setSummary(operation.summary());
-                log.setDescription(operation.description());
-            }
-            long endTime = System.currentTimeMillis();
-            String urlStr = request.getRequestURL().toString();
-            log.setBasePath(StrUtil.removeSuffix(urlStr, URLUtil.url(urlStr).getPath()));
-            log.setIp(IpUtil.getIpAddr(request));
-            log.setMethod(request.getMethod());
-            log.setParameter(JSONUtil.parse(getParameter(method, joinPoint.getArgs())).toString());
-            log.setResult(JSONUtil.parse(result).toString());
-            log.setSpendTime((int) (endTime - startTime));
-            log.setStartTime(LocalDateTimeUtil.of(startTime));
-            log.setUri(request.getRequestURI());
-            log.setUrl(request.getRequestURL().toString());
-            LOGGER.info(log.toString());
-            logService.save(log);
-            return result;
-        } else {
+        // 若是选择保存到数据库，则获取信息后保存
+        if (!isSave) {
             return null;
         }
+        long startTime = System.currentTimeMillis();
+        // 获取当前请求对象
+        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        if (attributes == null) {
+            return null;
+        }
+        HttpServletRequest request = attributes.getRequest();
+        //记录请求信息
+        Log.LogBuilder builder = Log.builder();
+        Object result = joinPoint.proceed();
+        // 获取Operation的注解信息
+        if (method.isAnnotationPresent(Operation.class)) {
+            Operation operation = method.getAnnotation(Operation.class);
+            builder.summary(operation.summary()).description(operation.description());
+        }
+        long endTime = System.currentTimeMillis();
+        String urlStr = request.getRequestURL().toString();
+        builder.basePath(StrUtil.removeSuffix(urlStr, URLUtil.url(urlStr).getPath()))
+                .uri(request.getRequestURI())
+                .url(request.getRequestURL().toString())
+                .browser(IpUtil.getBrowser(request).getBrowser().getName())
+                .ip(IpUtil.getIpAddr(request))
+                .method(request.getMethod())
+                .parameter(JSONUtil.parse(getParameter(method, joinPoint.getArgs())).toString())
+                .result(JSONUtil.parse(result).toString())
+                .spendTime((int) (endTime - startTime))
+                .startTime(LocalDateTimeUtil.of(startTime));
+        Log log = builder.build();
+        LOGGER.info(log.toString());
+        logService.save(log);
+        return result;
     }
 
     /**

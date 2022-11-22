@@ -2,7 +2,10 @@ package com.yww.management.system.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -16,6 +19,9 @@ import java.time.LocalDateTime;
  * @Date  2022-10-21
  */
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @TableName("user_role")
 @Schema(name = "UserRole", description = "用户角色关系实体类")
 public class UserRole implements Serializable {

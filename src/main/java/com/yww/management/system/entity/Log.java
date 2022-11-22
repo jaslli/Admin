@@ -5,7 +5,10 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -19,6 +22,9 @@ import java.time.LocalDateTime;
  * @Date  2022-10-21
  */
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @TableName("log")
 @Schema(name = "Log", description = "操作日志实体类")
 public class Log implements Serializable {
@@ -33,7 +39,7 @@ public class Log implements Serializable {
     @TableField("summary")
     private String summary;
 
-    @Schema(description = "用户名称")
+    @Schema(description = "操作用户")
     @TableField("username")
     private String username;
 
@@ -41,7 +47,7 @@ public class Log implements Serializable {
     @TableField("description")
     private String description;
 
-    @Schema(description = "开始时间")
+    @Schema(description = "请求耗时")
     @TableField("start_time")
     private LocalDateTime startTime;
 
@@ -60,6 +66,10 @@ public class Log implements Serializable {
     @Schema(description = "URL")
     @TableField("url")
     private String url;
+
+    @Schema(description = "浏览器")
+    @TableField("browser")
+    private String browser;
 
     @Schema(description = "请求类型")
     @TableField("method")
