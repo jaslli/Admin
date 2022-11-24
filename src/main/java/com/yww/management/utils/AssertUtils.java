@@ -67,7 +67,7 @@ public class AssertUtils {
      * @throws GlobalException  自定义全局异常
      */
     public static void isTrue(boolean expression, String message) throws GlobalException {
-        isTrue(expression, 400, message);
+        isTrue(expression, 500, message);
     }
 
 }
