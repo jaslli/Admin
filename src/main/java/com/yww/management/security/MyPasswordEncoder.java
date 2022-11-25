@@ -34,14 +34,11 @@ public class MyPasswordEncoder implements PasswordEncoder {
         this(strength, null);
     }
 
-    public MyPasswordEncoder(BCryptPasswordEncoder.BCryptVersion version, SecureRandom random) {
-        this(version, -1, random);
-    }
-
     public MyPasswordEncoder(int strength, SecureRandom random) {
         this(BCryptPasswordEncoder.BCryptVersion.$2A, strength, random);
     }
 
+    @SuppressWarnings("all")
     public MyPasswordEncoder(BCryptPasswordEncoder.BCryptVersion version, int strength, SecureRandom random) {
         this.BCRYPT_PATTERN = Pattern.compile("\\A\\$2(a|y|b)?\\$(\\d\\d)\\$[./0-9A-Za-z]{53}");
         this.logger = LogFactory.getLog(this.getClass());
