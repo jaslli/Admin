@@ -4,9 +4,9 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.yww</groupId>
-    <artifactId>management</artifactId>
+    <artifactId>admin</artifactId>
     <version>1.0</version>
-    <name>management</name>
+    <name>admin</name>
     <description>yww的后台管理系统</description>
     <url>www.yww52.com</url>
 
@@ -204,7 +204,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>2.3.7.RELEASE</version>
                 <configuration>
-                    <mainClass>com.yww.management.ManagementApplication</mainClass>
+                    <mainClass>com.yww.admin.AdminApplication</mainClass>
                 </configuration>
                 <executions>
                     <execution>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yww.management.system.mapper.MenuMapper">
+<mapper namespace="com.yww.admin.system.mapper.MenuMapper">
 
-    <select id="getMenusByRoleId" resultType="com.yww.management.system.entity.Menu">
+    <select id="getMenusByRoleId" resultType="com.yww.admin.system.entity.Menu">
         SELECT * FROM menu WHERE id IN (SELECT menu_id FROM role_menu WHERE role_id = #{roleId})
     </select>
 

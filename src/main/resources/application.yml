@@ -11,7 +11,7 @@ logging:
 spring:
   # 应用名称
   application:
-    name: management
+    name: ADMIN
   # jackson时间配置
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
