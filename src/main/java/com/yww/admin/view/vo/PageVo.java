@@ -14,7 +14,7 @@ import java.util.List;
  * @Author yww
  * @Date 2022/10/24 21:15
  */
-@JsonPropertyOrder({"start", "size", "total", "rows"})
+@JsonPropertyOrder({"start", "size", "total", "pageCount", "rows"})
 public class PageVo<T> {
 
     /**
@@ -33,18 +33,23 @@ public class PageVo<T> {
     private int total;
 
     /**
+     *  总页数
+     */
+    private int pageCount;
+
+    /**
      * 当前页数据
      */
     private List<T> rows;
 
-    public PageVo() {
-    }
+    public PageVo() {}
 
     public static <E> PageVo<E> ofReqVo(PageRequest reqVo, List<E> rows, int total) {
         PageVo<E> pageVo = new PageVo<>();
         pageVo.setSize(reqVo.getSize());
         pageVo.setStart(reqVo.getOffset());
         pageVo.setTotal(total);
+        pageVo.setPageCount(total / reqVo.getSize() + 1);
         pageVo.setRows(rows);
         return pageVo;
     }
@@ -71,6 +76,14 @@ public class PageVo<T> {
 
     public void setTotal(int total) {
         this.total = total;
+    }
+
+    public int getPageCount() {
+        return pageCount;
+    }
+
+    public void setPageCount(int pageCount) {
+        this.pageCount = pageCount;
     }
 
     public List<T> getRows() {

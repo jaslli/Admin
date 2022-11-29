@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 
 /**
  * <p>
- * BCryptPasswordEncoder
+ * 照搬BCryptPasswordEncoder源码
  * </p>
  *
  * @author chenhao

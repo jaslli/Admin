@@ -46,8 +46,7 @@ public class PageRequest {
     @Schema(description = "排序方向")
     private String dir;
 
-    public PageRequest() {
-    }
+    public PageRequest() {}
 
     public static PageRequest of(int page, int size) {
         PageRequest pageReqVo = new PageRequest();
