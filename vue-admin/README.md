@@ -1,56 +1,19 @@
-# 使用Eslint
+# 按需引入Element-plus
 
-可以参考一下来进行[https://www.jianshu.com/p/4b94540dd998]
-
-# 引入Element-plus，并配置按需引入
-
-安装依赖
+安装Element-plus依赖和自动导入依赖
 
 ```bash
-# 选择一个你喜欢的包管理器
-
-# NPM
-$ npm install element-plus --save
-
-# Yarn
-$ yarn add element-plus
-
-# pnpm
-$ pnpm install element-plus
-```
-
-安装自动导入的依赖
-
-```bash
+# Element-plus
+yarn add element-plus
+# 自动导入
 yarn add -D unplugin-vue-components unplugin-auto-import
 ```
 
-在配置文件中配置
+自动导入配置参考`plugins`里的`autoImport.ts`和`components.ts`
 
-```js
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import AutoImport from 'unplugin-auto-import/vite'
-import Components from 'unplugin-vue-components/vite'
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
-export default defineConfig({
-  plugins: [
-    ......
-    // ElementPlus的自动导入
-    AutoImport({
-      resolvers: [ElementPlusResolver()]
-    }),
-    Components({
-      resolvers: [ElementPlusResolver()]
-    }),
-    .....
-  ]
-})
 
-```
-
-如果还有需要，可以配置一下全局的样式`App.vue`
+配置全局Element-plus样式
 
 ```vue
 <template>
@@ -76,7 +39,7 @@ export default defineComponent({
 </script>
 ```
 
-# 使用vue-router4
+# 引入vue-router4
 
 安装依赖
 
@@ -84,7 +47,7 @@ export default defineComponent({
 yarn add vue-router@4
 ```
 
-最初的配置
+配置文件
 
 ```js
 import {
@@ -127,4 +90,3 @@ app.use(router)
 
 app.mount('#app')
 ```
-

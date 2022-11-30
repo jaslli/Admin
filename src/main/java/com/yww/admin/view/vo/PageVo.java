@@ -14,6 +14,7 @@ import java.util.List;
  * @Author yww
  * @Date 2022/10/24 21:15
  */
+@SuppressWarnings("all")
 @JsonPropertyOrder({"start", "size", "total", "pageCount", "rows"})
 public class PageVo<T> {
 

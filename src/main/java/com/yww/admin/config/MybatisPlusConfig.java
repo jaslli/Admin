@@ -17,11 +17,11 @@ import org.springframework.context.annotation.Configuration;
  * @Date 2022/10/12 20:57
  */
 @Configuration
-@MapperScan("com.yww.management.system.mapper")
+@MapperScan("com.yww.admin.system.mapper")
 public class MybatisPlusConfig {
 
     /**
-     * 分页插件
+     * 分页插件，并指定MYSQL数据库
      */
     @Bean
     public MybatisPlusInterceptor mybatisPlusInterceptor() {

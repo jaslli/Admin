@@ -1,8 +1,8 @@
 <template>
-    <el-config-provider :size="size" :z-index="zIndex">
-      <router-view />
-    </el-config-provider>
-  </template>
+  <el-config-provider :size="size" :z-index="zIndex">
+    <router-view />
+  </el-config-provider>
+</template>
 
 <script>
 
@@ -19,6 +19,3 @@ export default defineComponent({
   },
 })
 </script>
-
-<style>
-</style>
