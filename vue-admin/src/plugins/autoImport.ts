@@ -20,9 +20,7 @@ export const RegistryAutoImport = () => {
       'vue',
       'pinia',
       'vue-router',
-      {
-        '@vueuse/core': [],
-      },
+      { '@vueuse/core': [], }
     ],
     // 解析器
     resolvers: [ElementPlusResolver()]

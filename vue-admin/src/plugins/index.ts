@@ -13,7 +13,7 @@ export function createVitePlugins() {
   // 默认的plugins数组
   const vitePlugins: (PluginOption | PluginOption[])[] = [
     // vue支持
-    vue()
+    vue(),
   ];
 
   // 自动按需引入依赖

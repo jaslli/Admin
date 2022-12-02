@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite'
-import { createVitePlugins } from './plugins';
+import { createVitePlugins } from '/@/plugins';
 import { resolve } from "path";
 
 export default defineConfig({
