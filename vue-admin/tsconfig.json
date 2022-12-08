@@ -49,8 +49,8 @@
     "src/**/*.vue",
     "src/plugins/*.ts",
     "vite.config.ts",
-    "./auto-imports.d.ts",
-    "./components.d.ts"
+    "types/**/*.d.ts",
+    "types/**/*.ts"
   ],
   // exclude  指定不需要被编译的ts目录文件
   "exclude": ["node_modules", "dist", "**/*.js"]

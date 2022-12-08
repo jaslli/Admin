@@ -8,7 +8,6 @@ import { PluginOption } from 'vite';
 import { RegistryAutoImport } from './autoImport'
 import { RegistryComponents } from './components'
 
-
 export function createVitePlugins() {
   // 默认的plugins数组
   const vitePlugins: (PluginOption | PluginOption[])[] = [
