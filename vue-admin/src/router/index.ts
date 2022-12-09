@@ -1,11 +1,16 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 import NProgress from '../plugins/nprogress/nprogress';
 import Home from '/@/components/HelloWorld.vue'
+import Login from '/@/views/login/index.vue'
 
 const routes = [
   {
     path: '/',
     component: Home
+  },
+  {
+    path: '/login',
+    component: Login
   }
 ]
 
