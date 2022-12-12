@@ -9,6 +9,7 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 export const RegistryComponents = () => {
   return Components({
     dts: 'types/components.d.ts',
+    dirs: ['src/components'],
     resolvers: [ElementPlusResolver()]
   });
 };

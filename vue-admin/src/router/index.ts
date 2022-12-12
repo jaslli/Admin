@@ -1,7 +1,8 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
-import NProgress from '../plugins/nprogress/nprogress';
+import NProgress from '/@/plugins/nprogress';
 import Home from '/@/components/HelloWorld.vue'
 import Login from '/@/views/login/index.vue'
+import { getToken } from "/@/utils/auth";
 
 const routes = [
   {
@@ -21,10 +22,16 @@ const router = createRouter({
 
 router.beforeEach(async (_to, _from, next) => {
   NProgress.start();
-  setTimeout(() => {
-
-  }, 1000)
-  next();
+  // 如果去往登录页，直接跳转
+  if (_to.path === "/login") {
+    next();
+  }
+  // 如果没有token,跳转至登录页
+  if (!getToken()) {
+    next({ path: '/login' })
+  } else {
+    next();
+  }
 });
 
 router.afterEach((_to) => {

@@ -27,7 +27,7 @@ public class WebConfig implements WebMvcConfigurer {
         // 1. 添加 CORS配置信息
         CorsConfiguration config = new CorsConfiguration();
         //  放行全部原始域
-        config.addAllowedOrigin("*");
+        config.addAllowedOriginPattern("*");
         //  允许跨越发送cookie
         config.setAllowCredentials(true);
         //  放行哪些请求方式

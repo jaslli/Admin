@@ -1,12 +1,28 @@
+<!--suppress CssUnknownTarget -->
 <script lang="ts" setup>
+import { userStore } from "/@/store/modules/user";
+import router from "/@/router";
 // 表单数据
 const loginForm = reactive({
   username: '',
   password: ''
 })
+// 用户store
+const store = userStore();
+// 登录按钮函数
 const login = function () {
-  console.log(loginForm.username)
-  console.log(loginForm.password)
+  store.login(loginForm)
+      .then((result) =>{
+        console.log(result)
+        ElMessage({
+          message: '登录成功',
+          type: 'success',
+        })
+        router.push("/");
+      })
+      .catch((error) => {
+        console.log(error)
+      })
 }
 </script>
 
@@ -44,7 +60,7 @@ const login = function () {
   width: 350px;
   height: 360px;
   padding: 16px 24px;
-  background-color: #8aa7ec;
+  background-color: #ffffff;
   border-radius: 25px;
 }
 .title {
@@ -61,9 +77,14 @@ const login = function () {
 .wrapper input {
   width: calc(100% - 10px);
   height: 45px;
-  border: 0;
+  border: 1px solid black;
   border-radius: 10px;
   padding: 0 0 0 10px;
+  outline: none;
+  font-size: 18px;
+}
+.wrapper input:hover {
+  background-color: #8aa7ec;
 }
 .login-button {
   margin-top: 60px;
@@ -74,5 +95,6 @@ const login = function () {
   border: 0;
   border-radius: 10px;
   background-color: #3B82F6;
+  cursor: pointer;
 }
 </style>

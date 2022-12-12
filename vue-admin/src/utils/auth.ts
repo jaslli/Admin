@@ -15,11 +15,11 @@ export function getToken() {
 
 /**
  * 将Token存放到cookie中
- * @param {String} token
+ * @param {String} data
  * @returns true Or false
  */
-export function setToken(token: string) {
-    return Cookies.set(TOKEN_KEY, token)
+export function setToken(data: { token: string }) {
+    return Cookies.set(TOKEN_KEY, data)
 }
 
 /**

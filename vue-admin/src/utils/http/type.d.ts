@@ -6,7 +6,7 @@ export type resultType = {
 
 export type RequestMethods = Extract<
     Method,
-    "get" | "post" | "put" | "delete" | "patch" | "option" | "head"
+    "GET" | "POST" | "PUT" | "DELETE" | "OPTION"
 >;
 
 export interface CloudHttpError extends AxiosError {

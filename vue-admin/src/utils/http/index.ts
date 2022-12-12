@@ -5,12 +5,12 @@ import { stringify } from "qs";
 
 // 请求实例
 const defaultConfig: AxiosRequestConfig = {
-    baseURL: "/",
+    baseURL: "/api",
     timeout: 10000,
     timeoutErrorMessage: "服务器繁忙，请求超时！",
     headers: {
         Accept: "application/json, text/plain, */*",
-        "Content-Type": "application/json",
+        "Content-Type": "multipart/form-data",
         "X-Requested-With": "XMLHttpRequest"
     },
     // 数组格式参数序列化（https://github.com/axios/axios/issues/5142)
@@ -81,7 +81,22 @@ class Http {
         );
     }
 
-    // 通用请求工具函数
+    /**
+     * 通用请求工具函数
+     *
+     * 1. GET请求
+     *  params传参
+     * http.request('get', '/xxx', params });
+     *  url拼接传参
+     * http.request('get', '/xxx?message=' + msg);
+     *
+     * 2. POST请求
+     *  params传参
+     * http.request('post', '/xxx', { params: param });
+     *  data传参
+     * http.request('post', '/xxx', { data: param });
+     *
+     */
     public request<T>(
         method: RequestMethods,
         url: string,
@@ -108,18 +123,23 @@ class Http {
         });
     }
 
+    // 单独抽离的get工具函数
+    public get<T, P>(url: string, params?: T, config?: CloudHttpRequestConfig): Promise<P> {
+        return this.request<P>("GET", url, { params }, config);
+    }
+
     // 单独抽离的post工具函数
     public post<T, P>(
         url: string,
         params?: AxiosRequestConfig<T>,
         config?: CloudHttpRequestConfig
     ): Promise<P> {
-        return this.request<P>("post", url, params, config);
+        return this.request<P>("POST", url, params, config);
     }
 
-    // 单独抽离的get工具函数
-    public get<T, P>(url: string, params?: T, config?: CloudHttpRequestConfig): Promise<P> {
-        return this.request<P>("get", url, { params }, config);
+    // 单独抽离的delete工具函数
+    public delete<T, P>(url: string, params?: T, config?: CloudHttpRequestConfig): Promise<P> {
+        return this.request<P>("PUT", url, { params }, config);
     }
 
     // 单独抽离的put工具函数
@@ -128,12 +148,7 @@ class Http {
         params?: AxiosRequestConfig<T>,
         config?: CloudHttpRequestConfig
     ): Promise<P> {
-        return this.request<P>("put", url, params, config);
-    }
-
-    // 单独抽离的delete工具函数
-    public delete<T, P>(url: string, params?: T, config?: CloudHttpRequestConfig): Promise<P> {
-        return this.request<P>("delete", url, { params }, config);
+        return this.request<P>("DELETE", url, params, config);
     }
 
 }

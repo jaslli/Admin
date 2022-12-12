@@ -1,5 +1,6 @@
 <script setup lang="ts">
 let msg: String = "hello world"
+ref(msg)
 </script>
 
 <template>

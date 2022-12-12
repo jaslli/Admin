@@ -67,8 +67,6 @@ public class MyPasswordEncoder implements PasswordEncoder {
 
     @Override
     public boolean matches(CharSequence rawPassword, String encodedPassword) {
-        System.out.println(rawPassword);
-        System.out.println(encodedPassword);
         if (rawPassword == null) {
             throw new IllegalArgumentException("rawPassword cannot be null");
         } else if (encodedPassword != null && encodedPassword.length() != 0) {

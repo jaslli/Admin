@@ -20,17 +20,17 @@
         <spring-boot-starter-security.version>2.7.5</spring-boot-starter-security.version>
         <spring-boot-starter-aop.version>2.7.5</spring-boot-starter-aop.version>
         <mysql.version>8.0.30</mysql.version>
-        <druid.version>1.2.14</druid.version>
+        <druid.version>1.2.15</druid.version>
         <mybatis-plus.version>3.5.2</mybatis-plus.version>
         <mybatis-plus-generator.version>3.5.3</mybatis-plus-generator.version>
         <velocity.version>2.3</velocity.version>
         <redis.version>2.7.5</redis.version>
         <commons-pool2.version>2.11.1</commons-pool2.version>
-        <springdoc.version>1.6.12</springdoc.version>
+        <springdoc.version>1.6.13</springdoc.version>
         <knife4j.version>3.0.3</knife4j.version>
         <lombok.version>1.18.24</lombok.version>
-        <hutool.version>5.8.9</hutool.version>
-        <fastjson2.version>2.0.16</fastjson2.version>
+        <hutool.version>5.8.10</hutool.version>
+        <fastjson2.version>2.0.20</fastjson2.version>
         <jwt.version>4.2.1</jwt.version>
         <commons-io.version>2.11.0</commons-io.version>
     </properties>
