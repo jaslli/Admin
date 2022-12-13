@@ -1,14 +1,10 @@
 import { http } from "/@/utils/http"
 import { Result } from "/#/resultType";
+import { ILoginForm } from "./types"
 
 enum API {
     LOGIN = "/login",
     LOGOUT = "/logout"
-}
-
-export interface ILoginForm {
-    username: string;
-    password: string;
 }
 
 /**

@@ -1,17 +1,20 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 import NProgress from '/@/plugins/nprogress';
-import Home from '/@/components/HelloWorld.vue'
-import Login from '/@/views/login/index.vue'
 import { getToken } from "/@/utils/auth";
 
+// 默认路由
 const routes = [
   {
     path: '/',
-    component: Home
+    component: () => import('/@/components/HelloWorld.vue')
   },
   {
     path: '/login',
-    component: Login
+    component: () => import('/@/views/login/index.vue')
+  },
+  {
+    path: '/layout',
+    component: () => import('/@/layout/index.vue')
   }
 ]
 
