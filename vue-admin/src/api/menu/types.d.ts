@@ -9,6 +9,7 @@ interface Menu {
     icon: string;
     sort: number;
     code: string;
+    children: Menu[];
     createTime: string;
     createBy: string;
     updateTime: string;

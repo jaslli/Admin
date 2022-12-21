@@ -1,10 +1,11 @@
 import { http } from "/@/utils/http"
 import { Result } from "/#/resultType";
-import { ILoginForm } from "./types"
+import {ILoginForm, User} from "./types"
 
 enum API {
     LOGIN = "/login",
-    LOGOUT = "/logout"
+    LOGOUT = "/logout",
+    GETINFO = "/user/getById/"
 }
 
 /**
@@ -27,9 +28,23 @@ export const login = (data: ILoginForm) => {
  *  注销
  */
 export const logout = () => {
-    return new Promise<Result<{ token: string }>>(async (resolve, reject) => {
+    return new Promise<Result<any>>(async (resolve, reject) => {
         try {
             const res = await http.post<{}, Result<{ token: string }>>(API.LOGOUT);
+            resolve(res);
+        } catch (error) {
+            reject(error);
+        }
+    });
+};
+
+/**
+ *  获取用户信息
+ */
+export const getInfo = (userId: String) => {
+    return new Promise<Result<User>>(async (resolve, reject) => {
+        try {
+            const res = await http.get<{}, Result<User>>(API.GETINFO + userId);
             resolve(res);
         } catch (error) {
             reject(error);

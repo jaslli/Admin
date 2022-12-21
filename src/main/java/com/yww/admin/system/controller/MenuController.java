@@ -31,10 +31,10 @@ public class MenuController {
         this.service = service;
     }
 
-    @Operation(summary = "通过用户名查询权限信息", description = "根据用户名来查询对应的权限或菜单数据")
-    @GetMapping("/getMenus/{username}")
-    public Result<List<Menu>> getMenus(@PathVariable("username") String username) {
-        return Result.success(service.getMenusByUserName(username));
+    @Operation(summary = "通过用户ID查询权限信息", description = "根据用户ID来查询对应的权限或菜单数据")
+    @GetMapping("/getMenus/{userId}")
+    public Result<List<Menu>> getMenus(@PathVariable("userId") String userId) {
+        return Result.success(service.getMenus(userId));
     }
 
 }

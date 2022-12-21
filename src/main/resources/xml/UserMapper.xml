@@ -2,9 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yww.admin.system.mapper.UserMapper">
 
-    <select id="getRoleIdByUserName" resultType="java.lang.String">
-        SELECT role_id FROM user_role
-            LEFT JOIN user u on user_role.user_id = u.id WHERE u.username = #{username}
+    <select id="getRoleIdByUserId" resultType="java.lang.String">
+        SELECT role_id FROM user_role WHERE user_id = #{userId}
     </select>
 
 </mapper>

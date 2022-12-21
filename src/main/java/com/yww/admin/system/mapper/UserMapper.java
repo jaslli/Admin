@@ -17,11 +17,11 @@ import org.springframework.stereotype.Repository;
 public interface UserMapper extends BaseMapper<User> {
 
     /**
-     * 根据用户名获取角色ID
+     * 根据用户ID获取角色ID
      *
-     * @param username 用户名
+     * @param userId 用户名
      * @return 角色ID
      */
-    String getRoleIdByUserName(@Param("username") String username);
+    String getRoleIdByUserId(@Param("userId") String userId);
 
 }

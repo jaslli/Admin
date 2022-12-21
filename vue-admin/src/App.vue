@@ -3,6 +3,8 @@
 </template>
 
 <script lang="ts" setup>
+import { getMenu } from "/@/utils/menu"
+getMenu("yww");
 </script>
 
 <style>
