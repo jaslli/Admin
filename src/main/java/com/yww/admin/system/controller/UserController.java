@@ -1,7 +1,6 @@
 package com.yww.admin.system.controller;
 
 import com.yww.admin.common.Result;
-import com.yww.admin.system.entity.Menu;
 import com.yww.admin.system.entity.User;
 import com.yww.admin.system.service.IUserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -11,8 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 /**
  * <p>

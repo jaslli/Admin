@@ -12,7 +12,6 @@ import com.yww.admin.system.service.IUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
-import org.yaml.snakeyaml.events.Event;
 
 import java.util.List;
 

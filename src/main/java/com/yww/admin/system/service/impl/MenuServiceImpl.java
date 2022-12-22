@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -33,7 +34,25 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
     @Override
     public List<Menu> getMenus(String userId) {
         String roleId = userService.getRoleIdByUserId(userId);
-        return getMenusByRoleId(roleId);
+        List<Menu> all = getMenusByRoleId(roleId);
+        return all.stream()
+                .filter(menu -> "0".equals(menu.getPid()))
+                .peek(menu -> menu.setChildren(getChildrenList(menu, all)))
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * 递归获取子节点
+     *
+     * @param menu  当前节点
+     * @param all   所有菜单节点
+     * @return      /
+     */
+    public static List<Menu> getChildrenList(Menu menu, List<Menu> all){
+        return all.stream()
+                .filter(item -> item.getPid().equals(menu.getId()))
+                .peek(item -> item.setChildren(getChildrenList(item, all)))
+                .collect(Collectors.toList());
     }
 
 }

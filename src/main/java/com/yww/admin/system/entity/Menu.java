@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * <p>
@@ -67,6 +68,10 @@ public class Menu implements Serializable {
     @Schema(description = "权限字段")
     @TableField("code")
     private String code;
+
+    @Schema(description = "子菜单")
+    @TableField(exist = false)
+    private List<Menu> children;
 
     @Schema(description = "创建时间")
     @TableField(value = "create_time", fill = FieldFill.INSERT)
