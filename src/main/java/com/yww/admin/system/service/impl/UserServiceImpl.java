@@ -9,6 +9,7 @@ import com.yww.admin.system.mapper.UserMapper;
 import com.yww.admin.system.service.IMenuService;
 import com.yww.admin.system.service.IRoleService;
 import com.yww.admin.system.service.IUserService;
+import com.yww.admin.utils.AssertUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
@@ -32,7 +33,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     @Override
     public User getByUsername(String username) {
-        return this.getOne(new QueryWrapper<User>().lambda().eq(User::getUsername, username));
+        User res = this.getOne(new QueryWrapper<User>().lambda().eq(User::getUsername, username));
+        AssertUtils.notNull(res, "没有找到该用户！");
+        // 密码置空
+        res.setPassword("");
+        return res;
     }
 
     @Override

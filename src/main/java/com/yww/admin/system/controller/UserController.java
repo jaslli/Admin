@@ -31,10 +31,10 @@ public class UserController {
         this.service = service;
     }
 
-    @Operation(summary = "通过用户ID查询用户信息", description = "根据用户ID来查询对应的用户数据")
-    @GetMapping("/getById/{userId}")
-    public Result<User> getById(@PathVariable("userId") String userId) {
-        return Result.success(service.getById(userId));
+    @Operation(summary = "通过用户名查询用户信息", description = "根据用户名来查询对应的用户数据")
+    @GetMapping("/getById/{username}")
+    public Result<User> getById(@PathVariable("username") String username) {
+        return Result.success(service.getByUsername(username));
     }
 
 }
