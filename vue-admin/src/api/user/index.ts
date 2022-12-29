@@ -41,10 +41,10 @@ export const logout = () => {
 /**
  *  获取用户信息
  */
-export const getInfo = (userId: String) => {
+export const getInfo = (username: String) => {
     return new Promise<Result<User>>(async (resolve, reject) => {
         try {
-            const res = await http.get<{}, Result<User>>(API.GETINFO + userId);
+            const res = await http.get<{}, Result<User>>(API.GETINFO + username);
             resolve(res);
         } catch (error) {
             reject(error);

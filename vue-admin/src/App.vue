@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts" setup>
-import { getMenu } from "/@/utils/menu"
+import { getMenu } from "/@/router/menu"
 getMenu("yww");
 </script>
 

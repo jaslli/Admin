@@ -12,7 +12,6 @@ export const getMenusByUsername = (userId: string) => {
     return new Promise<Result<Menu[]>>(async (resolve, reject) => {
         try {
             const res = await http.get<{}, Result<Menu[]>>(API.GETMENUSBYUSERNAME + userId);
-            console.log(res)
             resolve(res);
         } catch (error) {
             reject(error);
