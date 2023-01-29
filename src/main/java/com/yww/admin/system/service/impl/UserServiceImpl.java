@@ -35,8 +35,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     public User getByUsername(String username) {
         User res = this.getOne(new QueryWrapper<User>().lambda().eq(User::getUsername, username));
         AssertUtils.notNull(res, "没有找到该用户！");
-        // 密码置空
-        res.setPassword("");
         return res;
     }
 
@@ -44,8 +42,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     public String getUserAuthorities(String username) {
         StringBuilder authority = new StringBuilder();
         // 目前该系统一个用户只对应一个角色信息
-        User user = getByUsername(username);
-        String roleId = baseMapper.getRoleIdByUserId(user.getId());
+        String roleId = getRoleIdByUserName(username);
         String roleCode = roleService.getById(roleId).getCode();
         if (StrUtil.isNotBlank(roleCode)) {
             authority.append(roleCode);
@@ -60,8 +57,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
-    public String getRoleIdByUserId(String userId) {
-        return baseMapper.getRoleIdByUserId(userId);
+    public String getRoleIdByUserName(String username) {
+        User user = this.getOne(new QueryWrapper<User>().lambda().eq(User::getUsername, username).select(User::getId));
+        return baseMapper.getRoleIdByUserId(user.getId());
     }
 
 }

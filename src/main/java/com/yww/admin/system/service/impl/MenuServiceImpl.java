@@ -32,8 +32,9 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
     }
 
     @Override
-    public List<Menu> getMenus(String userId) {
-        String roleId = userService.getRoleIdByUserId(userId);
+    public List<Menu> getMenus(String username) {
+        System.out.println(username);
+        String roleId = userService.getRoleIdByUserName(username);
         List<Menu> all = getMenusByRoleId(roleId);
         return all.stream()
                 .filter(menu -> "0".equals(menu.getPid()))

@@ -4,7 +4,10 @@
 
 <script lang="ts" setup>
 import { getMenu } from "/@/router/menu"
-getMenu("yww");
+import { checkToken } from "/@/utils/auth";
+if (checkToken()) {
+  getMenu("yww");
+}
 </script>
 
 <style>

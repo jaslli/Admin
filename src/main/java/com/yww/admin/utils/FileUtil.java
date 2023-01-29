@@ -2,6 +2,7 @@ package com.yww.admin.utils;
 
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
+import com.yww.admin.common.GlobalException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,7 +17,7 @@ import java.util.Date;
  * </p>
  *
  * @ClassName FileUtil
- * @Author chenhao
+ * @Author yww
  * @Date 2022/11/21 17:31
  */
 @Slf4j
@@ -61,7 +62,7 @@ public class FileUtil {
         } catch (IOException e) {
             log.warn("保存文件出错，保存的文件名称为：" + originalFilename);
             log.warn("保存文件出错，保存的路径为：" + path);
-            throw new RuntimeException(e);
+            throw new GlobalException(e.getMessage());
         }
     }
 

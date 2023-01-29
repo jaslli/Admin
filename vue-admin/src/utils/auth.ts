@@ -29,3 +29,12 @@ export function setToken(data: { token: string }) {
 export function removeToken() {
     return Cookies.remove(TOKEN_KEY)
 }
+
+/**
+ * 检查cookie中是否存在Token
+ * @returns true Or false
+ */
+export function checkToken() {
+    let token: any = getToken();
+    return typeof token !== "undefined";
+}

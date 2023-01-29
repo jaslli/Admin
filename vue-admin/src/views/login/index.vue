@@ -1,6 +1,7 @@
 <!--suppress CssUnknownTarget -->
 <script lang="ts" setup>
 import { userStore } from "/@/store/modules/user";
+import { getMenu } from "/@/router/menu"
 import router from "/@/router";
 // 表单数据
 const loginForm = reactive({
@@ -12,12 +13,13 @@ const store = userStore();
 // 登录按钮函数
 const login = function () {
   store.login(loginForm)
-      .then((result) =>{
-        console.log(result)
+      .then(() =>{
         ElMessage({
           message: '登录成功',
           type: 'success',
         })
+        // 加载路由
+        getMenu("yww");
         router.push("/");
       })
       .catch((error) => {

@@ -2,10 +2,9 @@ import {getMenusByUsername} from "/@/api/menu"
 import router from '/@/router/index'
 import {RouteRecordRaw} from "vue-router";
 
-const Layout = defineAsyncComponent(() => import("/@/layout/index.vue"))
-
 // 获取用户的权限菜单
 export async function getMenu(username: string) {
+    console.log(username)
     const menus = await getMenusByUsername(username);
     const userList: RouteRecordRaw[] = getRoute(menus.data)
     userList.forEach(route => {
@@ -39,7 +38,7 @@ function loadComponent(view: string): any {
         return
     }
     if (view === 'layout') {
-        return Layout
+        return defineAsyncComponent(() => import("/@/layout/index.vue"))
     }
-    return defineAsyncComponent(() => import("/@/views/" + view + "/index.vue"))
+    return defineAsyncComponent(() => import(`../views/${view}/index.vue`))
 }

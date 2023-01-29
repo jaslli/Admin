@@ -24,11 +24,11 @@ public interface IMenuService extends IService<Menu> {
     List<Menu> getMenusByRoleId(String roleId);
 
     /**
-     * 根据用户ID查询菜单信息
+     * 根据用户名查询菜单信息
      *
-     * @param userId 用户名
+     * @param username 用户名
      * @return 菜单信息
      */
-    List<Menu> getMenus(String userId);
+    List<Menu> getMenus(String username);
 
 }
