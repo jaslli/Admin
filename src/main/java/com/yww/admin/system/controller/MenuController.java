@@ -32,6 +32,7 @@ public class MenuController {
         this.service = service;
     }
 
+    @Log("获取菜单")
     @Operation(summary = "通过用户名查询权限信息", description = "根据用户名来查询对应的权限或菜单数据")
     @GetMapping("/getMenus/{username}")
     public Result<List<Menu>> getMenus(@PathVariable("username") String username) {

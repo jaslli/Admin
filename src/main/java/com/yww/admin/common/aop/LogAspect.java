@@ -63,6 +63,7 @@ public class LogAspect {
 
     @Around("pointcut()")
     public Object doAround(ProceedingJoinPoint joinPoint) throws Throwable {
+        Object result = joinPoint.proceed();
         // 获取方法
         Signature signature = joinPoint.getSignature();
         MethodSignature methodSignature = (MethodSignature) signature;
@@ -81,18 +82,17 @@ public class LogAspect {
         }
         // 若是选择保存到数据库，则获取信息后保存
         if (!isSave) {
-            return null;
+            return result;
         }
         long startTime = System.currentTimeMillis();
         // 获取当前请求对象
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         if (attributes == null) {
-            return null;
+            return result;
         }
         HttpServletRequest request = attributes.getRequest();
         //记录请求信息
         Log.LogBuilder builder = Log.builder();
-        Object result = joinPoint.proceed();
         // 获取Operation的注解信息
         if (method.isAnnotationPresent(Operation.class)) {
             Operation operation = method.getAnnotation(Operation.class);
