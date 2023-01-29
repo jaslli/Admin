@@ -5,7 +5,7 @@ import com.yww.admin.system.entity.Log;
 
 /**
  * <p>
- * 操作日志实体类 服务类
+ *      操作日志实体类 服务类
  * </p>
  *
  * @Author yww

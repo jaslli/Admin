@@ -12,10 +12,10 @@ import java.util.regex.Pattern;
 
 /**
  * <p>
- * 照搬BCryptPasswordEncoder源码
+ *      照搬BCryptPasswordEncoder源码
  * </p>
  *
- * @author chenhao
+ * @author yww
  * @since 2022/11/24 15:28
  */
 public class MyPasswordEncoder implements PasswordEncoder {

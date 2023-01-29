@@ -14,7 +14,7 @@ import java.util.List;
 
 /**
  * <p>
- * 菜单权限实体类 前端控制器
+ *      菜单权限实体类 前端控制器
  * </p>
  *
  * @Author yww

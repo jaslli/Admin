@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * <p>
- * 菜单权限实体类 Mapper 接口
+ *      菜单权限实体类 Mapper 接口
  * </p>
  *
  * @Author yww

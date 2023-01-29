@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * <p>
- * 菜单权限实体类 服务类
+ *      菜单权限实体类 服务类
  * </p>
  *
  * @Author yww

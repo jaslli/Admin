@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 /**
  * <p>
- * 菜单权限实体类 服务实现类
+ *      菜单权限实体类 服务实现类
  * </p>
  *
  * @Author yww

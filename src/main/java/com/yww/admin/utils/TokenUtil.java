@@ -17,16 +17,16 @@ import java.util.Map;
 
 /**
  * <p>
- * Token工具类
+ *      Token工具类
  * 1. Header,记录令牌类型和签名算法
  * 2. payload,携带用户信息
- * (1) iss(issuer), 签发者
- * (2) sub(subject), 面向的主体
- * (3) aud(audience), 接收方
- * (4) nbf(notBefore), 开始生效生效时间戳
- * (5) exp(expiresAt), 过期时间戳
- * (6) iat(issuedAt ), 签发时间
- * (7) jti(jwtId), 唯一标识
+ *  (1) iss(issuer), 签发者
+ *  (2) sub(subject), 面向的主体
+ *  (3) aud(audience), 接收方
+ *  (4) nbf(notBefore), 开始生效生效时间戳
+ *  (5) exp(expiresAt), 过期时间戳
+ *  (6) iat(issuedAt ), 签发时间
+ *  (7) jti(jwtId), 唯一标识
  * 3. signature, 签名，防止Token被篡改
  * </p>
  *

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 /**
  * <p>
- * 角色实体类 Mapper 接口
+ *      角色实体类 Mapper 接口
  * </p>
  *
  * @Author yww

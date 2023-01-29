@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * <p>
- * 无权限或权限不足处理类
+ *      无权限或权限不足处理类
  * </p>
  *
  * @ClassName AccessFailureHandler

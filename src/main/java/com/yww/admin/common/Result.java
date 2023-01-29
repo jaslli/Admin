@@ -5,7 +5,7 @@ import lombok.Data;
 
 /**
  * <p>
- * 结果封装类
+ *      结果封装类
  * </p>
  *
  * @ClassName Result

@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 
 /**
  * <p>
- * (user_role)用户角色关系实体类
+ *      (user_role)用户角色关系实体类
  * </p>
  *
  * @Author yww

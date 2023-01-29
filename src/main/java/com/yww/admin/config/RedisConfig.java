@@ -34,7 +34,7 @@ import java.util.Map;
 
 /**
  * <p>
- * Redis配置类
+ *      Redis配置类
  * </p>
  *
  * @ClassName RedisConfig

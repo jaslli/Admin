@@ -25,7 +25,7 @@ import java.util.Set;
 
 /**
  * <p>
- * SpringSecurity核心配置类
+ *      SpringSecurity核心配置类
  * </p>
  *
  * @ClassName SecurityConfig

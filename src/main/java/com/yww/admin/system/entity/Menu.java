@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * <p>
- * (menu)菜单权限实体类
+ *      (menu)菜单权限实体类
  * </p>
  *
  * @Author yww

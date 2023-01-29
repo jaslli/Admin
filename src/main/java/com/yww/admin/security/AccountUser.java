@@ -8,7 +8,7 @@ import java.util.Collection;
 
 /**
  * <p>
- * 自定义的UserDetails类
+ *      自定义的UserDetails类
  * </p>
  *
  * @ClassName AccountUser

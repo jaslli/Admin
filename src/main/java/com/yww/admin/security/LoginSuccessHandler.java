@@ -15,8 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * <p>
- * 登录成功处理器
- * 根据用户名(username)生成Token并返回
+ *      登录成功处理器
+ *      根据用户名(username)生成Token并返回
  * </p>
  *
  * @ClassName LoginSuccessHandler

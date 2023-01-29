@@ -2,7 +2,7 @@ package com.yww.admin.common.constant;
 
 /**
  * <p>
- * 结果状态码枚举
+ *      结果状态码枚举
  * </p>
  *
  * @EnumName ResultCode

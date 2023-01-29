@@ -4,7 +4,7 @@ import lombok.Getter;
 
 /**
  * <p>
- * 自定义异常类
+ *      自定义异常类
  * </p>
  *
  * @ClassName GlobalException

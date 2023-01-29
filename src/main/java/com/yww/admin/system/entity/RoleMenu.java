@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 
 /**
  * <p>
- * (role_menu)角色菜单权限实体类
+ *      (role_menu)角色菜单权限实体类
  * </p>
  *
  * @Author yww

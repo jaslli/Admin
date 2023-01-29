@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * <p>
- * Mybatis-Plus配置类
+ *      Mybatis-Plus配置类
  * </p>
  *
  * @ClassName MybatisPlusConfig

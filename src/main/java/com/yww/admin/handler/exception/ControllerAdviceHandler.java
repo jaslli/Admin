@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * <p>
- * 全局异常处理
+ *      全局异常处理
  * </p>
  *
  * @ClassName ControllerAdviceHandler
@@ -48,7 +48,7 @@ public class ControllerAdviceHandler {
      */
     @ExceptionHandler(value = Exception.class)
     public <T> Result<T> defaultErrorHandler(Exception e, HttpServletRequest request) {
-        log.error(">> 服务器内部错误 " + request.getRequestURI(), e);
+        log.error(">> 服务器内部错误 " + request.getRequestURI(), e.getMessage());
         return Result.failure(500, "服务器繁忙");
     }
 

@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * <p>
- * 服务主启动类
+ *      服务主启动类
  * </p>
  *
  * @author yww

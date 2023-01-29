@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * <p>
- * springdoc-openapi的配置文件
+ *      springdoc-openapi的配置文件
  * </p>
  *
  * @ClassName openapiConfig

@@ -9,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * <p>
- * web请求配置
+ *      web请求配置
  * </p>
  *
  * @ClassName WebConfig

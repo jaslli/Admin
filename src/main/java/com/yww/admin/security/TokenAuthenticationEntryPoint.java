@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * <p>
- * 未登录或登陆过期处理类
+ *      未登录或登陆过期处理类
  * </p>
  *
  * @ClassName JwtAuthenticationEntryPoint

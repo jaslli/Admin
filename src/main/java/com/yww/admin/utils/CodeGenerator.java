@@ -19,7 +19,7 @@ import java.util.Properties;
 
 /**
  * <p>
- * MyBatisPlus的代码生成器
+ *      MyBatisPlus的代码生成器
  * </p>
  *
  * @ClassName CodeGenerator

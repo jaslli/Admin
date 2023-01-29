@@ -10,7 +10,7 @@ import java.io.PrintWriter;
 
 /**
  * <p>
- * 用于接口外响应JSON的响应工具类
+ *      用于接口外响应JSON的响应工具类
  * </p>
  *
  * @ClassName ResponseUtil

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 /**
  * <p>
- * 操作日志实体类 Mapper 接口
+ *      操作日志实体类 Mapper 接口
  * </p>
  *
  * @Author yww

@@ -2,7 +2,7 @@ package com.yww.admin.common.constant;
 
 /**
  * <p>
- * Token相关常量类
+ *      Token相关常量类
  * </p>
  *
  * @ClassName TokenConstant

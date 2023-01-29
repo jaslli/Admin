@@ -5,7 +5,7 @@ import com.yww.admin.system.entity.User;
 
 /**
  * <p>
- * 用户信息实体类 服务类
+ *      用户信息实体类 服务类
  * </p>
  *
  * @Author yww
