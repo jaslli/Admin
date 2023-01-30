@@ -65,7 +65,10 @@ public class LogAspect {
      */
     @Around("pointCut()")
     public Object doAround(ProceedingJoinPoint joinPoint) throws Throwable {
+        // 记录接口调用时间
+        long startTime = System.currentTimeMillis();
         Object result = joinPoint.proceed();
+        long endTime = System.currentTimeMillis();
         // 获取方法
         Signature signature = joinPoint.getSignature();
         MethodSignature methodSignature = (MethodSignature) signature;
@@ -86,7 +89,6 @@ public class LogAspect {
         if (!isSave) {
             return result;
         }
-        long startTime = System.currentTimeMillis();
         // 获取当前请求对象
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         if (attributes == null) {
@@ -95,12 +97,11 @@ public class LogAspect {
         HttpServletRequest request = attributes.getRequest();
         //记录请求信息
         Log.LogBuilder builder = Log.builder();
-        // 获取Operation的注解信息
+        // 记录Operation的注解信息
         if (method.isAnnotationPresent(Operation.class)) {
             Operation operation = method.getAnnotation(Operation.class);
             builder.summary(operation.summary()).description(operation.description());
         }
-        long endTime = System.currentTimeMillis();
         String urlStr = request.getRequestURL().toString();
         builder.basePath(StrUtil.removeSuffix(urlStr, URLUtil.url(urlStr).getPath()))
                 .uri(request.getRequestURI())
