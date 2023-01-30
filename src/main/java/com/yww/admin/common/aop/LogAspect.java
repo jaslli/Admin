@@ -55,13 +55,15 @@ public class LogAspect {
     }
 
     /**
-     * 用于指定AOP的切点，即为标注了@Log注解的方法
+     * 声明切入点
      */
     @Pointcut("@annotation(com.yww.admin.annotation.Log)")
-    public void pointcut() {
-    }
+    public void pointCut() {}
 
-    @Around("pointcut()")
+    /**
+     * 环绕通知
+     */
+    @Around("pointCut()")
     public Object doAround(ProceedingJoinPoint joinPoint) throws Throwable {
         Object result = joinPoint.proceed();
         // 获取方法
@@ -106,7 +108,7 @@ public class LogAspect {
                 .browser(IpUtil.getBrowser(request).getBrowser().getName())
                 .ip(IpUtil.getIpAddr(request))
                 .method(request.getMethod())
-                .parameter(JSONUtil.parse(getParameter(method, joinPoint.getArgs())).toString())
+                .parameter(JSONUtil.parse(getParameter(method,  joinPoint.getArgs())).toString())
                 .result(JSONUtil.parse(result).toString())
                 .spendTime((int) (endTime - startTime))
                 .startTime(LocalDateTimeUtil.of(startTime));
