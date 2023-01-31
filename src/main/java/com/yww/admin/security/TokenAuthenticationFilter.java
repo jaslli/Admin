@@ -54,6 +54,7 @@ public class TokenAuthenticationFilter extends BasicAuthenticationFilter {
             throws ServletException, IOException {
         // 初步检测获取Token
         String token = resolveToken(request);
+        // TODO 这段逻辑很危险，后面改
         if (StrUtil.isNotBlank(token)) {
             if (StrUtil.isBlank(redisUtil.getStr(request.getHeader(TokenConstant.TOKEN_HEADER)))) {
                 // 验证并解析Token
