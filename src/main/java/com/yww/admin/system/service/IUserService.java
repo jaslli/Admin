@@ -32,9 +32,17 @@ public interface IUserService extends IService<User> {
     /**
      * 根据用户名查询角色ID
      *
-     * @param userId 用户名
+     * @param username 用户名
      * @return 角色ID
      */
-    String getRoleIdByUserName(String userId);
+    String getRoleIdByUserName(String username);
+
+    /**
+     * 根据用户名查询用户ID
+     *
+     * @param username 用户名
+     * @return 用户ID
+     */
+    String getUserIdByUserName(String username);
 
 }

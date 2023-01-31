@@ -13,6 +13,7 @@ import lombok.Data;
  * @Date 2022/10/12 21:04
  */
 @Data
+@SuppressWarnings("all")
 public class Result<T> {
 
     /**

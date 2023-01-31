@@ -5,7 +5,7 @@ import com.auth0.jwt.exceptions.*;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.yww.admin.common.constant.TokenConstant;
 import com.yww.admin.system.service.IUserService;
-import com.yww.admin.utils.ThreadLocalUtil;
+import com.yww.admin.utils.RedisUtil;
 import com.yww.admin.utils.TokenUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +16,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 
+import javax.annotation.Resource;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -36,6 +37,8 @@ public class TokenAuthenticationFilter extends BasicAuthenticationFilter {
 
     @Autowired
     IUserService userService;
+    @Resource
+    RedisUtil redisUtil;
     @Autowired
     UserDetailsServiceImpl userDetailsService;
     @Autowired
@@ -49,31 +52,29 @@ public class TokenAuthenticationFilter extends BasicAuthenticationFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
-        try {
-            // 初步检测获取Token
-            String token = resolveToken(request);
-            if (StrUtil.isNotBlank(token)) {
+        // 初步检测获取Token
+        String token = resolveToken(request);
+        if (StrUtil.isNotBlank(token)) {
+            if (StrUtil.isBlank(redisUtil.getStr(request.getHeader(TokenConstant.TOKEN_HEADER)))) {
                 // 验证并解析Token
-                DecodedJWT decoded = TokenUtil.parse(token);
-                // 根据Token获取用户名
-                String username = TokenUtil.getUserName(decoded);
-                log.info(">> checking username: {}   ", username);
-                if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                    // 填充SecurityContextHolder
-                    UsernamePasswordAuthenticationToken authentication =
-                            new UsernamePasswordAuthenticationToken(username, null, TokenUtil.getAuthority(decoded));
-                    SecurityContextHolder.getContext().setAuthentication(authentication);
-                    log.info(">> authenticated user: {}  ", username);
-                    // 设置当前用户
-                    ThreadLocalUtil.set(TokenConstant.ADMIN_TOKEN_CONTEXT, userService.getByUsername(username));
+                try {
+                    DecodedJWT decoded = TokenUtil.parse(token);
+                    // 根据Token获取用户名
+                    String username = TokenUtil.getUserName(decoded);
+                    if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                        // 填充SecurityContextHolder
+                        UsernamePasswordAuthenticationToken authentication =
+                                new UsernamePasswordAuthenticationToken(username, null, TokenUtil.getAuthority(decoded));
+                        SecurityContextHolder.getContext().setAuthentication(authentication);
+                    }
+                } catch (AlgorithmMismatchException | SignatureVerificationException | TokenExpiredException | MissingClaimException | IncorrectClaimException e) {
+                    errorHandler(request, response, e);
                 }
             }
-            chain.doFilter(request, response);
-            // 处理Token验证的异常
-        } catch (AlgorithmMismatchException | SignatureVerificationException | TokenExpiredException
-                 | MissingClaimException | IncorrectClaimException e) {
-            errorHandler(request, response, e);
+            // 设置当前用户Token
+            // ThreadLocalUtil.set(TokenConstant.ADMIN_TOKEN, token);
         }
+        chain.doFilter(request, response);
     }
 
     /**

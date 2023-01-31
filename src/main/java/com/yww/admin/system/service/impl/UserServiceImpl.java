@@ -45,12 +45,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         String roleId = getRoleIdByUserName(username);
         String roleCode = roleService.getById(roleId).getCode();
         if (StrUtil.isNotBlank(roleCode)) {
-            authority.append(roleCode);
+            authority.append("YW_").append(roleCode);
         }
         List<Menu> menus = menuService.getMenusByRoleId(roleId);
         if (menus.size() > 0) {
             for (Menu menu : menus) {
-                authority.append(",").append(menu.getCode());
+                if (StrUtil.isNotBlank(menu.getCode())) {
+                    authority.append(",").append(menu.getCode());
+                }
             }
         }
         return authority.toString();
@@ -58,8 +60,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     @Override
     public String getRoleIdByUserName(String username) {
-        User user = this.getOne(new QueryWrapper<User>().lambda().eq(User::getUsername, username).select(User::getId));
-        return baseMapper.getRoleIdByUserId(user.getId());
+        return baseMapper.getRoleIdByUserId(getUserIdByUserName(username));
+    }
+
+    @Override
+    public String getUserIdByUserName(String username) {
+        return baseMapper.getUserIdByUserName(username).getId();
     }
 
 }
