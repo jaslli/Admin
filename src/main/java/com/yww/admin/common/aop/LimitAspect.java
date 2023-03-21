@@ -17,11 +17,13 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
-import org.springframework.data.redis.core.script.RedisScript;
+import org.springframework.scripting.support.ResourceScriptSource;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.List;
@@ -43,6 +45,16 @@ public class LimitAspect {
 
     public LimitAspect(StringRedisTemplate stringRedisTemplate) {
         this.stringRedisTemplate = stringRedisTemplate;
+    }
+
+
+    private DefaultRedisScript<Long> redisScript;
+
+    @PostConstruct
+    public void init(){
+        redisScript = new DefaultRedisScript<>();
+        redisScript.setResultType(Long.class);
+        redisScript.setScriptSource(new ResourceScriptSource(new ClassPathResource("limitScript.lua")));
     }
 
     /**
@@ -70,8 +82,8 @@ public class LimitAspect {
 
         // 执行限流lua脚本
         List<String> keys = Collections.singletonList(limitKey);
-        String luaScript = buildLuaScript();
-        RedisScript<Long> redisScript = new DefaultRedisScript<>(luaScript, Long.class);
+//        String luaScript = buildLuaScript();
+//        RedisScript<Long> redisScript = new DefaultRedisScript<>(luaScript, Long.class);
         Long count = stringRedisTemplate.execute(redisScript, keys, String.valueOf(limit.count()), String.valueOf(limit.period()));
 
         AssertUtils.isTrue(count != null && count != 0, limit.errMsg());
@@ -87,7 +99,7 @@ public class LimitAspect {
      *
      * @return 限流lua脚本
      */
-    private String buildLuaScript() {
+    private static String buildLuaScript() {
         return "-- lua 下标从 1 开始" +
                 "\n-- 限流 key" +
                 "\nlocal key = KEYS[1]" +
@@ -108,6 +120,10 @@ public class LimitAspect {
                 "\n    redis.call('EXPIRE', key, perSeconds)" +
                 "\n    return currentLimit + 1" +
                 "\nend";
+    }
+
+    public static void main(String[] args) {
+        System.out.println(buildLuaScript());
     }
 
     /**
