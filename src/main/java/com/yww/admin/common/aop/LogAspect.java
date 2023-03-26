@@ -55,15 +55,20 @@ public class LogAspect {
     }
 
     /**
-     * 用于指定AOP的切点，即为标注了@Log注解的方法
+     * 声明切入点
      */
     @Pointcut("@annotation(com.yww.admin.annotation.Log)")
-    public void pointcut() {
-    }
+    public void pointCut() {}
 
-    @Around("pointcut()")
+    /**
+     * 环绕通知
+     */
+    @Around("pointCut()")
     public Object doAround(ProceedingJoinPoint joinPoint) throws Throwable {
+        // 记录接口调用时间
+        long startTime = System.currentTimeMillis();
         Object result = joinPoint.proceed();
+        long endTime = System.currentTimeMillis();
         // 获取方法
         Signature signature = joinPoint.getSignature();
         MethodSignature methodSignature = (MethodSignature) signature;
@@ -84,7 +89,6 @@ public class LogAspect {
         if (!isSave) {
             return result;
         }
-        long startTime = System.currentTimeMillis();
         // 获取当前请求对象
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         if (attributes == null) {
@@ -93,12 +97,11 @@ public class LogAspect {
         HttpServletRequest request = attributes.getRequest();
         //记录请求信息
         Log.LogBuilder builder = Log.builder();
-        // 获取Operation的注解信息
+        // 记录Operation的注解信息
         if (method.isAnnotationPresent(Operation.class)) {
             Operation operation = method.getAnnotation(Operation.class);
             builder.summary(operation.summary()).description(operation.description());
         }
-        long endTime = System.currentTimeMillis();
         String urlStr = request.getRequestURL().toString();
         builder.basePath(StrUtil.removeSuffix(urlStr, URLUtil.url(urlStr).getPath()))
                 .uri(request.getRequestURI())
@@ -106,7 +109,7 @@ public class LogAspect {
                 .browser(IpUtil.getBrowser(request).getBrowser().getName())
                 .ip(IpUtil.getIpAddr(request))
                 .method(request.getMethod())
-                .parameter(JSONUtil.parse(getParameter(method, joinPoint.getArgs())).toString())
+                .parameter(JSONUtil.parse(getParameter(method,  joinPoint.getArgs())).toString())
                 .result(JSONUtil.parse(result).toString())
                 .spendTime((int) (endTime - startTime))
                 .startTime(LocalDateTimeUtil.of(startTime));

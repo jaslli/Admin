@@ -5,9 +5,7 @@ package com.yww.admin.common.constant;
  *      Token相关常量类
  * </p>
  *
- * @ClassName TokenConstant
- * @Author chenhao
- * @Date 2022/10/20 20:52
+ * @Author yww
  */
 public class TokenConstant {
 
@@ -54,6 +52,6 @@ public class TokenConstant {
     /**
      * Token解析后当前用户的信息
      */
-    public static final String ADMIN_TOKEN_CONTEXT = "current_user";
+    public static final String ADMIN_TOKEN = "current_token";
 
 }

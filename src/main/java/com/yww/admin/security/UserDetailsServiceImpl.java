@@ -48,7 +48,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         // 获取用户权限
         String authority = userService.getUserAuthorities(username);
         List<GrantedAuthority> authorities = AuthorityUtils.commaSeparatedStringToAuthorityList(authority);
-        // 生成UserDetails并返回
         return AccountUser.builder()
                 .userId(user.getId())
                 .username(user.getUsername())

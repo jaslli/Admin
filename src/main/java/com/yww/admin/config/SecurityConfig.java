@@ -92,11 +92,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * 去除 ROLE_ 前缀
+     * 自定义角色权限编码前缀（默认为ROLE_）
      */
     @Bean
     public GrantedAuthorityDefaults grantedAuthorityDefaults() {
-        return new GrantedAuthorityDefaults("");
+        return new GrantedAuthorityDefaults("YW_");
     }
 
     /**

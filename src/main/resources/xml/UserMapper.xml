@@ -6,4 +6,8 @@
         SELECT role_id FROM user_role WHERE user_id = #{userId}
     </select>
 
+    <select id="getUserIdByUserName" resultType="com.yww.admin.system.entity.User">
+        SELECT id, username FROM user WHERE username = #{username}
+    </select>
+
 </mapper>

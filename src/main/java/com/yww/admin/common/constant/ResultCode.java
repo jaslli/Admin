@@ -21,10 +21,10 @@ public enum ResultCode {
      */
     FAILED(500, "服务器发生错误");
 
-    private final int status;
+    private final Integer status;
     private final String message;
 
-    ResultCode(int status, String message) {
+    ResultCode(Integer status, String message) {
         this.status = status;
         this.message = message;
     }
