@@ -18,8 +18,8 @@ import javax.servlet.http.HttpServletRequest;
  * @Author yww
  * @Date 2022/10/12 21:08
  */
-@RestControllerAdvice
 @Slf4j
+@RestControllerAdvice
 public class ControllerAdviceHandler {
 
     /**
