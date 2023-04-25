@@ -1,5 +1,6 @@
 package com.yww.admin.utils;
 
+import cn.hutool.core.util.CharUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.useragent.UserAgent;
 import cn.hutool.http.useragent.UserAgentUtil;
@@ -8,6 +9,8 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * <p>
@@ -19,6 +22,11 @@ import java.util.Objects;
  * @Date 2022/10/16 14:27
  */
 public class IpUtil {
+
+    public static long getLongIpAddr(HttpServletRequest request) {
+        String ip = getIpAddr(request);
+        return ipv4ToLong(ip);
+    }
 
     /**
      * 获取客户端IP
@@ -71,7 +79,7 @@ public class IpUtil {
      * @return 第一个非unknown IP地址
      */
     @SuppressWarnings("all")
-    public static String getMultistageReverseProxyIp(String ip) {
+    private static String getMultistageReverseProxyIp(String ip) {
         // 多级反向代理检测
         if (ip != null && ip.indexOf(",") > 0) {
             final String[] ips = ip.trim().split(",");
@@ -91,7 +99,7 @@ public class IpUtil {
      * @param checkString 被检测的字符串
      * @return 是否未知
      */
-    public static boolean isNotUnknown(String checkString) {
+    private static boolean isNotUnknown(String checkString) {
         return StrUtil.isNotBlank(checkString) && StrUtil.isNotEmpty(checkString) && !"unknown".equalsIgnoreCase(checkString);
     }
 
@@ -105,13 +113,57 @@ public class IpUtil {
         return UserAgentUtil.parse(request.getHeader("User-Agent"));
     }
 
+
     /**
      * 获取当前请求
      *
      * @return  当前请求
      */
-    public static HttpServletRequest getRequest() {
+    private static HttpServletRequest getRequest() {
         return ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
+    }
+
+    /**
+     * 将ipv4地址转换为long类型
+     * 等同于MySQL的inet_aton方法
+     *
+     * @param ipStr ipv4地址
+     * @return      long类型的ipv地址
+     */
+    public static long ipv4ToLong(String ipStr) {
+        String regex = "^(25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)\\.(25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)\\.(25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)\\.(25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(ipStr);
+        if (matcher.matches()) {
+            long addr = 0;
+            for (int i = 1; i <=4; i++) {
+                addr |= Long.parseLong(matcher.group(i)) << 8 * (4 - i);
+            }
+            return addr;
+        } else {
+            throw new RuntimeException("ipv4地址格式出错！");
+        }
+    }
+
+    /**
+     * 将long类型的ip转为ipv4字符串
+     * 等同于MySQL的inet_ntoa方法
+     *
+     * @param longIp    long类型IP
+     * @return          IPV4字符串
+     */
+    public static String longToIpv4(long longIp) {
+        StringBuilder sb = new StringBuilder();
+        // 直接右移24位
+        sb.append(longIp >> 24 & 0xFF);
+        sb.append(CharUtil.DOT);
+        // 将高8位置0，然后右移16位
+        sb.append(longIp >> 16 & 0xFF);
+        sb.append(CharUtil.DOT);
+        sb.append(longIp >> 8 & 0xFF);
+        sb.append(CharUtil.DOT);
+        sb.append(longIp & 0xFF);
+        return sb.toString();
     }
 
 }
