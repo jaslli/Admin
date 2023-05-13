@@ -107,7 +107,7 @@ public class LogAspect {
                 .uri(request.getRequestURI())
                 .url(request.getRequestURL().toString())
                 .browser(IpUtil.getBrowser(request).getBrowser().getName())
-                .ip(IpUtil.getIpAddr(request))
+                .ip(IpUtil.getLongIpAddr(request))
                 .method(request.getMethod())
                 .parameter(JSONUtil.parse(getParameter(method,  joinPoint.getArgs())).toString())
                 .result(JSONUtil.parse(result).toString())

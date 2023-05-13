@@ -77,7 +77,7 @@ public class Log implements Serializable {
 
     @Schema(description = "请求的IP地址")
     @TableField("ip")
-    private String ip;
+    private Long ip;
 
     @Schema(description = "请求的参数")
     @TableField("parameter")
