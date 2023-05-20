@@ -113,19 +113,19 @@ INSERT INTO menu (id, pid, name, type, visible, path, component, icon, sort, cod
 DROP TABLE IF EXISTS `log`;
 CREATE TABLE `log` (
     `id`            CHAR(19) NOT NULL COMMENT '数据ID',
-    `summary`       VARCHAR(50) DEFAULT ''                  COMMENT '接口名称',
-  	`username`      VARCHAR(50) DEFAULT ''                  COMMENT '操作用户',
-  	`description`   VARCHAR(50) DEFAULT ''                  COMMENT '接口描述',
-  	`start_time`    DATETIME    DEFAULT CURRENT_TIMESTAMP   COMMENT '开始时间',
-  	`spend_time`    INT         DEFAULT 0                   COMMENT '请求耗时',
-  	`basePath`      VARCHAR(50) DEFAULT ''                  COMMENT '根路径',
-    `uri`           VARCHAR(50) DEFAULT ''                  COMMENT 'URI',
-    `url`           VARCHAR(50) DEFAULT ''                  COMMENT 'URL',
-    `browser`       VARCHAR(50) DEFAULT ''                  COMMENT '浏览器',
-  	`method`        CHAR(10)    DEFAULT ''                  COMMENT '请求类型',
-  	`ip`            VARCHAR(128)DEFAULT ''                  COMMENT '请求的IP地址',
-  	`parameter`     VARCHAR(50) DEFAULT ''                  COMMENT '请求的参数',
-  	`result`        VARCHAR(50) DEFAULT ''                  COMMENT '返回的结果',
+    `summary`       VARCHAR(50)  DEFAULT ''                  COMMENT '接口名称',
+  	`username`      VARCHAR(50)  DEFAULT ''                  COMMENT '操作用户',
+  	`description`   VARCHAR(50)  DEFAULT ''                  COMMENT '接口描述',
+  	`start_time`    DATETIME     DEFAULT CURRENT_TIMESTAMP   COMMENT '开始时间',
+  	`spend_time`    INT          DEFAULT 0                   COMMENT '请求耗时',
+  	`basePath`      VARCHAR(50)  DEFAULT ''                  COMMENT '根路径',
+    `uri`           VARCHAR(50)  DEFAULT ''                  COMMENT 'URI',
+    `url`           VARCHAR(50)  DEFAULT ''                  COMMENT 'URL',
+    `browser`       VARCHAR(50)  DEFAULT ''                  COMMENT '浏览器',
+  	`method`        CHAR(10)     DEFAULT ''                  COMMENT '请求类型',
+  	`ip`            UNSIGNED INT DEFAULT ''                  COMMENT '请求的IP地址',
+  	`parameter`     VARCHAR(50)  DEFAULT 0                   COMMENT '请求的参数',
+  	`result`        VARCHAR(50)  DEFAULT ''                  COMMENT '返回的结果',
     PRIMARY KEY (`id`)
   ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COMMENT = '操作日志实体类';
 ```

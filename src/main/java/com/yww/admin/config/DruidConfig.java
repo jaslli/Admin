@@ -67,7 +67,7 @@ public class DruidConfig {
         if (config.getLoginPassword() != null) {
             registrationBean.addInitParameter("loginPassword", config.getLoginPassword());
         } else {
-            registrationBean.addInitParameter("loginPassword", "wslioy1920");
+            registrationBean.addInitParameter("loginPassword", "password");
         }
         if (config.getResetEnable() != null) {
             registrationBean.addInitParameter("resetEnable", config.getResetEnable());

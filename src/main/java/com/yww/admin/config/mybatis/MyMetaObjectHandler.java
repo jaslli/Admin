@@ -1,4 +1,4 @@
-package com.yww.admin.handler;
+package com.yww.admin.config.mybatis;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.yww.admin.utils.SecurityUtils;

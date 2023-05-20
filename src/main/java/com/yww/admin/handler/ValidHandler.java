@@ -1,4 +1,4 @@
-package com.yww.admin.handler.exception;
+package com.yww.admin.handler;
 
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.yww.admin.common.Result;

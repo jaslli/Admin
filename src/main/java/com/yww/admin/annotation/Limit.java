@@ -2,7 +2,10 @@ package com.yww.admin.annotation;
 
 import com.yww.admin.common.constant.LimitType;
 
-import java.lang.annotation.*;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
  * <p>
@@ -67,4 +70,5 @@ public @interface Limit {
      * 达到限流上限时的错误提示
      */
     String errMsg() default "操作过于频繁，请稍后再试";
+
 }

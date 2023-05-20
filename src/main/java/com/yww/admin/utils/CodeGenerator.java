@@ -6,8 +6,6 @@ import com.baomidou.mybatisplus.generator.FastAutoGenerator;
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.fill.Column;
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;
 import org.springframework.core.io.ClassPathResource;
 
@@ -33,8 +31,6 @@ public class CodeGenerator {
      *
      * @return 数据库配置
      */
-    @NotNull
-    @Contract(" -> new")
     private static DataSourceConfig.Builder getDataSourceConfig() {
         // 配置文件为application.yml使用
         YamlPropertiesFactoryBean factoryBean = new YamlPropertiesFactoryBean();

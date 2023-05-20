@@ -122,10 +122,6 @@ public class LimitAspect {
                 "\nend";
     }
 
-    public static void main(String[] args) {
-        System.out.println(buildLuaScript());
-    }
-
     /**
      * 根据限流类型构建key
      *

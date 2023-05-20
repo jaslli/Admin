@@ -70,7 +70,7 @@ spring:
         url-pattern: /druid/*
         reset-enable: false
         login-username: admin
-        login-password: wslioy1920
+        login-password: password
       # 过滤配置
       filter:
         stat:

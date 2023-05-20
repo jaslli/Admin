@@ -32,6 +32,7 @@ public class FileUtil {
      * 文件日期部分路径格式
      */
     public final static String DATE_FORMAT = "/yyyy/MM/dd/";
+
     /**
      * windows下文件日期部分路径格式
      */
@@ -41,7 +42,6 @@ public class FileUtil {
      * 保存文件
      *
      * @param file  文件
-     * @return      文件信息
      */
     public static void saveFile(MultipartFile file) {
         String originalFilename = file.getOriginalFilename();
