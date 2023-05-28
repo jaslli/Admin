@@ -13,8 +13,8 @@ import org.springframework.context.annotation.Lazy;
  *      $!{table.comment} 服务实现类
  * </p>
  *
- * @Author  ${author}
- * @Date  ${date}
+ * @author ${author}
+ * @since  ${date}
  */
 @Service
 #if(${kotlin})

@@ -21,8 +21,8 @@ import lombok.experimental.Accessors;
  *    (${schemaName}${table.name})$!{table.comment}
  * </p>
  *
- * @Author ${author}
- * @Date  ${date}
+ * @author ${author}
+ * @since  ${date}
  */
 #if(${entityLombokModel})
 @Data
