@@ -2,7 +2,7 @@ package ${package.Controller};
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
-import ${package.Controller}.service.${table.serviceName};
+import ${package}.service.${table.serviceName};
 #if(${springdoc})
 import io.swagger.v3.oas.annotations.tags.Tag;
 #elseif(${swagger})
